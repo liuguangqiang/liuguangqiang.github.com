@@ -2,14 +2,14 @@
 	<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom">
 		<channel>
 			<title>John Liu</title>
-			<link>http://0.0.0.0:4000/</link>
+			<link>http://john1024.github.io/</link>
 			<description>Don't reinvent the wheel.But must learn to create the wheel.</description>
 			<language>en-us</language>
-			<pubDate>Tue, 22 Jul 2014 10:15:59 CST</pubDate>
-			<lastBuildDate>Tue, 22 Jul 2014 10:15:59 CST</lastBuildDate>
+			<pubDate>Tue, 22 Jul 2014 10:25:53 CST</pubDate>
+			<lastBuildDate>Tue, 22 Jul 2014 10:25:53 CST</lastBuildDate>
 			<docs>http://cyber.law.harvard.edu/rss/rss.html</docs>
 			<generator>http://github.com/thedereck/gh-pages-blog</generator>
-			<atom:link href="http://0.0.0.0:4000//rss.xml" rel="self" type="application/rss+xml" />
+			<atom:link href="http://john1024.github.io//rss.xml" rel="self" type="application/rss+xml" />
 
 			
 
@@ -26,12 +26,12 @@
 					
 						<title>我的博客!</title>
 					
-					<link>http://0.0.0.0:4000//%E6%97%A5%E5%BF%97/2014/07/18/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2.html</link>
+					<link>http://john1024.github.io//%E6%97%A5%E5%BF%97/2014/07/18/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2.html</link>
 
 					
 
 					<pubDate>Fri, 18 Jul 2014 00:00:00 CST</pubDate>
-					<guid>http://0.0.0.0:4000//%E6%97%A5%E5%BF%97/2014/07/18/我的博客</guid>
+					<guid>http://john1024.github.io//%E6%97%A5%E5%BF%97/2014/07/18/我的博客</guid>
 
 					
 						<category><![CDATA[ 日志 ]]></category>
