@@ -5,8 +5,8 @@
 			<link>http://john1024.github.io/</link>
 			<description>Don't reinvent the wheel.But must learn to create the wheel.</description>
 			<language>en-us</language>
-			<pubDate>Tue, 22 Jul 2014 10:25:53 CST</pubDate>
-			<lastBuildDate>Tue, 22 Jul 2014 10:25:53 CST</lastBuildDate>
+			<pubDate>Thu, 24 Jul 2014 14:02:50 CST</pubDate>
+			<lastBuildDate>Thu, 24 Jul 2014 14:02:50 CST</lastBuildDate>
 			<docs>http://cyber.law.harvard.edu/rss/rss.html</docs>
 			<generator>http://github.com/thedereck/gh-pages-blog</generator>
 			<atom:link href="http://john1024.github.io//rss.xml" rel="self" type="application/rss+xml" />
@@ -37,8 +37,11 @@
 						<category><![CDATA[ 日志 ]]></category>
 					
 
-					<description><![CDATA[ Jekyll Blog. ]]></description>
-					<content:encoded><![CDATA[ <h4></h4><p>第一次用Jekyll写博客！</p>
+					<description><![CDATA[  ]]></description>
+					<content:encoded><![CDATA[ <h4></h4><pre><code>第一次用Jekyll写博客！这个博客主要分享一些自己整理和学习的知识，有的内容可能是从其他地方摘抄或者copy来的，如有雷同，不胜荣幸！
+其次，非常感谢开源这套主题的作者Dereck。
+Thanks for Dereck offered this open source theme.
+</code></pre>
  ]]></content:encoded>
 				</item>
 			
