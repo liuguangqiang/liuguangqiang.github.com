@@ -5,8 +5,8 @@
 			<link>http://john1024.github.io/</link>
 			<description>Don't reinvent the wheel.But must learn to create the wheel.</description>
 			<language>en-us</language>
-			<pubDate>Thu, 24 Jul 2014 14:27:23 CST</pubDate>
-			<lastBuildDate>Thu, 24 Jul 2014 14:27:23 CST</lastBuildDate>
+			<pubDate>Sun, 10 Aug 2014 16:08:21 CST</pubDate>
+			<lastBuildDate>Sun, 10 Aug 2014 16:08:21 CST</lastBuildDate>
 			<docs>http://cyber.law.harvard.edu/rss/rss.html</docs>
 			<generator>http://github.com/thedereck/gh-pages-blog</generator>
 			<atom:link href="http://john1024.github.io//rss.xml" rel="self" type="application/rss+xml" />
@@ -21,6 +21,26 @@
 
 			
 
+			
+				<item>
+					
+						<title>Handler详解</title>
+					
+					<link>http://john1024.github.io//android/2014/08/10/Handler.html</link>
+
+					
+
+					<pubDate>Sun, 10 Aug 2014 00:00:00 CST</pubDate>
+					<guid>http://john1024.github.io//android/2014/08/10/Handler</guid>
+
+					
+						<category><![CDATA[ android ]]></category>
+					
+
+					<description><![CDATA[  ]]></description>
+					<content:encoded><![CDATA[ <h4></h4><p><img src="~/img/handler.png" alt="image" /></p>
+ ]]></content:encoded>
+				</item>
 			
 				<item>
 					
