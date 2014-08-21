@@ -13,14 +13,14 @@ theme:
   # Profile links on the left sidebar, leave blank to ignore
   social:
     github: liuguangqiang
-    #bitbucket: philipj
-    #hacker_news: lenage
-    #stackexchange: 348619
-    #stackoverflow: 348619
-    #twitter: heyuan
-    #facebook: zuck
-    #tumblr: animalygifs
-    #linkedin: philipjagielski
+    #bitbucket: liuguangqiang
+    #hacker_news: liuguangqiang
+    #stackexchange: liuguangqiang
+    #stackoverflow: liuguangqiang
+    #twitter: liuguangqiang
+    #facebook: liuguangqiang
+    #tumblr: liuguangqiang
+    #linkedin: liuguangqiang
     #gplus: 110552447039675960964
 
   # "Hi, I'm _______"
@@ -30,6 +30,6 @@ theme:
 
   # Google Analytics key, leave blank to ignore
   google_analytics_key: UA-34087103-1
-  google_analytics_domain: 'lenage.com'
+  google_analytics_domain: 'liuguangqiang.com'
   # Toggle "Postings are my own" disclaimer in footer
   show_disclaimer: true
