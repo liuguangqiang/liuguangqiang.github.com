@@ -1,4 +1,2 @@
-liuguangqiang.github.com
-==================
 
-liuguangqiang.github.com
+Eric 's blog.

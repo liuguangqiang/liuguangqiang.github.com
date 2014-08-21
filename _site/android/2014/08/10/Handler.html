@@ -1,66 +1,161 @@
 <!DOCTYPE html>
-
-
-
-<html lang="en">
-
-
-<head><title>John Liu - Handler详解</title><meta name="author" content='John Liu'><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="http://john1024.github.io//css/bootstrap.min.css" rel="stylesheet" media="screen"><link href="http://john1024.github.io//css/gh-pages-blog.css" rel="stylesheet" media="screen"><link href="http://john1024.github.io//css/bootstrap-responsive.min.css" rel="stylesheet"><link rel="stylesheet" href="http://john1024.github.io//css/font-awesome.min.css"><link rel="stylesheet" href="http://john1024.github.io//css/syntax.css"><link rel="alternate" type="application/rss+xml" title="RSS" href="http://john1024.github.io//rss.xml" /><link rel="icon" type="image/png" href="http://john1024.github.io//img/ghpb-favicon.png" /></head>
-
-
-
-
-
-
-
-
-
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eric - Handler详解</title>
+  <meta name="author" content="Eric" />
+  <meta name="description" content="The blog of Eric" />
+  <link rel="canonical" href="http://liuguangqiang.com/android/2014/08/10/Handler.html" />
+  <!-- <script type="text/javascript" src="//use.typekit.net/jxo0xyj.js"></script> -->
+  <!-- <script type="text/javascript">try{Typekit.load();}catch(e){}</script> -->
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="/assets/images/favicon.png">
+  <link rel="alternate" type="application/rss+xml" title="Eric" href="http://liuguangqiang.com/atom.xml" />
+  <link rel="stylesheet" href="/assets/css/all.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css">
+</head>
 <body>
+  <div class="container">
+    <div class="four columns sidebar">
+      <nav>
+  <h1>Hello!</h1>
+  <a href="/">
+    <img src="/assets/images/avatar.png" width="250px" id="logo" alt="Blog logo"/>
+  </a>
+  <h2>I'm <a href="/">Eric</a>.</h2>
+  <hr/>
+  <ul>
+  <p>Don't reinvent wheel.But must learn how to create.</p>
+  <hr/>
+  <div>
+    <div id="social">
+      Follow me:
+<div id="stalker">
+  
+  <a title="liuguangqiang on Github" href="https://github.com/liuguangqiang">
+    <i class="fa fa-github-square"></i>
+  </a>
+  
 
+  
 
-<div class="navbar navbar-inverse"><div class="navbar-inner"><div class="container"><a class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="http://john1024.github.io//"><strong>JOHN LIU</strong></a><div class="nav-collapse collapse"><ul class="nav pull-left"><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-calendar"></i> Archive <b class="caret"></b></a><ul class="dropdown-menu"><li class="dropdown-submenu"><a tabindex="-1" href="#"><i class="icon-calendar"></i> 2014 </a><ul class="dropdown-menu"><li><a href="http://john1024.github.io//android/2014/08/10/Handler.html"><i class="icon-pencil"></i> Handler详解</a></li><li><a href="http://john1024.github.io//%E6%97%A5%E5%BF%97/2014/07/18/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2.html"><i class="icon-pencil"></i> 我的博客!</a></li></li></ul></ul></li></ul><ul class="nav pull-left"><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-folder-close"></i> Categories <b class="caret"></b></a><ul class="dropdown-menu"><li class="dropdown-submenu"><a tabindex="-1" href="#"><i class="icon-folder-open"></i> Android </a><ul class="dropdown-menu"><li><a href="http://john1024.github.io//android/2014/08/10/Handler.html"><i class="icon-pencil"></i> Handler详解</a></li></ul></li><li class="dropdown-submenu"><a tabindex="-1" href="#"><i class="icon-folder-open"></i> 日志 </a><ul class="dropdown-menu"><li><a href="http://john1024.github.io//%E6%97%A5%E5%BF%97/2014/07/18/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2.html"><i class="icon-pencil"></i> 我的博客!</a></li></ul></li></ul></li></ul><ul class="nav pull-left"><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-tags"></i> Tags <b class="caret"></b></a><ul class="dropdown-menu"><li class="dropdown-submenu"><a tabindex="-1" href="#"><i class="icon-tag"></i> android </a><ul class="dropdown-menu"><li><a href="http://john1024.github.io//android/2014/08/10/Handler.html"><i class="icon-pencil"></i> Handler详解</a></li></ul></li><li class="dropdown-submenu"><a tabindex="-1" href="#"><i class="icon-tag"></i> handler </a><ul class="dropdown-menu"><li><a href="http://john1024.github.io//android/2014/08/10/Handler.html"><i class="icon-pencil"></i> Handler详解</a></li></ul></li><li class="dropdown-submenu"><a tabindex="-1" href="#"><i class="icon-tag"></i> 日志 </a><ul class="dropdown-menu"><li><a href="http://john1024.github.io//%E6%97%A5%E5%BF%97/2014/07/18/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2.html"><i class="icon-pencil"></i> 我的博客!</a></li></ul></li></ul></li></ul><ul class="nav pull-left"><li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-github-alt"></i> GitHub Projects <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="https://github.com/john1024" target="_blank"><i class="icon-github"></i> john1024</a></li></ul></li></ul><ul class="nav pull-right"></ul></div></div></div></div>
+  
 
-<div class="container">
-<div class="row">
-<div class="span8">
-<div class="ghpb-post">
+  
 
+  
 
-<div class="page-header"><h1>Handler详解</h1><div class="row"><small><div class="span3 offset1"><i class="icon-user"></i> Authored by John Liu.<br><i class="icon-pencil"></i> Published on 10 August 2014.<br></div><div class="span3"><i class="icon-folder-open"></i> Category: <a href="http://john1024.github.io//filter.html?category=android">Android</a><br><i class="icon-tags"></i> Tags: <a href="http://john1024.github.io//filter.html?tag=android">android</a>, <a href="http://john1024.github.io//filter.html?tag=handler">handler</a><br></div><div class="span1"></div></small></div></div>
+  
 
+  
 
-<p><img src="~/img/handler.png" alt="image" /></p>
+  
 
+  
 
-<br>
-<br>
+  
+
+<!--   <a title="RSS feed" id="rss" href="/atom.xml">
+    <i class="fa fa-rss-square"></i>
+  </a> -->
+</div>
+
+    </div>
+  </div>
+  </ul>
+</nav>
+
+    </div>
+
+    <div class="eleven columns content">
+      <p class="meta">
+  August 10, 2014
+  <a href="/">
+    <i class="home fa fa-home"></i>
+  </a>
+</p>
+
+<h1 class="title">Handler详解</h1>
+
+<div id="post">
+  <p><img src="http://liuguangqiang.com/img/handler.png" alt="image" /></p>
+
+</div>
+
+<div id="related">
+  <h3>Related Posts</h3>
+  <ul class="posts">
+    
+    <li>
+      <span>18 Jul 2014 &raquo;</span> <a href="/daily/2014/07/18/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2.html">我的博客!</a>
+    </li>
+    
+  </ul>
+</div>
+
 <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'liuguangqiang'; // required: replace example with your forum shortname
+
+// The following are highly recommended additional parameters. Remove the slashes in front to use.
+// var disqus_identifier = 'unique_dynamic_id_1234';
+// var disqus_url = 'http://example.com/permalink-to-page.html';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+ var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+ (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+ })();
+</script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-</div>
-</div>
-<div class="span3 offset1">
 
 
+      <div class="footer">
+        <div class="disclaimer">
+  
+  <p>
+    The postings on this site are my own and don't necessarily represent my
+    employer’s positions, strategies or opinions.
+  </p>
+  
 
-<div class="well"><div class="thumbnail"><img data-src="holder.js/200x200" alt="" src="/img/avatar.png"></div><br><div class="text-center"><p class="text-center"><small><strong>John Liu</strong></small></p><p>Don't reinvent the wheel.But must learn to create the wheel.</p></div><br><p class="text-center"><small><strong>FOLLOW JOHN1024</strong></small></p><ul class="inline text-center"><li><a class="btn" href="https://github.com/john1024" target="_blank"><i class="icon-github-alt"></i></a></li><li><a class="btn" href="https://twitter.com/JohnLgq" target="_blank"><i class="icon-twitter"></i></a></li></ul><br><p class="text-center"><small><strong>GITHUB PROJECTS</strong></small></p><div class="text-center"><div class="btn-group btn-group-vertical"><a class="btn" href="https://github.com/john1024" target="_blank"><i class="icon-github"></i> john1024</a></div></div></div>
-
-
-
-<div class="well ghpb-well-navlist"><ul class="nav nav-list ghpb-nav-list"><li class="nav-header ghpb-nav-header"><i class="icon-calendar"></i> Archive</li><li data-toggle="collapse" data-target="#2014"><a href="javascript:void(0);"><i class="icon-calendar"></i> 2014</a></li><div id="2014" class="collapse"><ul class="nav nav-list ghpb-nav-list"><li><a href="http://john1024.github.io//android/2014/08/10/Handler.html"><i class="icon-pencil"></i> Handler详解</a></li><li><a href="http://john1024.github.io//%E6%97%A5%E5%BF%97/2014/07/18/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2.html"><i class="icon-pencil"></i> 我的博客!</a></li></ul></div></ul></div><div class="well ghpb-well-navlist"><ul class="nav nav-list ghpb-nav-list"><li class="nav-header ghpb-nav-header"><i class="icon-folder-close"></i> Categories</li><li data-toggle="collapse" data-target="#Android"><a href="javascript:void(0);"><i class="icon-folder-open"></i> Android</a></li><div id="Android" class="collapse"><ul class="nav nav-list ghpb-nav-list"><li><a href="http://john1024.github.io//android/2014/08/10/Handler.html"><i class="icon-pencil"></i> Handler详解</a></li></ul></div><li data-toggle="collapse" data-target="#日志"><a href="javascript:void(0);"><i class="icon-folder-open"></i> 日志</a></li><div id="日志" class="collapse"><ul class="nav nav-list ghpb-nav-list"><li><a href="http://john1024.github.io//%E6%97%A5%E5%BF%97/2014/07/18/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2.html"><i class="icon-pencil"></i> 我的博客!</a></li></ul></div></ul></div>
-</div>
-</div>
-
-
-<div class="row ghpb"><div class="span8">&copy; Copyright 2014</div></div>
+  <p>
+    © Eric, 2014 &mdash; built with Jekyll using Lagom theme
+  </p>
 </div>
 
+      </div>
+    </div>
+  </div>
 
-<script src="http://john1024.github.io//js/jquery-1.9.1.min.js"></script><script src="http://john1024.github.io//js/bootstrap.min.js"></script><script type="text/javascript">var disqus_shortname = 'john1024';(function () {var s = document.createElement('script');s.async = true;s.type = 'text/javascript';s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());</script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-34087103-1']);
+  
+  _gaq.push(['_setDomainName', 'lenage.com']);
+  
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 
 
-<script type="text/javascript">var disqus_shortname = 'john1024';(function() {var dsq = document.createElement('script');dsq.type = 'text/javascript';dsq.async = true;dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);})();</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
 </body>
-
 </html>
