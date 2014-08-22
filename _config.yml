@@ -26,10 +26,10 @@ theme:
   # "Hi, I'm _______"
   name: Eric
   email: guangqiang.dev@gmail.com
-  tagline: "weak opinions, strongly held"
+  tagline: "Test."
 
   # Google Analytics key, leave blank to ignore
-  google_analytics_key: UA-34087103-1
+  google_analytics_key: 111
   google_analytics_domain: 'liuguangqiang.com'
   # Toggle "Postings are my own" disclaimer in footer
   show_disclaimer: true
