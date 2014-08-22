@@ -9,8 +9,10 @@
   <title>{{ site.theme.name }} - {{ page.title }}</title>
   <meta name="author" content="{{ site.theme.name }}" />
   <meta name="description" content="The blog of {{ site.theme.name }}" />
-  <link rel="canonical" href="{{ site.url }}{{ page.url | replace:'index.html','' }}" /> 
-  <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" type="text/css">  
+  <link rel="canonical" href="{{ site.url }}{{ page.url | replace:'index.html','' }}" />
+  <link rel="shortcut icon" href="/favicon.ico"/>
+  <link rel="bookmark" href="/favicon.ico"/>
+  <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" type="text/css">   -->
   <link rel="stylesheet" href="/assets/css/all.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.min.css">
 </head>
@@ -29,7 +31,7 @@
     </div>
   </div>
 
-{% include analytics.html %}
+<!-- {% include analytics.html %} -->
 {% include javascript.html %}
 </body>
 </html>
