@@ -1,5 +1,11 @@
 [
 
+{"date": "2014-09-22 00:00:00 +0800",
+"categories": ["android"],
+"tags": ["Android"],
+"title": "监听软键盘状态的改变",
+"url": "/android/2014/09/22/%E7%9B%91%E5%90%AC%E8%BD%AF%E9%94%AE%E7%9B%98%E7%8A%B6%E6%80%81%E6%94%B9%E5%8F%98.html"},
+
 {"date": "2014-08-10 00:00:00 +0800",
 "categories": ["android"],
 "tags": ["Android","Handler"],

@@ -6,10 +6,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Eric - 我的博客!</title>
+  <title>Eric - 监听软键盘状态的改变</title>
   <meta name="author" content="Eric" />
   <meta name="description" content="The blog of Eric" />
-  <link rel="canonical" href="http://liuguangqiang.com/daily/2014/07/18/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2.html" />
+  <link rel="canonical" href="http://liuguangqiang.com/android/2014/09/22/%E7%9B%91%E5%90%AC%E8%BD%AF%E9%94%AE%E7%9B%98%E7%8A%B6%E6%80%81%E6%94%B9%E5%8F%98.html" />
   <link rel="shortcut icon" href="/favicon.ico"/>
   <link rel="bookmark" href="/favicon.ico"/>
   <!-- <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" type="text/css">   -->
@@ -71,16 +71,50 @@
 
     <div class="eleven columns content">
       <p class="meta">
-  July 18, 2014
+  September 22, 2014
   <a href="/">
     <i class="home fa fa-home"></i>
   </a>
 </p>
 
-<h1 class="title">我的博客!</h1>
+<h1 class="title">监听软键盘状态的改变</h1>
 
 <div id="post">
-  <p>第一次用Jekyll写博客！这个博客主要分享一些自己整理和学习的知识，有的内容可能是从其他地方摘抄或者copy来的，如有雷同，不胜荣幸！</p>
+  <p>很多时候，我们希望能监听软键盘的状态的改变，但不尽人意的是，android没有提供相应的监听。
+在网上找了很多种方法，都不是很理想，很方便，最后在stackoverflow上找到了我想要的Awesome code！</p>
+
+<p>//先定义一个interface </p>
+
+<pre><code>public interface OnKeyboardStatusChangedListener {
+
+    public void onChanged(boolean isOpen);
+
+}
+</code></pre>
+
+<p>//最重要的代码 </p>
+
+<pre><code>public void setKeyboardStatusChanged(final OnKeyboardStatusChangedListener listener) {
+    final View root = ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
+    root.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+
+        private boolean hasOpened;
+        private final Rect rect = new Rect();
+
+        @Override
+        public void onGlobalLayout() {
+            root.getWindowVisibleDisplayFrame(rect);
+            int heightDiff = root.getRootView().getHeight() - (rect.bottom - rect.top);
+            boolean isOpen = heightDiff &gt; 100;
+            if (isOpen == hasOpened) {
+                return;
+            }
+            hasOpened = isOpen;
+            if (listener != null) listener.onChanged(isOpen);
+        }
+    });
+}
+</code></pre>
 
 
 </div>
@@ -90,11 +124,11 @@
   <ul class="posts">
     
     <li>
-      <span>22 Sep 2014 &raquo;</span> <a href="/android/2014/09/22/%E7%9B%91%E5%90%AC%E8%BD%AF%E9%94%AE%E7%9B%98%E7%8A%B6%E6%80%81%E6%94%B9%E5%8F%98.html">监听软键盘状态的改变</a>
+      <span>10 Aug 2014 &raquo;</span> <a href="/android/2014/08/10/Handler.html">Handler详解</a>
     </li>
     
     <li>
-      <span>10 Aug 2014 &raquo;</span> <a href="/android/2014/08/10/Handler.html">Handler详解</a>
+      <span>18 Jul 2014 &raquo;</span> <a href="/daily/2014/07/18/%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2.html">我的博客!</a>
     </li>
     
   </ul>
