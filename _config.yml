@@ -1,35 +1,34 @@
-# General Jekyll Config
-markdown: kramdown
-pygments: true
-url: http://liuguangqiang.com
-lsi: false
-exclude: [LICENSE, CNAME, README.md, .gitignore]
+# Dependencies
+markdown:         kramdown
+highlighter:      pygments
 
-# Theme customization - please change from the defaults!
-theme:
-  # Color for top bar, links, etc
-  highlight_color: '#202020'
+# Permalinks
+permalink:        pretty
+relative_permalinks: true
 
-  # Profile links on the left sidebar, leave blank to ignore
-  social:
-    github: liuguangqiang
-    #bitbucket: liuguangqiang
-    #hacker_news: liuguangqiang
-    #stackexchange: liuguangqiang
-    #stackoverflow: liuguangqiang
-    #twitter: liuguangqiang
-    #facebook: liuguangqiang
-    #tumblr: liuguangqiang
-    #linkedin: liuguangqiang
-    #gplus: 110552447039675960964
+# Setup
+title:            Eric Liu
+description:      Don't reinvent wheel. But must learn how to create.
+url:              http://liuguangqiang.com
+baseurl:          /
+logo:             /content/images/me.png
 
-  # "Hi, I'm _______"
-  name: Eric
-  email: guangqiang.dev@gmail.com
-  tagline: "Test."
+author:
+  name:           Eric Liu
+  url:            https://github.com/liuguangqiang
 
-  # Google Analytics key, leave blank to ignore
-  google_analytics_key: 111
-  google_analytics_domain: 'liuguangqiang.com'
-  # Toggle "Postings are my own" disclaimer in footer
-  show_disclaimer: true
+paginate:         5
+
+disqus_shortname: Eric Liu
+
+github:
+  repo:           https://github.com/liuguangqiang
+
+# gems:
+#   - jekyll-sitemap
+
+twitter: '@liuguangqiang'
+
+kramdown:
+  # Enable GitHub Flavored Markdown (fenced code blocks)
+  input: GFM
