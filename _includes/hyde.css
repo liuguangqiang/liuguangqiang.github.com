@@ -262,11 +262,11 @@ a.sidebar-nav-item:focus {
 
 /* Brown */
 .theme-base-black .sidebar {
-  background-color: #000000;
+  background-color: #32baa4;
 }
 .theme-base-black .content a,
 .theme-base-black .related-posts li a:hover {
-  color: #000000;
+  color: #32baa4;
 }
 
 
