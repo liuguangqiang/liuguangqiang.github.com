@@ -560,10 +560,10 @@ html {
   text-align: center;
   padding: 2rem 1rem;
   color: rgba(255,255,255,.5);
-  background: -webkit-linear-gradient(#009688, #00695C);
-  background: -o-linear-gradient(#009688, #00695C);
-  background: -moz-linear-gradient(#009688, #00695C);
-  background: linear-gradient(#009688, #00695C);
+  background: -webkit-linear-gradient(#000000, #000000);
+  background: -o-linear-gradient(#000000, #000000);
+  background: -moz-linear-gradient(#000000, #000000);
+  background: linear-gradient(#000000, #000000);
 }
 @media (min-width: 48em) {
   .sidebar {
@@ -763,6 +763,16 @@ a.sidebar-nav-item:focus {
 .theme-base-0f .related-posts li a:hover {
   color: #8f5536;
 }
+
+/* Brown */
+.theme-base-black .sidebar {
+  background-color: #000000;
+}
+.theme-base-black .content a,
+.theme-base-black .related-posts li a:hover {
+  color: #000000;
+}
+
 
 .lead {
   font-size: 0.9rem;

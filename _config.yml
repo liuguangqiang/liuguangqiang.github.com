@@ -7,27 +7,28 @@ permalink:        pretty
 relative_permalinks: true
 
 # Setup
-title:            Eric Liu
-description:      Don't reinvent wheel. But must learn how to create.
+title:            Eric
+description:      Don't reinvent wheel. But you have to learn how to create.
 url:              http://liuguangqiang.com
 baseurl:          /
 logo:             /content/images/me.png
 
 author:
-  name:           Eric Liu
+  name:           Eric
   url:            https://github.com/liuguangqiang
 
 paginate:         5
 
 disqus_shortname: Eric Liu
 
-github:
-  repo:           https://github.com/liuguangqiang
-
 # gems:
 #   - jekyll-sitemap
 
-twitter: '@liuguangqiang'
+twitter: '@lgq373779166'
+
+github: liuguangqiang
+
+linkedin: liuguangqiang
 
 kramdown:
   # Enable GitHub Flavored Markdown (fenced code blocks)
