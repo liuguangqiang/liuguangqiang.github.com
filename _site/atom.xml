@@ -4,7 +4,7 @@
  <title>Eric</title>
  <link href="http://liuguangqiang.com/atom.xml" rel="self"/>
  <link href="http://liuguangqiang.com/"/>
- <updated>2015-06-29T23:37:49+08:00</updated>
+ <updated>2015-06-30T22:59:53+08:00</updated>
  <id>http://liuguangqiang.com</id>
  <author>
    <name>Eric</name>
@@ -88,8 +88,27 @@
 &lt;ol&gt;
   &lt;li&gt;RefWatcher.watch() 会创建一个 KeyedWeakReference 到被监控对象。&lt;/li&gt;
   &lt;li&gt;然后, 在后台线程中检查对象的引用是否被清除，如果没有, 则调用GC。&lt;/li&gt;
-  &lt;li&gt;如果最终还是没有被清除, 就把heap到.hprof文件中，并存到文件系统中。&lt;/li&gt;
+  &lt;li&gt;如果引用仍然没有被清除, 就把heap 到.hprof文件中，并存到文件系统中。&lt;/li&gt;
+  &lt;li&gt;HeapAnalyzerService会在一个独立的线程中运行,且这个服务中的HeapAnalyzer会用 HAHA 来解析这些heap dump.&lt;/li&gt;
+  &lt;li&gt;HeapAnalyzer通过unique reference key找到KeyedWeakReference，从而定位到内存泄漏的引用。&lt;/li&gt;
+  &lt;li&gt;HeapAnalyzer计算GC Roots最短的强引用路径，并确定是否内存泄漏。然后构建导致内存泄漏的引用链。&lt;/li&gt;
+  &lt;li&gt;最后的结果将被传回APP进程中的DisplayLeakService，然后已通知的形式显示。&lt;/li&gt;
 &lt;/ol&gt;
+
+&lt;h2 id=&quot;leak-trace&quot;&gt;如何复制 leak trace?&lt;/h2&gt;
+&lt;p&gt;你可以在Logcat中看到这样的log。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;In com.example.leakcanary:1.0:1 com.example.leakcanary.MainActivity has leaked:
+* GC ROOT thread java.lang.Thread.&amp;lt;Java Local&amp;gt; (named &#39;AsyncTask #1&#39;)
+* references com.example.leakcanary.MainActivity$3.this$0 (anonymous class extends android.os.AsyncTask)
+* leaks com.example.leakcanary.MainActivity instance
+
+* Reference Key: e71f3bf5-d786-4145-8539-584afaecad1d
+* Device: Genymotion generic Google Nexus 6 - 5.1.0 - API 22 - 1440x2560 vbox86p
+* Android Version: 5.1 API: 22
+* Durations: watch=5086ms, gc=110ms, heap dump=435ms, analysis=2086ms
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;你也可以通过action bar中的菜单把leak trace的log信息和.hprof(记录heap dump的文件)分享出去。&lt;/p&gt;
 
 &lt;h2 id=&quot;section-2&quot;&gt;未完待续！&lt;/h2&gt;
 </content>
