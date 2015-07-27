@@ -4,7 +4,7 @@
  <title>Eric</title>
  <link href="http://liuguangqiang.com/atom.xml" rel="self"/>
  <link href="http://liuguangqiang.com/"/>
- <updated>2015-07-27T11:26:52+08:00</updated>
+ <updated>2015-07-27T15:34:59+08:00</updated>
  <id>http://liuguangqiang.com</id>
  <author>
    <name>Eric</name>
@@ -17,39 +17,44 @@
    <link href="http://liuguangqiang.com/android/2015/07/10/Glide%E4%BB%8B%E7%BB%8D/"/>
    <updated>2015-07-10T00:00:00+08:00</updated>
    <id>http://liuguangqiang.com/android/2015/07/10/Glide介绍</id>
-   <content type="html">&lt;p&gt;##Glide介绍&lt;/p&gt;
+   <content type="html">&lt;h2 id=&quot;glide&quot;&gt;Glide介绍&lt;/h2&gt;
 
-&lt;p&gt;##导入项目&lt;br /&gt;
-Picasso和Glide都放在jcenter. 你可以非常简单的在项目中添加依赖。&lt;br /&gt;
-###Picasso&lt;br /&gt;
-&lt;code&gt;
-dependencies {
+&lt;h2 id=&quot;section&quot;&gt;导入项目&lt;/h2&gt;
+&lt;p&gt;Picasso和Glide都放在jcenter. 你可以非常简单的在项目中添加依赖。&lt;/p&gt;
+
+&lt;h3 id=&quot;picasso&quot;&gt;Picasso&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;dependencies {
     compile &#39;com.squareup.picasso:picasso:2.5.1&#39;
 }
-&lt;/code&gt;&lt;br /&gt;
-###Glide&lt;br /&gt;
-&lt;code&gt;
-dependencies {
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;glide-1&quot;&gt;Glide&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;dependencies {
     compile &#39;com.github.bumptech.glide:glide:3.5.2&#39;
     compile &#39;com.android.support:support-v4:22.0.0&#39;
 }
-&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;##基础&lt;br /&gt;
-正如我说的，Glide和Picasso非常的相似。它加载图片到ImageView的方法和Picasso是相同的。&lt;br /&gt;
-###Picasso&lt;br /&gt;
-&lt;code&gt;java
-Picasso.with(context)
-    .load(&quot;http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg&quot;)
-    .into(ivImg);
-&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&quot;section-1&quot;&gt;基础&lt;/h2&gt;
+&lt;p&gt;正如我说的，Glide和Picasso非常的相似。它加载图片到ImageView的方法和Picasso是相同的。&lt;/p&gt;
 
-&lt;p&gt;###Glide&lt;br /&gt;
-&lt;code&gt;
-Glide.with(context)
-    .load(&quot;http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg&quot;)
-    .into(ivImg);
-&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&quot;picasso-1&quot;&gt;Picasso&lt;/h3&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;Picasso&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;into&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ivImg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;glide-2&quot;&gt;Glide&lt;/h3&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;Glide&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;into&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ivImg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;尽管在细节上看似非常的相似，但Glide的设计要好很多。因为Glide初始化时，不仅支持Context，还支持Activity和Fragment, Context会自动从它们中获得。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/glide/with.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;传递Activity/Fragment给Glide的优点是：加载图片将会和Activity/Fragment的生命周期相结合。例如，当Activity/Fragment暂停的时候，会暂停加载，它唤醒的时候，会自动唤醒加载。所以，我鼓励你们如果可能的话，不要仅仅传递Context给Glide，而是使用Activity或者Fragment。&lt;/p&gt;
 </content>
  </entry>
  
