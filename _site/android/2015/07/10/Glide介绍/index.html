@@ -30,13 +30,61 @@
   
 
   
-  <meta name="twitter:description" content="Glide介绍
+  <meta name="twitter:description" content="##Glide介绍
+
+##导入项目
+Picasso和Glide都放在jcenter. 你可以非常简单的在项目中添加依赖。
+###Picasso
+
+dependencies {
+    compile 'com.squareup.picasso:picasso:2.5.1'
+}
+
+###Glide
+
+dependencies {
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'com.android.support:support-v4:22.0.0'
+}
+
 
 ">
-  <meta property="og:description" content="Glide介绍
+  <meta property="og:description" content="##Glide介绍
+
+##导入项目
+Picasso和Glide都放在jcenter. 你可以非常简单的在项目中添加依赖。
+###Picasso
+
+dependencies {
+    compile 'com.squareup.picasso:picasso:2.5.1'
+}
+
+###Glide
+
+dependencies {
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'com.android.support:support-v4:22.0.0'
+}
+
 
 ">
-  <meta name="description" content="Glide介绍
+  <meta name="description" content="##Glide介绍
+
+##导入项目
+Picasso和Glide都放在jcenter. 你可以非常简单的在项目中添加依赖。
+###Picasso
+
+dependencies {
+    compile 'com.squareup.picasso:picasso:2.5.1'
+}
+
+###Glide
+
+dependencies {
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'com.android.support:support-v4:22.0.0'
+}
+
 
 ">
   
@@ -137,8 +185,39 @@
   <span class="post-date">10 Jul 2015</span>
   
 
-  <p>Glide介绍</p>
+  <p>##Glide介绍</p>
 
+<p>##导入项目<br />
+Picasso和Glide都放在jcenter. 你可以非常简单的在项目中添加依赖。<br />
+###Picasso<br />
+<code>
+dependencies {
+    compile 'com.squareup.picasso:picasso:2.5.1'
+}
+</code><br />
+###Glide<br />
+<code>
+dependencies {
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'com.android.support:support-v4:22.0.0'
+}
+</code></p>
+
+<p>##基础<br />
+正如我说的，Glide和Picasso非常的相似。它加载图片到ImageView的方法和Picasso是相同的。<br />
+###Picasso<br />
+<code>java
+Picasso.with(context)
+    .load("http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg")
+    .into(ivImg);
+</code></p>
+
+<p>###Glide<br />
+<code>
+Glide.with(context)
+    .load("http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg")
+    .into(ivImg);
+</code></p>
 
 </div>
 

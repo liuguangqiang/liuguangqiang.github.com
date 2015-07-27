@@ -4,7 +4,7 @@
  <title>Eric</title>
  <link href="http://liuguangqiang.com/atom.xml" rel="self"/>
  <link href="http://liuguangqiang.com/"/>
- <updated>2015-07-10T09:40:51+08:00</updated>
+ <updated>2015-07-27T11:26:52+08:00</updated>
  <id>http://liuguangqiang.com</id>
  <author>
    <name>Eric</name>
@@ -17,8 +17,39 @@
    <link href="http://liuguangqiang.com/android/2015/07/10/Glide%E4%BB%8B%E7%BB%8D/"/>
    <updated>2015-07-10T00:00:00+08:00</updated>
    <id>http://liuguangqiang.com/android/2015/07/10/Glide介绍</id>
-   <content type="html">&lt;p&gt;Glide介绍&lt;/p&gt;
+   <content type="html">&lt;p&gt;##Glide介绍&lt;/p&gt;
 
+&lt;p&gt;##导入项目&lt;br /&gt;
+Picasso和Glide都放在jcenter. 你可以非常简单的在项目中添加依赖。&lt;br /&gt;
+###Picasso&lt;br /&gt;
+&lt;code&gt;
+dependencies {
+    compile &#39;com.squareup.picasso:picasso:2.5.1&#39;
+}
+&lt;/code&gt;&lt;br /&gt;
+###Glide&lt;br /&gt;
+&lt;code&gt;
+dependencies {
+    compile &#39;com.github.bumptech.glide:glide:3.5.2&#39;
+    compile &#39;com.android.support:support-v4:22.0.0&#39;
+}
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;##基础&lt;br /&gt;
+正如我说的，Glide和Picasso非常的相似。它加载图片到ImageView的方法和Picasso是相同的。&lt;br /&gt;
+###Picasso&lt;br /&gt;
+&lt;code&gt;java
+Picasso.with(context)
+    .load(&quot;http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg&quot;)
+    .into(ivImg);
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;###Glide&lt;br /&gt;
+&lt;code&gt;
+Glide.with(context)
+    .load(&quot;http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg&quot;)
+    .into(ivImg);
+&lt;/code&gt;&lt;/p&gt;
 </content>
  </entry>
  
