@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Handle详解 &middot; Eric
+    
+  </title>
+  
+  
+  
+  <meta name="twitter:site" content="@lgq373779166">
+  <meta property="og:type" content="article">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta property="og:title" content="Handle详解">
+  <meta property="twitter:title" content="Handle详解">
+  
+
+  
+  <meta name="twitter:description" content="实现消息机制的过程
+
+
+">
+  <meta property="og:description" content="实现消息机制的过程
+
+
+">
+  <meta name="description" content="实现消息机制的过程
+
+
+">
+  
+
+  <meta name="theme-color" content="#00796B">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/site.css">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700|Fjalla+One">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/content/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/content/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="/content/favicon-196x196.png" sizes="196x196" />
+  <link rel="icon" type="image/png" href="/content/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/content/favicon-16x16.png" sizes="16x16" />
+  <meta name="application-name" content="Chris Banes"/>
+  <meta name="msapplication-TileColor" content="#00796B" />
+  <meta name="msapplication-TileImage" content="/content/mstile-144x144.png" />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+  
+</head>
+
+
+  <body class="theme-base-black">
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+        
+      <a href="/" title="Link to homepage for Eric"><img src="/content/images/me.png" width="200" alt="Eric logo" class="panel-cover__logo logo" /></a>
+        
+      <h1>
+        <a href="/">
+          Eric
+        </a>
+      </h1>
+      <p class="lead">Don't reinvent wheel. But you have to learn how to create.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Home</a>
+
+      
+
+      
+      
+        
+      
+        
+      
+        
+      
+        
+      
+      
+    </nav>
+      
+  <nav class="sidebar-social">
+  <ul class="navigation">
+
+  <!-- GitHub -->
+  <li class="social-item github">
+    <a href="http://github.com/liuguangqiang" title="@Eric on GitHub" target="_blank">
+      <i class='icon fi-social-github'></i>
+      <span class="label">GitHub</span>
+    </a>
+  </li>
+
+  <!-- Twitter -->
+  <li class="social-item twitter">
+    <a href="http://twitter.com/@lgq373779166" title="@lgq373779166 on Twitter" target="_blank">
+      <i class='icon fi-social-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+
+    <!-- LinkedIn -->
+    <li class="social-item linkedin">
+      <a href="https://www.linkedin.com/in/liuguangqiang" title="@Eric on LinkedIn" target="_blank">
+        <i class='icon fi-social-linkedin'></i>
+        <span class="label">LinkedIn</span>
+      </a>
+    </li>
+
+  </ul>
+  </nav>
+      
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Handle详解</h1>
+  <span class="post-date">15 Sep 2015</span>
+  
+
+  <h2 id="section">实现消息机制的过程</h2>
+<p><img src="/content/handler.png" alt="image" /></p>
+
+<p>整个过程涉及到的对象有</p>
+
+<ul>
+  <li>Handler</li>
+  <li>Looper</li>
+  <li>MessageQueue</li>
+  <li>Message</li>
+</ul>
+
+<h2 id="handler">Handler</h2>
+<p>Handler在创建的时候，默认会关联到当前线程的looper。Handler的职责是往MessageQueue 中添加Message，并且通过handleMessage处理自己发出的Message,handleMessage是一个空的方法，所以需要重写。</p>
+
+<p><strong>Handler不等于Thread，但必须依附于Thread。一个Thread可以同时拥有多个Handler，但一个Handler只能属于一个Thread。Handler属于哪个Thread取决于Handler在那个Thread中建立。</strong></p>
+
+<h3 id="handler-1">Handler的构造函数</h3>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">Handler</span><span class="o">(</span><span class="n">Callback</span> <span class="n">callback</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">async</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">FIND_POTENTIAL_LEAKS</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kd">final</span> <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Handler</span><span class="o">&gt;</span> <span class="n">klass</span> <span class="o">=</span> <span class="n">getClass</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">((</span><span class="n">klass</span><span class="o">.</span><span class="na">isAnonymousClass</span><span class="o">()</span> <span class="o">||</span> <span class="n">klass</span><span class="o">.</span><span class="na">isMemberClass</span><span class="o">()</span> <span class="o">||</span> <span class="n">klass</span><span class="o">.</span><span class="na">isLocalClass</span><span class="o">())</span> <span class="o">&amp;&amp;</span>
+                    <span class="o">(</span><span class="n">klass</span><span class="o">.</span><span class="na">getModifiers</span><span class="o">()</span> <span class="o">&amp;</span> <span class="n">Modifier</span><span class="o">.</span><span class="na">STATIC</span><span class="o">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">Log</span><span class="o">.</span><span class="na">w</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">&quot;The following Handler class should be static or leaks might occur: &quot;</span> <span class="o">+</span>
+                    <span class="n">klass</span><span class="o">.</span><span class="na">getCanonicalName</span><span class="o">());</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="n">mLooper</span> <span class="o">=</span> <span class="n">Looper</span><span class="o">.</span><span class="na">myLooper</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mLooper</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span>
+                <span class="s">&quot;Can&#39;t create handler inside thread that has not called Looper.prepare()&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">mQueue</span> <span class="o">=</span> <span class="n">mLooper</span><span class="o">.</span><span class="na">mQueue</span><span class="o">;</span>
+        <span class="n">mCallback</span> <span class="o">=</span> <span class="n">callback</span><span class="o">;</span>
+        <span class="n">mAsynchronous</span> <span class="o">=</span> <span class="n">async</span><span class="o">;</span>
+    <span class="o">}</span></code></pre></div>
+
+<p>Handler 内的消息队列就是 Looper 里的消息队列</p>
+
+<h2 id="looper">Looper</h2>
+<p><strong>一个线程只有一个Looper对象</strong>。通过方法loop()循环的调用MessageQueue的next方法获取Message，并调用对应的Handler的方法dispatchMessage()。</p>
+
+<p><strong>使用Looper前必须先调用其方法prepare()。</strong></p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">prepare</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">quitAllowed</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">sThreadLocal</span><span class="o">.</span><span class="na">get</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">&quot;Only one Looper may be created per thread&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">sThreadLocal</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="k">new</span> <span class="nf">Looper</span><span class="o">(</span><span class="n">quitAllowed</span><span class="o">));</span>
+    <span class="o">}</span></code></pre></div>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="cm">/**</span>
+<span class="cm">     * Return the Looper object associated with the current thread.  Returns</span>
+<span class="cm">     * null if the calling thread is not associated with a Looper.</span>
+<span class="cm">     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Looper</span> <span class="nf">myLooper</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">sThreadLocal</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="o">}</span></code></pre></div>
+
+<p><strong>执行完prepare后，调用loop(),实现循环。</strong></p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">loop</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">Looper</span> <span class="n">me</span> <span class="o">=</span> <span class="n">myLooper</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">me</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">&quot;No Looper; Looper.prepare() wasn&#39;t called on this thread.&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="kd">final</span> <span class="n">MessageQueue</span> <span class="n">queue</span> <span class="o">=</span> <span class="n">me</span><span class="o">.</span><span class="na">mQueue</span><span class="o">;</span>
+        
+        <span class="c1">//...</span>
+
+        <span class="k">for</span> <span class="o">(;;)</span> <span class="o">{</span>
+            <span class="n">Message</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="na">next</span><span class="o">();</span> <span class="c1">// might block</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">msg</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="c1">// No message indicates that the message queue is quitting.</span>
+                <span class="k">return</span><span class="o">;</span>
+            <span class="o">}</span>
+            
+            <span class="c1">//...</span>
+            
+            <span class="n">msg</span><span class="o">.</span><span class="na">target</span><span class="o">.</span><span class="na">dispatchMessage</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+            
+            <span class="c1">//...</span>
+            
+            <span class="n">msg</span><span class="o">.</span><span class="na">recycleUnchecked</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span></code></pre></div>
+
+<p><strong>调用Handler的方法dispatchMessage()</strong></p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">dispatchMessage</span><span class="o">(</span><span class="n">Message</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">msg</span><span class="o">.</span><span class="na">callback</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">handleCallback</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">mCallback</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">mCallback</span><span class="o">.</span><span class="na">handleMessage</span><span class="o">(</span><span class="n">msg</span><span class="o">))</span> <span class="o">{</span>
+                    <span class="k">return</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="n">handleMessage</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span></code></pre></div>
+
+<h2 id="messagequeue">MessageQueue</h2>
+<p>MessageQueue就是消息队列，用链表的方式存储Message，Looper按照FIFO的顺序从其中取出Message。</p>
+
+<h2 id="section-1">注意事项</h2>
+<ul>
+  <li>一个Thread可以同时拥有多个Handler，但一个Handler只能属于一个Thread</li>
+  <li>一个线程只能有一个Looper</li>
+  <li>使用Looper前必须先调用其方法prepare()</li>
+</ul>
+
+</div>
+
+
+<section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'guangqiang'; // required: replace example with your forum shortname
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3 style="display: inline;"><a href="/android/2015/07/10/Glide%E4%BB%8B%E7%BB%8D/">Glide介绍</a></h3>
+        <small>10 Jul 2015</small>
+      </li>
+    
+      <li>
+        <h3 style="display: inline;"><a href="/android/2015/06/29/LeakCanary%E4%BB%8B%E7%BB%8D/">LeakCanary介绍</a></h3>
+        <small>29 Jun 2015</small>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+  </body>
+</html>
