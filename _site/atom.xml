@@ -4,7 +4,7 @@
  <title>Eric</title>
  <link href="http://liuguangqiang.com/atom.xml" rel="self"/>
  <link href="http://liuguangqiang.com/"/>
- <updated>2015-09-15T22:27:28+08:00</updated>
+ <updated>2015-09-15T22:35:16+08:00</updated>
  <id>http://liuguangqiang.com</id>
  <author>
    <name>Eric</name>
@@ -13,10 +13,10 @@
 
  
  <entry>
-   <title>Handle详解</title>
-   <link href="http://liuguangqiang.com/android/2015/09/15/Handler/"/>
+   <title>Android消息机制详解。</title>
+   <link href="http://liuguangqiang.com/android/2015/09/15/%20Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/"/>
    <updated>2015-09-15T00:00:00+08:00</updated>
-   <id>http://liuguangqiang.com/android/2015/09/15/Handler</id>
+   <id>http://liuguangqiang.com/android/2015/09/15/ Android消息机制详解</id>
    <content type="html">&lt;h2 id=&quot;section&quot;&gt;实现消息机制的过程&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&quot;/content/handler.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
