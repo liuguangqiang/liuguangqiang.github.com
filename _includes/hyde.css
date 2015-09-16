@@ -336,6 +336,14 @@ a.sidebar-nav-item:focus {
 @media (min-width: 48em) {
   .post-title {
     font-size: 2.0rem; }
+
+  .post-title-white {
+    color: #FFF;
+    font-size: 2.0rem; }
+
+  .post-title-white a {
+  color: #fff;}
+  
 }
 
 .post-overlay-header {
