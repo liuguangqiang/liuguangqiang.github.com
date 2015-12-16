@@ -4,7 +4,7 @@
  <title>Eric</title>
  <link href="http://liuguangqiang.com/atom.xml" rel="self"/>
  <link href="http://liuguangqiang.com/"/>
- <updated>2015-09-16T09:20:24+08:00</updated>
+ <updated>2015-12-08T17:03:11+08:00</updated>
  <id>http://liuguangqiang.com</id>
  <author>
    <name>Eric</name>
@@ -140,8 +140,10 @@
    <id>http://liuguangqiang.com/android/2015/07/10/Glide介绍</id>
    <content type="html">&lt;h2 id=&quot;glide&quot;&gt;Glide介绍&lt;/h2&gt;
 
+&lt;p&gt;&lt;a href=&quot;http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en&quot;&gt;原文地址，请戳这里！&lt;/a&gt;&lt;/p&gt;
+
 &lt;h2 id=&quot;section&quot;&gt;导入项目&lt;/h2&gt;
-&lt;p&gt;Picasso和Glide都放在jcenter. 你可以非常简单的在项目中添加依赖。&lt;/p&gt;
+&lt;p&gt;Picasso和Glide都放在jcenter， 你可以非常简单的在项目中添加依赖， 这是在Android Studio中的使用方式，eclipse不推荐继续使用。&lt;/p&gt;
 
 &lt;h3 id=&quot;picasso&quot;&gt;Picasso&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;dependencies {
@@ -176,6 +178,78 @@
 &lt;p&gt;&lt;img src=&quot;/content/images/glide/with.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;传递Activity/Fragment给Glide的优点是：加载图片将会和Activity/Fragment的生命周期相结合。例如，当Activity/Fragment暂停的时候，会暂停加载，它唤醒的时候，会自动唤醒加载。所以，我鼓励你们如果可能的话，不要仅仅传递Context给Glide，而是使用Activity或者Fragment。&lt;/p&gt;
+
+&lt;h3 id=&quot;bitmaprgb565&quot;&gt;默认的Bitmap格式是RGB_565&lt;/h3&gt;
+
+&lt;p&gt;这里有一个把1920x1080像素的图片，加载到768x432像素的ImageView的对比结果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/glide/firstload.jpg&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;你可以发现Glide显示的图像质量要比Picasso的差。为什么呢？因为Glide的默认Bitmap格式是RGB_565, 其消耗的内存是使用ARGB_8888的50%。&lt;/p&gt;
+
+&lt;p&gt;下图是Picasso使用ARGB_8888和Glide使用RGB_565的内存消耗表。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/glide/ram1_1.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果你认为图片的显示质量已经很不错了，可以不用做任何事。但是如果觉得不可接受或者不能满足你的需求的话，你可以通过用新建一个实现了GlideModule接口的一个类，从而切换Bitmap格式为ARGB_8888.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GlideConfiguration&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GlideModule&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;applyOptions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Context&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GlideBuilder&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// Apply options to the builder here.&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setDecodeFormat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DecodeFormat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;PREFER_ARGB_8888&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;registerComponents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Context&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Glide&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;glide&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// register ModelLoaders here.&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;然后在AndroidManifest.xml中添加一个meta-data。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;meta&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;android:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;com.yourpackage.GlideConfiguration&amp;quot;&lt;/span&gt;
+            &lt;span class=&quot;nl&quot;&gt;android:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;GlideModule&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;现在Glide的显示效果就好很多了！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/glide/quality2.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;让我们再看看内存效果表。这样看来，虽然Glide消耗的内存是之前的2倍，但是仍然比Picasso消耗的少很多。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/glide/ram1_2.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这是因为Picasso把图像的全尺寸(1920x1080)加载到了内存中，然后让GPU实时修改大小和绘制。但是Glide采用了一种最佳实践方式，精确加载ImageView大小(768x432)的图像到内存中。如果使用Picasso的话，也可以通过resize()方法来实现相同的功能。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;Picasso&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://nuuneoi.com/uploads/source/playstore/cover.jpg&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;resize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;768&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;432&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;into&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ivImgPicasso&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;但这样做的问题是，你必须自己手动计算ImageView的大小。或者如果你的ImageView设置了精确的大小(没有设置wrap_content)，你可以这样做。&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;Picasso&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://nuuneoi.com/uploads/source/playstore/cover.jpg&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;fit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;centerCrop&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;into&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ivImgPicasso&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;现在两者消耗的内存终于几乎一致了！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/glide/memory3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;虽然两者消耗的内存基本相同了，但我不得不说，Glide在这个功能上确实比Picasso更强大，因为Glide可以在每个案例中自动计算ImageView大小。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;图像质量的细节&lt;/h3&gt;
+
+&lt;p&gt;下图的是我把ImageView放大到实际大小的结果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/images/glide/quality3.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;值得注意的是，Glide的加载效果很粗糙，不像Picasso那样顺滑。直到现在，我仍然没有找到更直接的方式来改变图像调整的算法。&lt;/p&gt;
+
+&lt;p&gt;此时你是否疑问，Glide不怎么好呢？&lt;/p&gt;
 </content>
  </entry>
  
