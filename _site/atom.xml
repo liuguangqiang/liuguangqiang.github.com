@@ -4,13 +4,95 @@
  <title>Eric</title>
  <link href="http://liuguangqiang.com/atom.xml" rel="self"/>
  <link href="http://liuguangqiang.com/"/>
- <updated>2015-12-08T17:03:11+08:00</updated>
+ <updated>2016-02-18T10:35:22+08:00</updated>
  <id>http://liuguangqiang.com</id>
  <author>
    <name>Eric</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>常用Proguard Rules</title>
+   <link href="http://liuguangqiang.com/android/2016/02/18/%E5%B8%B8%E7%94%A8Proguard%20Rules/"/>
+   <updated>2016-02-18T00:00:00+08:00</updated>
+   <id>http://liuguangqiang.com/android/2016/02/18/常用Proguard Rules</id>
+   <content type="html">&lt;p&gt;Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…&lt;/p&gt;
+
+&lt;h2 id=&quot;annotation&quot;&gt;Annotation&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;-keepattributes *Annotation*
+-keep class javax.inject.** { *; }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;eventbus&quot;&gt;EventBus&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;-keep class de.greenrobot.** { *; }
+-keepclassmembers class ** {
+    public void onEvent*(**);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;dagger20&quot;&gt;Dagger2.0&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;-keep class dagger.** { *; }
+-keep interface dagger.** { *; }
+
+-keep class **$$ModuleAdapter { *; }
+-keepnames class **$$InjectAdapter { *; }
+-keepclassmembers class * {
+    @javax.inject.Inject &amp;lt;fields&amp;gt;;
+    @javax.inject.Inject &amp;lt;init&amp;gt;(...);
+}
+-adaptclassstrings
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;glide&quot;&gt;Glide&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+    **[] $VALUES;
+    public *;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;gson&quot;&gt;Gson&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;-keepattributes Signature
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.examples.android.model.** { *; }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;logansquare&quot;&gt;LoganSquare&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;-keep class com.bluelinelabs.logansquare.** { *; }
+-keep @com.bluelinelabs.logansquare.annotation.JsonObject class *
+-keep class **$$JsonObjectMapper { *; }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;butterknife&quot;&gt;ButterKnife&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-java&quot;&gt;-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+
+-keepclasseswithmembernames class * {
+    @butterknife.* &amp;lt;fields&amp;gt;;
+}
+
+-keepclasseswithmembernames class * {
+    @butterknife.* &amp;lt;methods&amp;gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;rxjava--rxandroid&quot;&gt;RxJava &amp;amp; RxAndroid&lt;/h2&gt;
+
+&lt;p&gt;最麻烦的就是RxJava和RxAndroid，直到我遇到下面的library&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;compile &#39;com.artemzin.rxjava:proguard-rules:1.1.0.0&#39;
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Android消息机制详解</title>

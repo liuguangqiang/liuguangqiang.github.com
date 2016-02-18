@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      常用Proguard Rules &middot; Eric
+    
+  </title>
+  
+  
+  
+  <meta name="twitter:site" content="@lgq373779166">
+  <meta property="og:type" content="article">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta property="og:title" content="常用Proguard Rules">
+  <meta property="twitter:title" content="常用Proguard Rules">
+  
+
+  
+  <meta name="twitter:description" content="Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…
+
+">
+  <meta property="og:description" content="Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…
+
+">
+  <meta name="description" content="Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…
+
+">
+  
+
+  <meta name="theme-color" content="#00796B">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/site.css">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700|Fjalla+One">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/content/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/content/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="/content/favicon-196x196.png" sizes="196x196" />
+  <link rel="icon" type="image/png" href="/content/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/content/favicon-16x16.png" sizes="16x16" />
+  <meta name="application-name" content="Chris Banes"/>
+  <meta name="msapplication-TileColor" content="#00796B" />
+  <meta name="msapplication-TileImage" content="/content/mstile-144x144.png" />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+  
+</head>
+
+
+  <body class="theme-base-black">
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+        
+      <a href="/" title="Link to homepage for Eric"><img src="/content/images/me.png" width="200" alt="Eric logo" class="panel-cover__logo logo" /></a>
+        
+      <h1>
+        <a href="/">
+          Eric
+        </a>
+      </h1>
+      <p class="lead">Don't reinvent wheel. But you have to learn how to create.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Home</a>
+
+      
+
+      
+      
+        
+      
+        
+      
+        
+      
+        
+      
+      
+    </nav>
+      
+  <nav class="sidebar-social">
+  <ul class="navigation">
+
+  <!-- GitHub -->
+  <li class="social-item github">
+    <a href="http://github.com/liuguangqiang" title="@Eric on GitHub" target="_blank">
+      <i class='icon fi-social-github'></i>
+      <span class="label">GitHub</span>
+    </a>
+  </li>
+
+  <!-- Twitter -->
+  <li class="social-item twitter">
+    <a href="http://twitter.com/@lgq373779166" title="@lgq373779166 on Twitter" target="_blank">
+      <i class='icon fi-social-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+
+    <!-- LinkedIn -->
+    <li class="social-item linkedin">
+      <a href="https://www.linkedin.com/in/liuguangqiang" title="@Eric on LinkedIn" target="_blank">
+        <i class='icon fi-social-linkedin'></i>
+        <span class="label">LinkedIn</span>
+      </a>
+    </li>
+
+  </ul>
+  </nav>
+      
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">常用Proguard Rules</h1>
+  <span class="post-date">18 Feb 2016</span>
+  
+
+  <p>Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…</p>
+
+<h2 id="annotation">Annotation</h2>
+
+<pre><code class="language-java">-keepattributes *Annotation*
+-keep class javax.inject.** { *; }
+</code></pre>
+
+<h2 id="eventbus">EventBus</h2>
+
+<pre><code class="language-java">-keep class de.greenrobot.** { *; }
+-keepclassmembers class ** {
+    public void onEvent*(**);
+}
+</code></pre>
+
+<h2 id="dagger20">Dagger2.0</h2>
+
+<pre><code class="language-java">-keep class dagger.** { *; }
+-keep interface dagger.** { *; }
+
+-keep class **$$ModuleAdapter { *; }
+-keepnames class **$$InjectAdapter { *; }
+-keepclassmembers class * {
+    @javax.inject.Inject &lt;fields&gt;;
+    @javax.inject.Inject &lt;init&gt;(...);
+}
+-adaptclassstrings
+</code></pre>
+
+<h2 id="glide">Glide</h2>
+
+<pre><code class="language-java">-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+    **[] $VALUES;
+    public *;
+}
+</code></pre>
+
+<h2 id="gson">Gson</h2>
+
+<pre><code class="language-java">-keepattributes Signature
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.examples.android.model.** { *; }
+</code></pre>
+
+<h2 id="logansquare">LoganSquare</h2>
+
+<pre><code class="language-java">-keep class com.bluelinelabs.logansquare.** { *; }
+-keep @com.bluelinelabs.logansquare.annotation.JsonObject class *
+-keep class **$$JsonObjectMapper { *; }
+</code></pre>
+
+<h2 id="butterknife">ButterKnife</h2>
+
+<pre><code class="language-java">-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+
+-keepclasseswithmembernames class * {
+    @butterknife.* &lt;fields&gt;;
+}
+
+-keepclasseswithmembernames class * {
+    @butterknife.* &lt;methods&gt;;
+}
+</code></pre>
+
+<h2 id="rxjava--rxandroid">RxJava &amp; RxAndroid</h2>
+
+<p>最麻烦的就是RxJava和RxAndroid，直到我遇到下面的library</p>
+
+<pre><code>compile 'com.artemzin.rxjava:proguard-rules:1.1.0.0'
+</code></pre>
+
+</div>
+
+
+<section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'guangqiang'; // required: replace example with your forum shortname
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3 style="display: inline;"><a href="/android/2015/09/15/%20Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/">Android消息机制详解</a></h3>
+        <small>15 Sep 2015</small>
+      </li>
+    
+      <li>
+        <h3 style="display: inline;"><a href="/android/2015/07/10/Glide%E4%BB%8B%E7%BB%8D/">Glide介绍</a></h3>
+        <small>10 Jul 2015</small>
+      </li>
+    
+      <li>
+        <h3 style="display: inline;"><a href="/android/2015/06/29/LeakCanary%E4%BB%8B%E7%BB%8D/">LeakCanary介绍</a></h3>
+        <small>29 Jun 2015</small>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+  </body>
+</html>
