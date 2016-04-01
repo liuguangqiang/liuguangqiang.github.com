@@ -6,6 +6,8 @@ highlighter:      pygments
 permalink:        pretty
 relative_permalinks: true
 
+future: true
+
 # Setup
 title:            Eric
 description:      Don't reinvent wheel. But you have to learn how to create.
