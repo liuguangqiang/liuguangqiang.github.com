@@ -144,7 +144,7 @@ LeakCanary又是一个出自square的良心之作！
   
 
   <h2 id="leakcanary">LeakCanary是什么鬼？</h2>
-<p>LeakCanary又是一个出自square的良心之作！<br />
+<p>LeakCanary又是一个出自square的良心之作！
 专为Android和Java检测内存泄漏而生。</p>
 
 <pre><code>“A small leak will sink a great ship.” - Benjamin Franklin
@@ -163,28 +163,28 @@ LeakCanary又是一个出自square的良心之作！
 
 <p>在Application中初始化</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleApplication</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleApplication</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="o">{</span>
 
   <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">()</span> <span class="o">{</span>
     <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">();</span>
     <span class="n">LeakCanary</span><span class="o">.</span><span class="na">install</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
   <span class="o">}</span>
   
-<span class="o">}</span></code></pre></div>
+<span class="o">}</span></code></pre></figure>
 
 <h2 id="leakcanary-1">为什么要使用LeakCanary?</h2>
 
 <h2 id="section-1">如何使用</h2>
 <p>用Refwatcher监控应该要回收的引用</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">RefWatcher</span> <span class="n">refWatcher</span> <span class="o">=</span> <span class="o">{...};</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">RefWatcher</span> <span class="n">refWatcher</span> <span class="o">=</span> <span class="o">{...};</span>
 
 <span class="c1">// We expect schrodingerCat to be gone soon (or not), let&#39;s watch it.</span>
-<span class="n">refWatcher</span><span class="o">.</span><span class="na">watch</span><span class="o">(</span><span class="n">schrodingerCat</span><span class="o">);</span></code></pre></div>
+<span class="n">refWatcher</span><span class="o">.</span><span class="na">watch</span><span class="o">(</span><span class="n">schrodingerCat</span><span class="o">);</span></code></pre></figure>
 
 <p>LeakCanary.install() 会返回一个预先配置好的 RefWatcher。同时也会安装一个ActivityRefWatcher, 它会自动监控一个Activity调用onDestory()后的内存泄漏。</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleApplication</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExampleApplication</span> <span class="kd">extends</span> <span class="n">Application</span> <span class="o">{</span>
 
   <span class="kd">public</span> <span class="kd">static</span> <span class="n">RefWatcher</span> <span class="nf">getRefWatcher</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">ExampleApplication</span> <span class="n">application</span> <span class="o">=</span> <span class="o">(</span><span class="n">ExampleApplication</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">getApplicationContext</span><span class="o">();</span>
@@ -197,18 +197,18 @@ LeakCanary又是一个出自square的良心之作！
     <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">();</span>
     <span class="n">refWatcher</span> <span class="o">=</span> <span class="n">LeakCanary</span><span class="o">.</span><span class="na">install</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
   <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
+<span class="o">}</span></code></pre></figure>
 
 <p>也可以用RefWatcher来监控fragment的内存泄漏</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">BaseFragment</span> <span class="kd">extends</span> <span class="n">Fragment</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">BaseFragment</span> <span class="kd">extends</span> <span class="n">Fragment</span> <span class="o">{</span>
 
   <span class="nd">@Override</span> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
     <span class="kd">super</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">();</span>
     <span class="n">RefWatcher</span> <span class="n">refWatcher</span> <span class="o">=</span> <span class="n">ExampleApplication</span><span class="o">.</span><span class="na">getRefWatcher</span><span class="o">(</span><span class="n">getActivity</span><span class="o">());</span>
     <span class="n">refWatcher</span><span class="o">.</span><span class="na">watch</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
   <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
+<span class="o">}</span></code></pre></figure>
 
 <h2 id="leakcanary-2">LeakCanary是如何工作的？</h2>
 <ol>
@@ -240,21 +240,6 @@ LeakCanary又是一个出自square的良心之作！
 
 </div>
 
-
-<section class="post-comments">
-  <div id="disqus_thread"></div>
-  <script type="text/javascript">
-      var disqus_shortname = 'guangqiang'; // required: replace example with your forum shortname
-      /* * * DON'T EDIT BELOW THIS LINE * * */
-      (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</section>
 
 
 <div class="related">

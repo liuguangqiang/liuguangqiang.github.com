@@ -177,15 +177,17 @@ Picasso和Glide都放在jcenter， 你可以非常简单的在项目中添加依
 
 <h3 id="picasso-1">Picasso</h3>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Picasso</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">context</span><span class="o">)</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="n">Picasso</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">context</span><span class="o">)</span>
     <span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="s">&quot;http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg&quot;</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">into</span><span class="o">(</span><span class="n">ivImg</span><span class="o">);</span></code></pre></div>
+    <span class="o">.</span><span class="na">into</span><span class="o">(</span><span class="n">ivImg</span><span class="o">);</span></code></pre></figure>
 
 <h3 id="glide-2">Glide</h3>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Glide</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">context</span><span class="o">)</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="n">Glide</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="n">context</span><span class="o">)</span>
     <span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="s">&quot;http://inthecheesefactory.com/uploads/source/glidepicasso/cover.jpg&quot;</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">into</span><span class="o">(</span><span class="n">ivImg</span><span class="o">);</span></code></pre></div>
+    <span class="o">.</span><span class="na">into</span><span class="o">(</span><span class="n">ivImg</span><span class="o">);</span></code></pre></figure>
 
 <p>尽管在细节上看似非常的相似，但Glide的设计要好很多。因为Glide初始化时，不仅支持Context，还支持Activity和Fragment, Context会自动从它们中获得。</p>
 
@@ -207,7 +209,8 @@ Picasso和Glide都放在jcenter， 你可以非常简单的在项目中添加依
 
 <p>如果你认为图片的显示质量已经很不错了，可以不用做任何事。但是如果觉得不可接受或者不能满足你的需求的话，你可以通过用新建一个实现了GlideModule接口的一个类，从而切换Bitmap格式为ARGB_8888.</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GlideConfiguration</span> <span class="kd">implements</span> <span class="n">GlideModule</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GlideConfiguration</span> <span class="kd">implements</span> <span class="n">GlideModule</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">applyOptions</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">GlideBuilder</span> <span class="n">builder</span><span class="o">)</span> <span class="o">{</span>
@@ -219,12 +222,13 @@ Picasso和Glide都放在jcenter， 你可以非常简单的在项目中添加依
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">registerComponents</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Glide</span> <span class="n">glide</span><span class="o">)</span> <span class="o">{</span>
         <span class="c1">// register ModelLoaders here.</span>
     <span class="o">}</span>
-<span class="o">}</span></code></pre></div>
+<span class="o">}</span></code></pre></figure>
 
 <p>然后在AndroidManifest.xml中添加一个meta-data。</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">meta</span><span class="o">-</span><span class="n">data</span> <span class="nl">android:</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;com.yourpackage.GlideConfiguration&quot;</span>
-            <span class="nl">android:</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;GlideModule&quot;</span><span class="o">/&gt;</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="o">&lt;</span><span class="n">meta</span><span class="o">-</span><span class="n">data</span> <span class="nl">android:</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;com.yourpackage.GlideConfiguration&quot;</span>
+            <span class="nl">android:</span><span class="n">value</span><span class="o">=</span><span class="s">&quot;GlideModule&quot;</span><span class="o">/&gt;</span></code></pre></figure>
 
 <p>现在Glide的显示效果就好很多了！</p>
 
@@ -236,18 +240,20 @@ Picasso和Glide都放在jcenter， 你可以非常简单的在项目中添加依
 
 <p>这是因为Picasso把图像的全尺寸(1920x1080)加载到了内存中，然后让GPU实时修改大小和绘制。但是Glide采用了一种最佳实践方式，精确加载ImageView大小(768x432)的图像到内存中。如果使用Picasso的话，也可以通过resize()方法来实现相同的功能。</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Picasso</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="n">Picasso</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
     <span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="s">&quot;http://nuuneoi.com/uploads/source/playstore/cover.jpg&quot;</span><span class="o">)</span>
     <span class="o">.</span><span class="na">resize</span><span class="o">(</span><span class="mi">768</span><span class="o">,</span> <span class="mi">432</span><span class="o">)</span>
-    <span class="o">.</span><span class="na">into</span><span class="o">(</span><span class="n">ivImgPicasso</span><span class="o">);</span></code></pre></div>
+    <span class="o">.</span><span class="na">into</span><span class="o">(</span><span class="n">ivImgPicasso</span><span class="o">);</span></code></pre></figure>
 
 <p>但这样做的问题是，你必须自己手动计算ImageView的大小。或者如果你的ImageView设置了精确的大小(没有设置wrap_content)，你可以这样做。</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Picasso</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="n">Picasso</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="k">this</span><span class="o">)</span>
     <span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="s">&quot;http://nuuneoi.com/uploads/source/playstore/cover.jpg&quot;</span><span class="o">)</span>
     <span class="o">.</span><span class="na">fit</span><span class="o">()</span>
     <span class="o">.</span><span class="na">centerCrop</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">into</span><span class="o">(</span><span class="n">ivImgPicasso</span><span class="o">);</span></code></pre></div>
+    <span class="o">.</span><span class="na">into</span><span class="o">(</span><span class="n">ivImgPicasso</span><span class="o">);</span></code></pre></figure>
 
 <p>现在两者消耗的内存终于几乎一致了！</p>
 
@@ -267,21 +273,6 @@ Picasso和Glide都放在jcenter， 你可以非常简单的在项目中添加依
 
 </div>
 
-
-<section class="post-comments">
-  <div id="disqus_thread"></div>
-  <script type="text/javascript">
-      var disqus_shortname = 'guangqiang'; // required: replace example with your forum shortname
-      /* * * DON'T EDIT BELOW THIS LINE * * */
-      (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</section>
 
 
 <div class="related">

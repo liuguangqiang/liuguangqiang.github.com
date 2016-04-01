@@ -4,8 +4,10 @@ highlighter:      pygments
 
 # Permalinks
 permalink:        pretty
-relative_permalinks: true
+#relative_permalinks: true
 
+incremental: true
+gems: [jekyll-paginate]
 future: true
 
 # Setup
