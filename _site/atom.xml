@@ -4,7 +4,7 @@
  <title>Eric</title>
  <link href="http://liuguangqiang.com/atom.xml" rel="self"/>
  <link href="http://liuguangqiang.com/"/>
- <updated>2016-04-01T13:55:58+08:00</updated>
+ <updated>2016-04-01T13:58:34+08:00</updated>
  <id>http://liuguangqiang.com</id>
  <author>
    <name>Eric</name>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>常用Proguard Rules</title>
-   <link href="http://liuguangqiang.com/android/2016/02/18/%E5%B8%B8%E7%94%A8Proguard%20Rules/"/>
+   <link href="http://liuguangqiang.com/android/2016/02/18/%E5%B8%B8%E7%94%A8ProguardRules/"/>
    <updated>2016-02-18T00:00:00+08:00</updated>
-   <id>http://liuguangqiang.com/android/2016/02/18/常用Proguard Rules</id>
+   <id>http://liuguangqiang.com/android/2016/02/18/常用ProguardRules</id>
    <content type="html">&lt;p&gt;Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…&lt;/p&gt;
 
 &lt;h2 id=&quot;annotation&quot;&gt;Annotation&lt;/h2&gt;
@@ -96,9 +96,9 @@
  
  <entry>
    <title>Android消息机制详解</title>
-   <link href="http://liuguangqiang.com/android/2015/09/15/%20Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/"/>
+   <link href="http://liuguangqiang.com/android/2015/09/15/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/"/>
    <updated>2015-09-15T00:00:00+08:00</updated>
-   <id>http://liuguangqiang.com/android/2015/09/15/ Android消息机制详解</id>
+   <id>http://liuguangqiang.com/android/2015/09/15/Android消息机制详解</id>
    <content type="html">&lt;h2 id=&quot;section&quot;&gt;实现消息机制的过程&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&quot;/content/handler.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
 
