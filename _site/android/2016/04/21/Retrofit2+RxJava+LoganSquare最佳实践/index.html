@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Retrofit2+RxJava+LoganSquare最佳实践 &middot; Eric
+    
+  </title>
+  
+  
+  
+  <meta name="twitter:site" content="@EricLGQ">
+  <meta property="og:type" content="article">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  
+  
+  <meta property="og:title" content="Retrofit2+RxJava+LoganSquare最佳实践">
+  <meta property="twitter:title" content="Retrofit2+RxJava+LoganSquare最佳实践">
+  
+
+  
+  <meta name="twitter:description" content="基本介绍
+Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。
+
+">
+  <meta property="og:description" content="基本介绍
+Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。
+
+">
+  <meta name="description" content="基本介绍
+Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。
+
+">
+  
+
+  <meta name="theme-color" content="#00796B">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/site.css">
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700|Fjalla+One">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/content/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/content/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="/content/favicon-196x196.png" sizes="196x196" />
+  <link rel="icon" type="image/png" href="/content/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/content/favicon-16x16.png" sizes="16x16" />
+  <meta name="application-name" content="Chris Banes"/>
+  <meta name="msapplication-TileColor" content="#00796B" />
+  <meta name="msapplication-TileImage" content="/content/mstile-144x144.png" />
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+  
+</head>
+
+
+  <body class="theme-base-black">
+
+    <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+        
+      <a href="/" title="Link to homepage for Eric"><img src="/content/images/me.png" width="200" alt="Eric logo" class="panel-cover__logo logo" /></a>
+        
+      <h1>
+        <a href="/">
+          Eric
+        </a>
+      </h1>
+      <p class="lead">Don't reinvent wheel. But you have to learn how to create.</p>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="sidebar-nav-item" href="/">Home</a>
+
+      
+
+      
+      
+        
+      
+        
+      
+        
+      
+        
+      
+      
+    </nav>
+      
+  <nav class="sidebar-social">
+  <ul class="navigation">
+
+  <!-- GitHub -->
+  <li class="social-item github">
+    <a href="http://github.com/liuguangqiang" title="@Eric on GitHub" target="_blank">
+      <i class='icon fi-social-github'></i>
+      <span class="label">GitHub</span>
+    </a>
+  </li>
+
+  <!-- Twitter -->
+  <li class="social-item twitter">
+    <a href="http://twitter.com/@EricLGQ" title="@EricLGQ on Twitter" target="_blank">
+      <i class='icon fi-social-twitter'></i>
+      <span class="label">Twitter</span>
+    </a>
+  </li>
+
+    <!-- LinkedIn -->
+    <li class="social-item linkedin">
+      <a href="https://www.linkedin.com/in/liuguangqiang" title="@Eric on LinkedIn" target="_blank">
+        <i class='icon fi-social-linkedin'></i>
+        <span class="label">LinkedIn</span>
+      </a>
+    </li>
+
+  </ul>
+  </nav>
+      
+  </div>
+</div>
+
+
+    <div class="content container">
+      <div class="post">
+  <h1 class="post-title">Retrofit2+RxJava+LoganSquare最佳实践</h1>
+  <span class="post-date">21 Apr 2016</span>
+  
+
+  <h2 id="section">基本介绍</h2>
+<p>Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。</p>
+
+<p>现在Retrofit已经出到2.0.2版本了，与前的1.9版本相差很大，并且官方强烈推荐2.0版本，所以在此就只聊2.0以后的版本。</p>
+
+<h2 id="section-1">马上开撸！</h2>
+<p>首先肯定要在build.gradle中添加retrofit的依赖。</p>
+
+<pre><code>compile 'com.squareup.retrofit2:retrofit:2.0.2'
+</code></pre>
+
+<p>创建一个HTTP API的接口。</p>
+
+<pre><code>public interface ZhihuService {
+   
+	@GET("news/latest")
+    Call&lt;Daily&gt; getLatest();
+    
+}
+</code></pre>
+<p>实例化ZhihuService，然后发起HTTP请求。</p>
+
+<pre><code>Retrofit retrofit = new Retrofit.Builder()
+    .baseUrl("http://news-at.zhihu.com/api/4/")
+    .build();
+ZhihuService service = retrofit.create(ZhihuService.class);
+</code></pre>
+
+<pre><code>Call&lt;Daily&gt; daily = service.getLatest();
+</code></pre>
+
+<h2 id="rxjava">说好的RxJava呢？</h2>
+
+<p>RxJava到底是什么？</p>
+
+<p>Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM.</p>
+
+<p>如果不熟悉RxJava的朋友，可以看看这篇文章，<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_1">给 Android 开发者的 RxJava 详解</a></p>
+
+<p>Retrofit2.0依然是支持RxJava的，但和以前的集成在一起不同，现在是完全独立的，需要自己添加CallAdapter。这样的好处是更灵活，更解耦。</p>
+
+<pre><code>/**
+ * Add a call adapter factory for supporting service method return types other than {@link
+ * Call}.
+ */
+public Builder addCallAdapterFactory(CallAdapter.Factory factory) {
+      adapterFactories.add(checkNotNull(factory, "factory == null"));
+    return this;
+}
+
+</code></pre>
+
+<h2 id="rxjavacalladapter">添加RxJavaCallAdapter</h2>
+
+<pre><code>compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+</code></pre>
+
+<pre><code>Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(HOST_NAME)
+		        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+</code></pre>
+
+<h2 id="retrofitrxjava">现在Retrofit可以使用RxJava了</h2>
+
+<p><strong>首先修改我们的API接口。</strong></p>
+
+<pre><code>public interface ZhihuService {
+	
+	 @GET("news/latest")
+	 Observable&lt;Daily&gt; getLatest();
+	     
+}
+</code></pre>
+
+<p><strong>RxJava的使用在这里！！</strong></p>
+
+<pre><code>    ZhihuService service = retrofit.create(ZhihuService.class);
+    Observable&lt;Daily&gt; observable = service.getLatest();
+    observable.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Observer&lt;Daily&gt;() {
+        @Override
+        public void onCompleted() {
+        }
+
+        @Override
+        public void onError(Throwable e) {
+        }
+
+        @Override
+        public void onNext(Daily daily) {
+        }
+    });
+
+</code></pre>
+
+<h2 id="retrofit-converter">Retrofit Converter的使用</h2>
+<p>Converter和CallAdapter一样，也从Retrofit中分离出来，需要自己添加。官方提供了很多convertes.</p>
+
+<ul>
+  <li>gson</li>
+  <li>jackson</li>
+  <li>moshi</li>
+  <li>protobuf</li>
+  <li>scalars</li>
+  <li>simplexml</li>
+  <li>wire</li>
+</ul>
+
+<p>但是发现没有LoganSqaure，那只有自己撸了，还好在github上已经有写好的，是时候发挥我们的拿来主义的精神了，不然怎么说我们都是github的搬运工呢。</p>
+
+<pre><code>complie 'com.github.aurae.retrofit2:converter-logansquare:1.4.0'
+</code></pre>
+
+<pre><code>Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(HOST_NAME)
+                .addConverterFactory(LoganSquareConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+</code></pre>
+
+<h2 id="logansquarejson">为什么使用LoganSquare来解析JSON？</h2>
+
+<p>天下武功唯快不破！因为LoganSquare快啊！</p>
+
+<p><img src="/content/1461222338634.png" alt="image" /></p>
+
+<p>Note: Our “400% or more” performance improvement metric was determined using ART. While LoganSquare still comes out on top with Dalvik, it seems as though the comparison is much closer. The benchmarks shown are actual screenshots taken from a 2nd gen Moto X.</p>
+
+<h4 id="logansquare">添加LoganSquare</h4>
+<pre><code>buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+}
+apply plugin: 'com.neenbedankt.android-apt'
+
+dependencies {
+    apt 'com.bluelinelabs:logansquare-compiler:1.3.6'
+    compile 'com.bluelinelabs:logansquare:1.3.6'
+}
+</code></pre>
+
+<h2 id="log">打印Log</h2>
+<p>很多时候，我们希望打印Http请求的Log，这样方便调试。在老版本的Retrofit中，有个方法</p>
+
+<pre><code>new RestAdapter.Builder()
+    .setLogLevel(RestAdapter.LogLevel.FULL);
+</code></pre>
+
+<p>但是，在Retrofit2.0后，不再提供该方法了，需要依赖okhttp中的HttpLoggingInterceptor。</p>
+
+<pre><code>compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
+</code></pre>
+
+<pre><code>HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build();
+</code></pre>
+
+<pre><code>Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(HOST_NAME)
+                .client(okHttpClient)
+                .addConverterFactory(LoganSquareConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+</code></pre>
+
+<h2 id="section-2">看了这么多，源码呢？</h2>
+<p>源码当然要献上的，之前的一个开源的APP叫<a href="https://github.com/liuguangqiang/Idaily">IDaily</a>，其中的HTTP请求就是采用的Retrofit2+RxJava+LoganSquare，敢兴趣的朋友，可以看一下。</p>
+
+<p>##That’s all!
+到此就结束了, 初次写类似的文章，如有错误，望见谅！谢谢！</p>
+
+</div>
+
+
+
+<div class="related">
+  <h2>Related Posts</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3 style="display: inline;"><a href="/android/2016/02/18/%E5%B8%B8%E7%94%A8ProguardRules/">常用Proguard Rules</a></h3>
+        <small>18 Feb 2016</small>
+      </li>
+    
+      <li>
+        <h3 style="display: inline;"><a href="/android/2015/09/15/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/">Android消息机制详解</a></h3>
+        <small>15 Sep 2015</small>
+      </li>
+    
+      <li>
+        <h3 style="display: inline;"><a href="/android/2015/07/10/Glide%E4%BB%8B%E7%BB%8D/">Glide介绍</a></h3>
+        <small>10 Jul 2015</small>
+      </li>
+    
+  </ul>
+</div>
+
+    </div>
+
+  </body>
+</html>
