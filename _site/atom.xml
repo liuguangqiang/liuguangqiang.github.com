@@ -4,13 +4,200 @@
  <title>Eric</title>
  <link href="http://liuguangqiang.com/atom.xml" rel="self"/>
  <link href="http://liuguangqiang.com/"/>
- <updated>2016-04-01T14:33:54+08:00</updated>
+ <updated>2017-03-09T14:09:21+08:00</updated>
  <id>http://liuguangqiang.com</id>
  <author>
    <name>Eric</name>
    <email></email>
  </author>
 
+ 
+ <entry>
+   <title>Retrofit2+RxJava+LoganSquare最佳实践</title>
+   <link href="http://liuguangqiang.com/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
+   <updated>2016-04-21T00:00:00+08:00</updated>
+   <id>http://liuguangqiang.com/android/2016/04/21/Retrofit2+RxJava+LoganSquare最佳实践</id>
+   <content type="html">&lt;h2 id=&quot;section&quot;&gt;基本介绍&lt;/h2&gt;
+&lt;p&gt;Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。&lt;/p&gt;
+
+&lt;p&gt;现在Retrofit已经出到2.0.2版本了，与前的1.9版本相差很大，并且官方强烈推荐2.0版本，所以在此就只聊2.0以后的版本。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;马上开撸！&lt;/h2&gt;
+&lt;p&gt;首先肯定要在build.gradle中添加retrofit的依赖。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;compile &#39;com.squareup.retrofit2:retrofit:2.0.2&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;创建一个HTTP API的接口。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public interface ZhihuService {
+   
+	@GET(&quot;news/latest&quot;)
+    Call&amp;lt;Daily&amp;gt; getLatest();
+    
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;实例化ZhihuService，然后发起HTTP请求。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Retrofit retrofit = new Retrofit.Builder()
+    .baseUrl(&quot;http://news-at.zhihu.com/api/4/&quot;)
+    .build();
+ZhihuService service = retrofit.create(ZhihuService.class);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;Call&amp;lt;Daily&amp;gt; daily = service.getLatest();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;rxjava&quot;&gt;说好的RxJava呢？&lt;/h2&gt;
+
+&lt;p&gt;RxJava到底是什么？&lt;/p&gt;
+
+&lt;p&gt;Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM.&lt;/p&gt;
+
+&lt;p&gt;如果不熟悉RxJava的朋友，可以看看这篇文章，&lt;a href=&quot;http://gank.io/post/560e15be2dca930e00da1083#toc_1&quot;&gt;给 Android 开发者的 RxJava 详解&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Retrofit2.0依然是支持RxJava的，但和以前的集成在一起不同，现在是完全独立的，需要自己添加CallAdapter。这样的好处是更灵活，更解耦。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/**
+ * Add a call adapter factory for supporting service method return types other than {@link
+ * Call}.
+ */
+public Builder addCallAdapterFactory(CallAdapter.Factory factory) {
+      adapterFactories.add(checkNotNull(factory, &quot;factory == null&quot;));
+    return this;
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;rxjavacalladapter&quot;&gt;添加RxJavaCallAdapter&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;compile &#39;com.squareup.retrofit2:adapter-rxjava:2.0.2&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(HOST_NAME)
+		        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;retrofitrxjava&quot;&gt;现在Retrofit可以使用RxJava了&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;首先修改我们的API接口。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;public interface ZhihuService {
+	
+	 @GET(&quot;news/latest&quot;)
+	 Observable&amp;lt;Daily&amp;gt; getLatest();
+	     
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;RxJava的使用在这里！！&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    ZhihuService service = retrofit.create(ZhihuService.class);
+    Observable&amp;lt;Daily&amp;gt; observable = service.getLatest();
+    observable.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Observer&amp;lt;Daily&amp;gt;() {
+        @Override
+        public void onCompleted() {
+        }
+
+        @Override
+        public void onError(Throwable e) {
+        }
+
+        @Override
+        public void onNext(Daily daily) {
+        }
+    });
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;retrofit-converter&quot;&gt;Retrofit Converter的使用&lt;/h2&gt;
+&lt;p&gt;Converter和CallAdapter一样，也从Retrofit中分离出来，需要自己添加。官方提供了很多convertes.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;gson&lt;/li&gt;
+  &lt;li&gt;jackson&lt;/li&gt;
+  &lt;li&gt;moshi&lt;/li&gt;
+  &lt;li&gt;protobuf&lt;/li&gt;
+  &lt;li&gt;scalars&lt;/li&gt;
+  &lt;li&gt;simplexml&lt;/li&gt;
+  &lt;li&gt;wire&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;但是发现没有LoganSqaure，那只有自己撸了，还好在github上已经有写好的，是时候发挥我们的拿来主义的精神了，不然怎么说我们都是github的搬运工呢。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;complie &#39;com.github.aurae.retrofit2:converter-logansquare:1.4.0&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(HOST_NAME)
+                .addConverterFactory(LoganSquareConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;logansquarejson&quot;&gt;为什么使用LoganSquare来解析JSON？&lt;/h2&gt;
+
+&lt;p&gt;天下武功唯快不破！因为LoganSquare快啊！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/content/1461222338634.png&quot; alt=&quot;image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Note: Our “400% or more” performance improvement metric was determined using ART. While LoganSquare still comes out on top with Dalvik, it seems as though the comparison is much closer. The benchmarks shown are actual screenshots taken from a 2nd gen Moto X.&lt;/p&gt;
+
+&lt;h4 id=&quot;logansquare&quot;&gt;添加LoganSquare&lt;/h4&gt;
+&lt;pre&gt;&lt;code&gt;buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath &#39;com.neenbedankt.gradle.plugins:android-apt:1.8&#39;
+    }
+}
+apply plugin: &#39;com.neenbedankt.android-apt&#39;
+
+dependencies {
+    apt &#39;com.bluelinelabs:logansquare-compiler:1.3.6&#39;
+    compile &#39;com.bluelinelabs:logansquare:1.3.6&#39;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;log&quot;&gt;打印Log&lt;/h2&gt;
+&lt;p&gt;很多时候，我们希望打印Http请求的Log，这样方便调试。在老版本的Retrofit中，有个方法&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;new RestAdapter.Builder()
+    .setLogLevel(RestAdapter.LogLevel.FULL);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;但是，在Retrofit2.0后，不再提供该方法了，需要依赖okhttp中的HttpLoggingInterceptor。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;compile &#39;com.squareup.okhttp3:logging-interceptor:3.0.1&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(HOST_NAME)
+                .client(okHttpClient)
+                .addConverterFactory(LoganSquareConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;看了这么多，源码呢？&lt;/h2&gt;
+&lt;p&gt;源码当然要献上的，之前的一个开源的APP叫&lt;a href=&quot;https://github.com/liuguangqiang/Idaily&quot;&gt;IDaily&lt;/a&gt;，其中的HTTP请求就是采用的Retrofit2+RxJava+LoganSquare，敢兴趣的朋友，可以看一下。&lt;/p&gt;
+
+&lt;p&gt;##That’s all!
+到此就结束了, 初次写类似的文章，如有错误，望见谅！谢谢！&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>常用Proguard Rules</title>

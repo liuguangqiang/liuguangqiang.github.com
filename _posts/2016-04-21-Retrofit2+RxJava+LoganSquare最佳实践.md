@@ -20,26 +20,27 @@ compile 'com.squareup.retrofit2:retrofit:2.0.2'
 
 创建一个HTTP API的接口。
 
-```
+{% highlight java %} 
 public interface ZhihuService {
    
-	@GET("news/latest")
+    @GET("news/latest") 
     Call<Daily> getLatest();
     
 }
-```
+{% endhighlight %}
+
 实例化ZhihuService，然后发起HTTP请求。
 
-```
+{% highlight java %} 
 Retrofit retrofit = new Retrofit.Builder()
     .baseUrl("http://news-at.zhihu.com/api/4/")
     .build();
 ZhihuService service = retrofit.create(ZhihuService.class);
-```
+{% endhighlight %}
 
-```
+{% highlight java %} 
 Call<Daily> daily = service.getLatest();
-```
+{% endhighlight %}
 
 ## 说好的RxJava呢？
 
@@ -52,7 +53,7 @@ Reactive Extensions for the JVM – a library for composing asynchronous and eve
 
 Retrofit2.0依然是支持RxJava的，但和以前的集成在一起不同，现在是完全独立的，需要自己添加CallAdapter。这样的好处是更灵活，更解耦。
 
-```
+{% highlight java %} 
 /**
  * Add a call adapter factory for supporting service method return types other than {@link
  * Call}.
@@ -61,8 +62,7 @@ public Builder addCallAdapterFactory(CallAdapter.Factory factory) {
       adapterFactories.add(checkNotNull(factory, "factory == null"));
     return this;
 }
-
-```
+{% endhighlight %}
 
 ## 添加RxJavaCallAdapter
 
@@ -70,29 +70,29 @@ public Builder addCallAdapterFactory(CallAdapter.Factory factory) {
 compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
 ```
 
-```
+{% highlight java %} 
 Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_NAME)
 		        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-```
+{% endhighlight java %} 
 
 ## 现在Retrofit可以使用RxJava了
 
 **首先修改我们的API接口。**
 
-```
+{% highlight java %} 
 public interface ZhihuService {
 	
 	 @GET("news/latest")
 	 Observable<Daily> getLatest();
 	     
 }
-```
+{% endhighlight java %} 
 
 **RxJava的使用在这里！！**
 
-```	
+{% highlight java %} 
     ZhihuService service = retrofit.create(ZhihuService.class);
     Observable<Daily> observable = service.getLatest();
     observable.subscribeOn(Schedulers.io())
@@ -110,8 +110,7 @@ public interface ZhihuService {
         public void onNext(Daily daily) {
         }
     });
-
-```
+{% endhighlight java %} 
 
 ## Retrofit Converter的使用
 Converter和CallAdapter一样，也从Retrofit中分离出来，需要自己添加。官方提供了很多convertes.
@@ -130,13 +129,13 @@ Converter和CallAdapter一样，也从Retrofit中分离出来，需要自己添�
 complie 'com.github.aurae.retrofit2:converter-logansquare:1.4.0'
 ```
 
-```
+{% highlight java %} 
 Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_NAME)
                 .addConverterFactory(LoganSquareConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-```
+{% endhighlight java %} 
 
 ## 为什么使用LoganSquare来解析JSON？
 
@@ -167,10 +166,10 @@ dependencies {
 ## 打印Log
 很多时候，我们希望打印Http请求的Log，这样方便调试。在老版本的Retrofit中，有个方法
 
-```
+{% highlight java %} 
 new RestAdapter.Builder()
     .setLogLevel(RestAdapter.LogLevel.FULL);
-```
+{% endhighlight java %} 
 
 但是，在Retrofit2.0后，不再提供该方法了，需要依赖okhttp中的HttpLoggingInterceptor。
 
@@ -178,22 +177,22 @@ new RestAdapter.Builder()
 compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
 ```
 
-```
+{% highlight java %} 
 HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .build();
-```
+{% endhighlight java %} 
 
-```
+{% highlight java %} 
 Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(HOST_NAME)
                 .client(okHttpClient)
                 .addConverterFactory(LoganSquareConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-```
+{% endhighlight java %} 
 
 ## 看了这么多，源码呢？
 源码当然要献上的，之前的一个开源的APP叫[IDaily](https://github.com/liuguangqiang/Idaily)，其中的HTTP请求就是采用的Retrofit2+RxJava+LoganSquare，敢兴趣的朋友，可以看一下。
