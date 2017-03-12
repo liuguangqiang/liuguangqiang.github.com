@@ -12,8 +12,6 @@ Travis CI是目前最流行的持续集成构建工具，简洁清新独树一�
 ## 那些企业在使用Travis CI呢？
 这么多大厂都在使用这个平台，我们还有什么理由不用呢？
 
-![image](/content/AA8DF8B613BFD0B7B1AF69AEE8B33B66.jpg)
-
 <img src="/content/resources/AA8DF8B613BFD0B7B1AF69AEE8B33B66.jpg" width="60%">
 
 ## 那到底怎么开始呢？
