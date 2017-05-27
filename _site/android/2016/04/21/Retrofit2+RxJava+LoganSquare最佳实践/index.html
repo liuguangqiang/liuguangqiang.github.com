@@ -69,7 +69,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Eric Blog</a>
+            <a class="navbar-brand" href="/">Eric's Blog</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -79,21 +79,23 @@
                     <li>
                         <a href="/">Home</a>
                     </li>
-                    
-                    <li>
-                        <a href="/about/">About</a>
+                     <li>
+                        <a href="/about">About</a>
+                    </li>
+                     <li>
+                        <a href="/tags">TAGS</a>
                     </li>
                     
                     <li>
-                        <a href="/portfolio/">Portfolio</a>
+                        <!--<a href="/about/">About</a>-->
                     </li>
                     
                     <li>
-                        <a href="/"></a>
+                        <!--<a href="/"></a>-->
                     </li>
                     
                     <li>
-                        <a href="/tags/">Tags</a>
+                        <!--<a href="/tags/"></a>-->
                     </li>
                     
                 </ul>
@@ -186,7 +188,7 @@
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Eric Blog on April 21, 2016</span>
+                    <span class="meta">Posted by Eric on April 21, 2016</span>
                 </div>
             </div>
         </div>
@@ -466,6 +468,20 @@ Retrofit是Square的一个非常知名的开源的网络请求库，并且是由
 
     <!-- Side Catalog Container -->
         
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
 
     <!-- Sidebar Container -->
             <div class="
@@ -604,7 +620,7 @@ Retrofit是Square的一个非常知名的开源的网络请求库，并且是由
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; Eric Blog 2017
+                    Copyright &copy; Eric's Blog 2017
                     <br>
                     Theme by <a href="http://huangxuan.me">Hux</a> | Powered by Jekyll
                 </p>
@@ -701,6 +717,50 @@ Retrofit是Square的一个非常知名的开源的网络请求库，并且是由
 
 
 <!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
 
 
 

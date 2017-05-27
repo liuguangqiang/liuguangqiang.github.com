@@ -1,9 +1,12 @@
 ---
 layout : post 
 category : Android
-tags : [Android]
 desc : Retrofit2+RxJava+LoganSquare最佳实践
 title : Retrofit2+RxJava+LoganSquare最佳实践
+author : "Eric"
+catalog:    true
+tags:
+    - Android
 ---
 
 ## 基本介绍
