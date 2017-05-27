@@ -1,146 +1,210 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<html lang="en">
 
-  <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-
-  <!-- Enable responsiveness on mobile devices-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-
-  <title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Don't reinvent wheel. But you have to learn how to create.">
+    <meta name="keywords"  content="android, java, nodejs, kotlin, iOS, swift, Eric, blog">
+    <meta name="theme-color" content="#000000">
     
-      Retrofit2+RxJava+LoganSquare最佳实践 &middot; Eric
+    <title>Retrofit2+RxJava+LoganSquare最佳实践 - Eric的博客</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
     
-  </title>
-  
-  
-  
-  <meta name="twitter:site" content="@EricLGQ">
-  <meta property="og:type" content="article">
-  
-  
-  <meta name="twitter:card" content="summary">
-  
-  
-  
-  <meta property="og:title" content="Retrofit2+RxJava+LoganSquare最佳实践">
-  <meta property="twitter:title" content="Retrofit2+RxJava+LoganSquare最佳实践">
-  
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://liuguangqiang.com/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
 
-  
-  <meta name="twitter:description" content="基本介绍
-Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
-">
-  <meta property="og:description" content="基本介绍
-Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.css">
 
-">
-  <meta name="description" content="基本介绍
-Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
 
-">
-  
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-  <meta name="theme-color" content="#00796B">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/site.css">
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700|Fjalla+One">
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
 
-  <!-- Icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/content/apple-touch-icon-144x144.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/content/apple-touch-icon-152x152.png" />
-  <link rel="icon" type="image/png" href="/content/favicon-196x196.png" sizes="196x196" />
-  <link rel="icon" type="image/png" href="/content/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="/content/favicon-16x16.png" sizes="16x16" />
-  <meta name="application-name" content="Chris Banes"/>
-  <meta name="msapplication-TileColor" content="#00796B" />
-  <meta name="msapplication-TileImage" content="/content/mstile-144x144.png" />
 
-  <!-- RSS -->
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
-  
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
 </head>
 
 
-  <body class="theme-base-black">
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
 
-    <div class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-        
-      <a href="/" title="Link to homepage for Eric"><img src="/content/images/me.png" width="200" alt="Eric logo" class="panel-cover__logo logo" /></a>
-        
-      <h1>
-        <a href="/">
-          Eric
-        </a>
-      </h1>
-      <p class="lead">Don't reinvent wheel. But you have to learn how to create.</p>
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Eric Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/portfolio/">Portfolio</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/"></a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
 
-    <nav class="sidebar-nav">
-      <a class="sidebar-nav-item" href="/">Home</a>
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
 
-      
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
 
-      
-      
-        
-      
-        
-      
-        
-      
-        
-      
-      
-    </nav>
-      
-  <nav class="sidebar-social">
-  <ul class="navigation">
-
-  <!-- GitHub -->
-  <li class="social-item github">
-    <a href="http://github.com/liuguangqiang" title="@Eric on GitHub" target="_blank">
-      <i class='icon fi-social-github'></i>
-      <span class="label">GitHub</span>
-    </a>
-  </li>
-
-  <!-- Twitter -->
-  <li class="social-item twitter">
-    <a href="http://twitter.com/@EricLGQ" title="@EricLGQ on Twitter" target="_blank">
-      <i class='icon fi-social-twitter'></i>
-      <span class="label">Twitter</span>
-    </a>
-  </li>
-
-    <!-- LinkedIn -->
-    <li class="social-item linkedin">
-      <a href="https://www.linkedin.com/in/liuguangqiang" title="@Eric on LinkedIn" target="_blank">
-        <i class='icon fi-social-linkedin'></i>
-        <span class="label">LinkedIn</span>
-      </a>
-    </li>
-
-  </ul>
-  </nav>
-      
-  </div>
-</div>
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
 
 
-    <div class="content container">
-      <div class="post">
-  <h1 class="post-title">Retrofit2+RxJava+LoganSquare最佳实践</h1>
-  <span class="post-date">21 Apr 2016</span>
-  
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/home-bg.jpg" width="0" height="0"> -->
 
-  <h2 id="section">基本介绍</h2>
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/home-bg.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                    </div>
+                    <h1>Retrofit2+RxJava+LoganSquare最佳实践</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by Eric Blog on April 21, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h2 id="section">基本介绍</h2>
 <p>Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。</p>
 
 <p>现在Retrofit已经出到2.0.2版本了，与前的1.9版本相差很大，并且官方强烈推荐2.0版本，所以在此就只聊2.0以后的版本。</p>
@@ -148,16 +212,17 @@ Retrofit是Square的一个非常知名的开源的网络请求库，并且是由
 <h2 id="section-1">马上开撸！</h2>
 <p>首先肯定要在build.gradle中添加retrofit的依赖。</p>
 
-<pre><code>compile 'com.squareup.retrofit2:retrofit:2.0.2'
+<div class="highlighter-rouge"><pre class="highlight"><code>compile 'com.squareup.retrofit2:retrofit:2.0.2'
 </code></pre>
+</div>
 
 <p>创建一个HTTP API的接口。</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ZhihuService</span> <span class="o">{</span>
    
-    <span class="nd">@GET</span><span class="o">(</span><span class="s">&quot;news/latest&quot;</span><span class="o">)</span> 
-    <span class="n">Call</span><span class="o">&lt;</span><span class="n">Daily</span><span class="o">&gt;</span> <span class="nf">getLatest</span><span class="o">();</span>
+    <span class="nd">@GET</span><span class="o">(</span><span class="s">"news/latest"</span><span class="o">)</span> 
+    <span class="n">Call</span><span class="o">&lt;</span><span class="n">Daily</span><span class="o">&gt;</span> <span class="n">getLatest</span><span class="o">();</span>
     
 <span class="o">}</span></code></pre></figure>
 
@@ -165,7 +230,7 @@ Retrofit是Square的一个非常知名的开源的网络请求库，并且是由
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
 <span class="n">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="s">&quot;http://news-at.zhihu.com/api/4/&quot;</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="s">"http://news-at.zhihu.com/api/4/"</span><span class="o">)</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 <span class="n">ZhihuService</span> <span class="n">service</span> <span class="o">=</span> <span class="n">retrofit</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">ZhihuService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span></code></pre></figure>
 
@@ -183,19 +248,20 @@ Retrofit是Square的一个非常知名的开源的网络请求库，并且是由
 <p>Retrofit2.0依然是支持RxJava的，但和以前的集成在一起不同，现在是完全独立的，需要自己添加CallAdapter。这样的好处是更灵活，更解耦。</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
-<span class="cm">/**</span>
-<span class="cm"> * Add a call adapter factory for supporting service method return types other than {@link</span>
-<span class="cm"> * Call}.</span>
-<span class="cm"> */</span>
-<span class="kd">public</span> <span class="n">Builder</span> <span class="nf">addCallAdapterFactory</span><span class="o">(</span><span class="n">CallAdapter</span><span class="o">.</span><span class="na">Factory</span> <span class="n">factory</span><span class="o">)</span> <span class="o">{</span>
-      <span class="n">adapterFactories</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">checkNotNull</span><span class="o">(</span><span class="n">factory</span><span class="o">,</span> <span class="s">&quot;factory == null&quot;</span><span class="o">));</span>
+<span class="cm">/**
+ * Add a call adapter factory for supporting service method return types other than {@link
+ * Call}.
+ */</span>
+<span class="kd">public</span> <span class="n">Builder</span> <span class="nf">addCallAdapterFactory</span><span class="p">(</span><span class="n">CallAdapter</span><span class="o">.</span><span class="na">Factory</span> <span class="n">factory</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">adapterFactories</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">checkNotNull</span><span class="o">(</span><span class="n">factory</span><span class="o">,</span> <span class="s">"factory == null"</span><span class="o">));</span>
     <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
 <span class="o">}</span></code></pre></figure>
 
 <h2 id="rxjavacalladapter">添加RxJavaCallAdapter</h2>
 
-<pre><code>compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+<div class="highlighter-rouge"><pre class="highlight"><code>compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
 </code></pre>
+</div>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
 <span class="n">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
@@ -210,8 +276,8 @@ Retrofit是Square的一个非常知名的开源的网络请求库，并且是由
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ZhihuService</span> <span class="o">{</span>
 	
-	 <span class="nd">@GET</span><span class="o">(</span><span class="s">&quot;news/latest&quot;</span><span class="o">)</span>
-	 <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Daily</span><span class="o">&gt;</span> <span class="nf">getLatest</span><span class="o">();</span>
+	 <span class="nd">@GET</span><span class="o">(</span><span class="s">"news/latest"</span><span class="o">)</span>
+	 <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Daily</span><span class="o">&gt;</span> <span class="n">getLatest</span><span class="o">();</span>
 	     
 <span class="o">}</span></code></pre></figure>
 
@@ -224,15 +290,15 @@ Retrofit是Square的一个非常知名的开源的网络请求库，并且是由
             <span class="o">.</span><span class="na">observeOn</span><span class="o">(</span><span class="n">AndroidSchedulers</span><span class="o">.</span><span class="na">mainThread</span><span class="o">())</span>
             <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">Observer</span><span class="o">&lt;</span><span class="n">Daily</span><span class="o">&gt;()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCompleted</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="n">onCompleted</span><span class="o">()</span> <span class="o">{</span>
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="n">onError</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNext</span><span class="o">(</span><span class="n">Daily</span> <span class="n">daily</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="n">onNext</span><span class="o">(</span><span class="n">Daily</span> <span class="n">daily</span><span class="o">)</span> <span class="o">{</span>
         <span class="o">}</span>
     <span class="o">});</span></code></pre></figure>
 
@@ -251,8 +317,9 @@ Retrofit是Square的一个非常知名的开源的网络请求库，并且是由
 
 <p>但是发现没有LoganSqaure，那只有自己撸了，还好在github上已经有写好的，是时候发挥我们的拿来主义的精神了，不然怎么说我们都是github的搬运工呢。</p>
 
-<pre><code>complie 'com.github.aurae.retrofit2:converter-logansquare:1.4.0'
+<div class="highlighter-rouge"><pre class="highlight"><code>complie 'com.github.aurae.retrofit2:converter-logansquare:1.4.0'
 </code></pre>
+</div>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
 <span class="n">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
@@ -265,12 +332,12 @@ Retrofit是Square的一个非常知名的开源的网络请求库，并且是由
 
 <p>天下武功唯快不破！因为LoganSquare快啊！</p>
 
-<p><img src="/content/1461222338634.png" alt="image" /></p>
+<p><img src="/img/1461222338634.png" alt="image" /></p>
 
 <p>Note: Our “400% or more” performance improvement metric was determined using ART. While LoganSquare still comes out on top with Dalvik, it seems as though the comparison is much closer. The benchmarks shown are actual screenshots taken from a 2nd gen Moto X.</p>
 
 <h4 id="logansquare">添加LoganSquare</h4>
-<pre><code>buildscript {
+<div class="highlighter-rouge"><pre class="highlight"><code>buildscript {
     repositories {
         jcenter()
     }
@@ -285,6 +352,7 @@ dependencies {
     compile 'com.bluelinelabs:logansquare:1.3.6'
 }
 </code></pre>
+</div>
 
 <h2 id="log">打印Log</h2>
 <p>很多时候，我们希望打印Http请求的Log，这样方便调试。在老版本的Retrofit中，有个方法</p>
@@ -295,11 +363,12 @@ dependencies {
 
 <p>但是，在Retrofit2.0后，不再提供该方法了，需要依赖okhttp中的HttpLoggingInterceptor。</p>
 
-<pre><code>compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
+<div class="highlighter-rouge"><pre class="highlight"><code>compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
 </code></pre>
+</div>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
-<span class="n">HttpLoggingInterceptor</span> <span class="n">interceptor</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">HttpLoggingInterceptor</span><span class="o">();</span>
+<span class="n">HttpLoggingInterceptor</span> <span class="n">interceptor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpLoggingInterceptor</span><span class="o">();</span>
         <span class="n">interceptor</span><span class="o">.</span><span class="na">setLevel</span><span class="o">(</span><span class="n">HttpLoggingInterceptor</span><span class="o">.</span><span class="na">Level</span><span class="o">.</span><span class="na">HEADERS</span><span class="o">);</span>
         <span class="n">OkHttpClient</span> <span class="n">okHttpClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OkHttpClient</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
                 <span class="o">.</span><span class="na">addInterceptor</span><span class="o">(</span><span class="n">interceptor</span><span class="o">)</span>
@@ -319,33 +388,328 @@ dependencies {
 <p>##That’s all!
 到此就结束了, 初次写类似的文章，如有错误，望见谅！谢谢！</p>
 
-</div>
+
+                <hr style="visibility: hidden;">
+
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                    style="text-align: right"
+                    data-thread-key="/android/2016/04/21/Retrofit2+RxJava+LoganSquare最佳实践"
+                    data-title="Retrofit2+RxJava+LoganSquare最佳实践"
+                    data-url="http://liuguangqiang.com/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"
+                    data-images="http://liuguangqiang.com/img/home-bg.jpg"
+                    data-content="基本介绍
+Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。
+
+现在Retrofi... | Eric的博客 " >
+                    <div class="ds-share-inline">
+                      <style> 
+                        .ds-share-icons-16 {display:none;} 
+                      </style>
+                      <ul class="ds-share-icons-16">
+                        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                        <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                        <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                        <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                      </ul>
+                      <div class="ds-share-icons-more">
+                      </div>
+                    </div>
+                <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
 
 
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/android/2016/02/18/%E5%B8%B8%E7%94%A8ProguardRules/" data-toggle="tooltip" data-placement="top" title="常用Proguard Rules">
+                        Previous<br>
+                        <span>常用Proguard Rules</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/android/2017/03/12/%E4%BB%A5Android%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%E4%BA%86%E8%A7%A3TravisCI%E7%9A%84%E4%BD%BF%E7%94%A8/" data-toggle="tooltip" data-placement="top" title="以Android项目为例了解Travis CI的使用">
+                        Next<br>
+                        <span>以Android项目为例了解Travis CI的使用</span>
+                        </a>
+                    </li>
+                    
+                </ul>
 
-<div class="related">
-  <h2>Related Posts</h2>
-  <ul class="related-posts">
-    
-      <li>
-        <h3 style="display: inline;"><a href="/android/2016/02/18/%E5%B8%B8%E7%94%A8ProguardRules/">常用Proguard Rules</a></h3>
-        <small>18 Feb 2016</small>
-      </li>
-    
-      <li>
-        <h3 style="display: inline;"><a href="/android/2015/09/15/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/">Android消息机制详解</a></h3>
-        <small>15 Sep 2015</small>
-      </li>
-    
-      <li>
-        <h3 style="display: inline;"><a href="/android/2015/07/10/Glide%E4%BB%8B%E7%BB%8D/">Glide介绍</a></h3>
-        <small>10 Jul 2015</small>
-      </li>
-    
-  </ul>
-</div>
 
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="/android/2016/04/21/Retrofit2+RxJava+LoganSquare最佳实践"
+                        data-title="Retrofit2+RxJava+LoganSquare最佳实践"
+                        data-url="http://liuguangqiang.com/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#Android" title="Android" rel="4">
+                                    Android
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+                
+            </div>
+        </div>
     </div>
+</article>
 
-  </body>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<!--<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'Eric';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>-->
+<!-- 多说公共JS代码 end -->
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "EricLiu";
+    var disqus_identifier = "/android/2016/04/21/Retrofit2+RxJava+LoganSquare最佳实践";
+    var disqus_url = "http://liuguangqiang.com/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/liuguangqiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liuguangqiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/liuguangqiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Eric Blog 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> | Powered by Jekyll
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
 </html>

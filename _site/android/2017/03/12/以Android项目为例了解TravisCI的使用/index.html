@@ -1,163 +1,227 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<html lang="en">
 
-  <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-
-  <!-- Enable responsiveness on mobile devices-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-
-  <title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Don't reinvent wheel. But you have to learn how to create.">
+    <meta name="keywords"  content="android, java, nodejs, kotlin, iOS, swift, Eric, blog">
+    <meta name="theme-color" content="#000000">
     
-      以Android项目为例了解Travis CI的使用 &middot; Eric
+    <title>以Android项目为例了解Travis CI的使用 - Eric的博客</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
     
-  </title>
-  
-  
-  
-  <meta name="twitter:site" content="@EricLGQ">
-  <meta property="og:type" content="article">
-  
-  
-  <meta name="twitter:card" content="summary">
-  
-  
-  
-  <meta property="og:title" content="以Android项目为例了解Travis CI的使用">
-  <meta property="twitter:title" content="以Android项目为例了解Travis CI的使用">
-  
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://liuguangqiang.com/android/2017/03/12/%E4%BB%A5Android%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%E4%BA%86%E8%A7%A3TravisCI%E7%9A%84%E4%BD%BF%E7%94%A8/">
 
-  
-  <meta name="twitter:description" content="什么是Travis CI？
-Travis CI是目前最流行的持续集成构建工具，简洁清新独树一帜，目前github上的很多开源项目都在使用Travis CI作为持续集成构建环境。
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
-">
-  <meta property="og:description" content="什么是Travis CI？
-Travis CI是目前最流行的持续集成构建工具，简洁清新独树一帜，目前github上的很多开源项目都在使用Travis CI作为持续集成构建环境。
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.css">
 
-">
-  <meta name="description" content="什么是Travis CI？
-Travis CI是目前最流行的持续集成构建工具，简洁清新独树一帜，目前github上的很多开源项目都在使用Travis CI作为持续集成构建环境。
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
 
-">
-  
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-  <meta name="theme-color" content="#00796B">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/site.css">
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700|Fjalla+One">
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
 
-  <!-- Icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/content/apple-touch-icon-144x144.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/content/apple-touch-icon-152x152.png" />
-  <link rel="icon" type="image/png" href="/content/favicon-196x196.png" sizes="196x196" />
-  <link rel="icon" type="image/png" href="/content/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="/content/favicon-16x16.png" sizes="16x16" />
-  <meta name="application-name" content="Chris Banes"/>
-  <meta name="msapplication-TileColor" content="#00796B" />
-  <meta name="msapplication-TileImage" content="/content/mstile-144x144.png" />
 
-  <!-- RSS -->
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
-  
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
 </head>
 
 
-  <body class="theme-base-black">
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
 
-    <div class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-        
-      <a href="/" title="Link to homepage for Eric"><img src="/content/images/me.png" width="200" alt="Eric logo" class="panel-cover__logo logo" /></a>
-        
-      <h1>
-        <a href="/">
-          Eric
-        </a>
-      </h1>
-      <p class="lead">Don't reinvent wheel. But you have to learn how to create.</p>
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Eric Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/portfolio/">Portfolio</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/"></a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
 
-    <nav class="sidebar-nav">
-      <a class="sidebar-nav-item" href="/">Home</a>
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
 
-      
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
 
-      
-      
-        
-      
-        
-      
-        
-      
-        
-      
-      
-    </nav>
-      
-  <nav class="sidebar-social">
-  <ul class="navigation">
-
-  <!-- GitHub -->
-  <li class="social-item github">
-    <a href="http://github.com/liuguangqiang" title="@Eric on GitHub" target="_blank">
-      <i class='icon fi-social-github'></i>
-      <span class="label">GitHub</span>
-    </a>
-  </li>
-
-  <!-- Twitter -->
-  <li class="social-item twitter">
-    <a href="http://twitter.com/@EricLGQ" title="@EricLGQ on Twitter" target="_blank">
-      <i class='icon fi-social-twitter'></i>
-      <span class="label">Twitter</span>
-    </a>
-  </li>
-
-    <!-- LinkedIn -->
-    <li class="social-item linkedin">
-      <a href="https://www.linkedin.com/in/liuguangqiang" title="@Eric on LinkedIn" target="_blank">
-        <i class='icon fi-social-linkedin'></i>
-        <span class="label">LinkedIn</span>
-      </a>
-    </li>
-
-  </ul>
-  </nav>
-      
-  </div>
-</div>
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
 
 
-    <div class="content container">
-      <div class="post">
-  <h1 class="post-title">以Android项目为例了解Travis CI的使用</h1>
-  <span class="post-date">12 Mar 2017</span>
-  
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/home-bg.jpg" width="0" height="0"> -->
 
-  <h2 id="travis-ci">什么是Travis CI？</h2>
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/home-bg.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                    </div>
+                    <h1>以Android项目为例了解Travis CI的使用</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by Eric Blog on March 12, 2017</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h2 id="travis-ci">什么是Travis CI？</h2>
 <p>Travis CI是目前最流行的持续集成构建工具，简洁清新独树一帜，目前github上的很多开源项目都在使用Travis CI作为持续集成构建环境。</p>
 
 <h2 id="travis-ci-1">那些企业在使用Travis CI呢？</h2>
 <p>这么多大厂都在使用这个平台，我们还有什么理由不用呢？</p>
 
-<p><img src="/content/resources/AA8DF8B613BFD0B7B1AF69AEE8B33B66.jpg" width="60%" /></p>
+<p><img src="/img/resources/AA8DF8B613BFD0B7B1AF69AEE8B33B66.jpg" width="60%" /></p>
 
 <h2 id="section">那到底怎么开始呢？</h2>
 <p>如果你已经有了github账号的话，就非常简单了，当然这里我假设你已经有github账号。</p>
 
 <p>打开Travis CI的网站，一个大大的按钮如图所示，Sign in with Github!
-<a href="https://travis-ci.org/"><img src="/content/resources/780B179AE4ABB48EF773C897AB0B376D.png" width="40%" /></a></p>
+<a href="https://travis-ci.org/"><img src="/img/resources/780B179AE4ABB48EF773C897AB0B376D.png" width="40%" /></a></p>
 
 <p>登录成功，完成同步后，选择一个需要做持续集成的项目</p>
 
-<p><img src="/content/resources/62BF35AE3DCECEDCF1262595FD8E7401.jpg" width="80%" />
-<img src="/content/resources/41BFDE4654F69FEDD4F9C449E7CA0E6A.jpg" width="80%" /></p>
+<p><img src="/img/resources/62BF35AE3DCECEDCF1262595FD8E7401.jpg" width="80%" />
+<img src="/img/resources/41BFDE4654F69FEDD4F9C449E7CA0E6A.jpg" width="80%" /></p>
 
 <p>到这里，准备工作就做完了，是不是很方便！</p>
 
@@ -166,11 +230,11 @@ Travis CI是目前最流行的持续集成构建工具，简洁清新独树一�
 <h3 id="travisxml">第一步，创建.travis.xml配置文件</h3>
 <p>这个文件需要放到项目的根目录下。</p>
 
-<p><img src="/content/resources/5B45C0E9215FD0B7CC2A3ABAAAD0CD56.jpg" width="40%" /></p>
+<p><img src="/img/resources/5B45C0E9215FD0B7CC2A3ABAAAD0CD56.jpg" width="40%" /></p>
 
 <h3 id="section-1">第二步，简单的配置是必须的</h3>
 <p>首先是配置环境的环境
-<code>
+<code class="highlighter-rouge">
 language: android
 jdk: oraclejdk8
 </code></p>
@@ -183,7 +247,7 @@ android:
     - platform-tools
     - tools</p>
 
-<pre><code># The BuildTools version used by your project
+<div class="highlighter-rouge"><pre class="highlight"><code># The BuildTools version used by your project
 - build-tools-25.0.2
 
 # The SDK version used to compile your project
@@ -192,15 +256,16 @@ android:
 # Additional components
 - extra-android-m2repository ```
 </code></pre>
+</div>
 
 <p>最后加上需要执行的脚本，这里只需要build通过就可以了，如果还需要测试或者发布，就需要执行其他的脚本了。
-<code>
+<code class="highlighter-rouge">
 script: ./gradlew build
 </code></p>
 
 <p>OK！到此就配置完了，让我们再回顾一下完整的配置文件（靠！就只有TMD几行代码，还需要回顾？你逗我？）</p>
 
-<p><img src="/content/resources/2C8CA9284FC60435EE9CE74F51C19488.jpg" width="40%" /></p>
+<p><img src="/img/resources/2C8CA9284FC60435EE9CE74F51C19488.jpg" width="40%" /></p>
 
 <p>(为什么要回顾呢？这就不懂了吧，知识点！知识点！要凑字数啊！)</p>
 
@@ -208,13 +273,13 @@ script: ./gradlew build
 <p>当然，不测试怎么行呢，随便写点commit，push到master分支就可以了，其他的都交给Travis CI自己玩儿！</p>
 
 <p>push成功后，回到Travis CI，发现刚才的项目已经开始构建了，拼命的转菊花！
-<img src="/content/resources/E1DB545152C5B7E875F3F9973DF11113.jpg" alt="7C462529-C69C-4E5F-A608-95AABDB6E95C.png" />
+<img src="/img/resources/E1DB545152C5B7E875F3F9973DF11113.jpg" alt="7C462529-C69C-4E5F-A608-95AABDB6E95C.png" />
 在无聊的等待过程中，我们能做什么呢？闭上眼睛，默默的祈祷，千万别失败！千万别失败！</p>
 
-<p><img src="/content/resources/A5DCF9B3AD295B6C7AD50031EAC2200F.jpg" width="30%" /></p>
+<p><img src="/img/resources/A5DCF9B3AD295B6C7AD50031EAC2200F.jpg" width="30%" /></p>
 
 <p>靠！等了许久，终于构建成功了！（汗，还好没有整段垮掉！）
-<img src="/content/resources/4F24F6A4DBAB58D464F2F19F2AA2FECD.jpg" alt="500D2B92-2C8B-4325-A7F6-57245C2589D9.png" />
+<img src="/img/resources/4F24F6A4DBAB58D464F2F19F2AA2FECD.jpg" alt="500D2B92-2C8B-4325-A7F6-57245C2589D9.png" />
 <img src="/content/resources/FD559B1535F0F7E7B8C5CB90D7185537.jpg" width="30%" />
 （细心的人，或许看出来了，第一次其实失败了，build.gradle中少了lintOptions {abortOnError false}，不过和今天的主题没有关系，就忽略吧，上面成功的截图，是第二次构建了）</p>
 
@@ -223,35 +288,36 @@ script: ./gradlew build
 
 <p>修改根目录中的build.gradle, 加上fir需要的依赖</p>
 
-<p><img src="/content/resources/40B546E098BEA3097DE4527995541F39.jpg" width="60%" /></p>
+<p><img src="/img/resources/40B546E098BEA3097DE4527995541F39.jpg" width="60%" /></p>
 
 <p>配置需要打包的项目中的build.gradle
 引入插件
-<code>
+<code class="highlighter-rouge">
 apply plugin:'im.fir.plugin.gradle'
 </code>
 配置fir
-<code>
+<code class="highlighter-rouge">
  fir{
         apiToken '填上fir上的apiToken'
         changeLog '更新日志'
     }
 </code>
-<img src="/content/resources/A8EAF3FDA9AE470D11B00908149804CE.png" width="60%" /></p>
+<img src="/img/resources/A8EAF3FDA9AE470D11B00908149804CE.png" width="60%" /></p>
 
 <p>再修改.travis.xml中, 把gradlew build修改为publishApkRelease</p>
 
-<pre><code>script: ./gradlew publishApkRelease
+<div class="highlighter-rouge"><pre class="highlight"><code>script: ./gradlew publishApkRelease
 </code></pre>
-<p><img src="/content/resources/1BC28E83E06DEAAEB19F158D52893105.png" width="60%" /></p>
+</div>
+<p><img src="/img/resources/1BC28E83E06DEAAEB19F158D52893105.png" width="60%" /></p>
 
 <p>再次提交代码之后，就会自动打包并上传到Fir.im了</p>
 
-<p><img src="/content/resources/9593064554C53E6C0E618E3B3B660C21.jpg" width="40%" /></p>
+<p><img src="/img/resources/9593064554C53E6C0E618E3B3B660C21.jpg" width="40%" /></p>
 
 <p>打包上传就算完了，但仅仅这样肯定不行了，因为我们的APK还没有签名，再配置好签名就OK了！</p>
 
-<p><img src="/content/resources/972287ED80AF4CD251056EE4D9BEC693.jpg" width="60%" />
+<p><img src="/img/resources/972287ED80AF4CD251056EE4D9BEC693.jpg" width="60%" />
 #### 到目前为止，就完成了自动打包且签名，然后再上传到fir.im的整个流程了！</p>
 
 <h2 id="section-3">完结</h2>
@@ -264,33 +330,319 @@ apply plugin:'im.fir.plugin.gradle'
   <li><a href="http://blog.fir.im/gradle/">http://blog.fir.im/gradle/</a></li>
 </ul>
 
-</div>
+
+                <hr style="visibility: hidden;">
+
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                    style="text-align: right"
+                    data-thread-key="/android/2017/03/12/以Android项目为例了解TravisCI的使用"
+                    data-title="以Android项目为例了解Travis CI的使用"
+                    data-url="http://liuguangqiang.com/android/2017/03/12/%E4%BB%A5Android%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%E4%BA%86%E8%A7%A3TravisCI%E7%9A%84%E4%BD%BF%E7%94%A8/"
+                    data-images="http://liuguangqiang.com/img/home-bg.jpg"
+                    data-content="什么是Travis CI？
+Travis CI是目前最流行的持续集成构建工具，简洁清新独树一帜，目前github上的很多开源项目都在使用Travis CI... | Eric的博客 " >
+                    <div class="ds-share-inline">
+                      <style> 
+                        .ds-share-icons-16 {display:none;} 
+                      </style>
+                      <ul class="ds-share-icons-16">
+                        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                        <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                        <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                        <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                      </ul>
+                      <div class="ds-share-icons-more">
+                      </div>
+                    </div>
+                <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
 
 
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" data-toggle="tooltip" data-placement="top" title="Retrofit2+RxJava+LoganSquare最佳实践">
+                        Previous<br>
+                        <span>Retrofit2+RxJava+LoganSquare最佳实践</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
 
-<div class="related">
-  <h2>Related Posts</h2>
-  <ul class="related-posts">
-    
-      <li>
-        <h3 style="display: inline;"><a href="/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">Retrofit2+RxJava+LoganSquare最佳实践</a></h3>
-        <small>21 Apr 2016</small>
-      </li>
-    
-      <li>
-        <h3 style="display: inline;"><a href="/android/2016/02/18/%E5%B8%B8%E7%94%A8ProguardRules/">常用Proguard Rules</a></h3>
-        <small>18 Feb 2016</small>
-      </li>
-    
-      <li>
-        <h3 style="display: inline;"><a href="/android/2015/09/15/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/">Android消息机制详解</a></h3>
-        <small>15 Sep 2015</small>
-      </li>
-    
-  </ul>
-</div>
 
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="/android/2017/03/12/以Android项目为例了解TravisCI的使用"
+                        data-title="以Android项目为例了解Travis CI的使用"
+                        data-url="http://liuguangqiang.com/android/2017/03/12/%E4%BB%A5Android%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%E4%BA%86%E8%A7%A3TravisCI%E7%9A%84%E4%BD%BF%E7%94%A8/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#Android" title="Android" rel="4">
+                                    Android
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+                
+            </div>
+        </div>
     </div>
+</article>
 
-  </body>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<!--<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'Eric';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>-->
+<!-- 多说公共JS代码 end -->
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "EricLiu";
+    var disqus_identifier = "/android/2017/03/12/以Android项目为例了解TravisCI的使用";
+    var disqus_url = "http://liuguangqiang.com/android/2017/03/12/%E4%BB%A5Android%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%E4%BA%86%E8%A7%A3TravisCI%E7%9A%84%E4%BD%BF%E7%94%A8/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/liuguangqiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liuguangqiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/liuguangqiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Eric Blog 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> | Powered by Jekyll
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
 </html>

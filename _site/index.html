@@ -1,245 +1,545 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<html lang="en">
 
-  <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-
-  <!-- Enable responsiveness on mobile devices-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-
-  <title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Don't reinvent wheel. But you have to learn how to create.">
+    <meta name="keywords"  content="android, java, nodejs, kotlin, iOS, swift, Eric, blog">
+    <meta name="theme-color" content="#000000">
     
-      Eric
+    <title> - Eric的博客</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
     
-  </title>
-  
-  
-  
-  <meta name="twitter:site" content="@EricLGQ">
-  <meta property="og:type" content="article">
-  
-  
-  <meta name="twitter:card" content="summary">
-  
-  
-  
-  <meta property="og:title" content="Eric">
-  <meta property="twitter:title" content="Eric">
-  
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://liuguangqiang.com/">
 
-  
-  <meta name="twitter:description" content="Don't reinvent wheel. But you have to learn how to create.">
-  <meta property="og:description" content="Don't reinvent wheel. But you have to learn how to create.">
-  <meta property="description" content="Don't reinvent wheel. But you have to learn how to create.">
-  
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
-  <meta name="theme-color" content="#00796B">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.css">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/site.css">
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700|Fjalla+One">
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
 
-  <!-- Icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/content/apple-touch-icon-144x144.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/content/apple-touch-icon-152x152.png" />
-  <link rel="icon" type="image/png" href="/content/favicon-196x196.png" sizes="196x196" />
-  <link rel="icon" type="image/png" href="/content/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="/content/favicon-16x16.png" sizes="16x16" />
-  <meta name="application-name" content="Chris Banes"/>
-  <meta name="msapplication-TileColor" content="#00796B" />
-  <meta name="msapplication-TileImage" content="/content/mstile-144x144.png" />
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-  <!-- RSS -->
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
-  
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
 </head>
 
 
-  <body class="theme-base-black">
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
 
-    <div class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-        
-      <a href="/" title="Link to homepage for Eric"><img src="/content/images/me.png" width="200" alt="Eric logo" class="panel-cover__logo logo" /></a>
-        
-      <h1>
-        <a href="/">
-          Eric
-        </a>
-      </h1>
-      <p class="lead">Don't reinvent wheel. But you have to learn how to create.</p>
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Eric Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/portfolio/">Portfolio</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/"></a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
 
-    <nav class="sidebar-nav">
-      <a class="sidebar-nav-item active" href="/">Home</a>
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
 
-      
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
 
-      
-      
-        
-      
-        
-      
-        
-      
-        
-      
-      
-    </nav>
-      
-  <nav class="sidebar-social">
-  <ul class="navigation">
-
-  <!-- GitHub -->
-  <li class="social-item github">
-    <a href="http://github.com/liuguangqiang" title="@Eric on GitHub" target="_blank">
-      <i class='icon fi-social-github'></i>
-      <span class="label">GitHub</span>
-    </a>
-  </li>
-
-  <!-- Twitter -->
-  <li class="social-item twitter">
-    <a href="http://twitter.com/@EricLGQ" title="@EricLGQ on Twitter" target="_blank">
-      <i class='icon fi-social-twitter'></i>
-      <span class="label">Twitter</span>
-    </a>
-  </li>
-
-    <!-- LinkedIn -->
-    <li class="social-item linkedin">
-      <a href="https://www.linkedin.com/in/liuguangqiang" title="@Eric on LinkedIn" target="_blank">
-        <i class='icon fi-social-linkedin'></i>
-        <span class="label">LinkedIn</span>
-      </a>
-    </li>
-
-  </ul>
-  </nav>
-      
-  </div>
-</div>
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
 
 
-    <div class="content container">
-      <div class="posts">
-  
-  <div class="post">
-      
-    
-    <h1 class="post-title">
-      <a href="/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
-        Retrofit2+RxJava+LoganSquare最佳实践
-      </a>
-    </h1>
-      
-
-    <span class="post-date">21 Apr 2016</span>
-    
-      
-
-    
-         Retrofit2+RxJava+LoganSquare最佳实践
-    
-
-  </div>
-  
-  <div class="post">
-      
-    
-    <h1 class="post-title">
-      <a href="/android/2016/02/18/%E5%B8%B8%E7%94%A8ProguardRules/">
-        常用Proguard Rules
-      </a>
-    </h1>
-      
-
-    <span class="post-date">18 Feb 2016</span>
-    
-      
-
-    
-         Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了...
-    
-
-  </div>
-  
-  <div class="post">
-      
-    
-    <h1 class="post-title">
-      <a href="/android/2015/09/15/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/">
-        Android消息机制详解
-      </a>
-    </h1>
-      
-
-    <span class="post-date">15 Sep 2015</span>
-    
-      
-
-    
-         
-    
-
-  </div>
-  
-  <div class="post">
-      
-    
-    <h1 class="post-title">
-      <a href="/android/2015/07/10/Glide%E4%BB%8B%E7%BB%8D/">
-        Glide介绍
-      </a>
-    </h1>
-      
-
-    <span class="post-date">10 Jul 2015</span>
-    
-      
-
-    
-         Glide介绍
-    
-
-  </div>
-  
-  <div class="post">
-      
-    
-    <h1 class="post-title">
-      <a href="/android/2015/06/29/LeakCanary%E4%BB%8B%E7%BB%8D/">
-        LeakCanary介绍
-      </a>
-    </h1>
-      
-
-    <span class="post-date">29 Jun 2015</span>
-    
-      
-
-    
-         LeakCanary介绍
-    
-
-  </div>
-  
-</div>
-
-<div class="pagination">
-  
-    <span class="pagination-item newer">Newer</span>
-  
-  
-    <span class="pagination-item older">Older</span>
-  
-</div>
-
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1></h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading"></span>
+                </div>
+            </div>
+        </div>
     </div>
+</header>
 
-  </body>
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- PostList Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                postlist-container
+            ">
+    			
+<div class="post-preview">
+    <a href="/android/2017/03/12/%E4%BB%A5Android%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%E4%BA%86%E8%A7%A3TravisCI%E7%9A%84%E4%BD%BF%E7%94%A8/">
+        <h2 class="post-title">
+            以Android项目为例了解Travis CI的使用
+        </h2>
+        
+        <div class="post-content-preview">
+            什么是Travis CI？
+Travis CI是目前最流行的持续集成构建工具，简洁清新独树一帜，目前github上的很多开源项目都在使用Travis CI作为持续集成构建环境。
+
+那些企业在使用Travis CI呢？
+这么多大厂都在使用这个平台，我们还有什么理由不用呢？
+
+
+
+那到底怎么开始呢？
+如果你已经有了github账号的话，就非常简单了，当然这里我假设你已经有github账号。
+
+打...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Eric Blog on March 12, 2017
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
+        <h2 class="post-title">
+            Retrofit2+RxJava+LoganSquare最佳实践
+        </h2>
+        
+        <div class="post-content-preview">
+            基本介绍
+Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。
+
+现在Retrofit已经出到2.0.2版本了，与前的1.9版本相差很大，并且官方强烈推荐2.0版本，所以在此就只聊2.0以后的版本。
+
+马上开撸！
+首先肯定要在build.gradle中添加retrofit的依赖。
+
+compile 'com.squareu...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Eric Blog on April 21, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/android/2016/02/18/%E5%B8%B8%E7%94%A8ProguardRules/">
+        <h2 class="post-title">
+            常用Proguard Rules
+        </h2>
+        
+        <div class="post-content-preview">
+            Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…
+
+Annotation
+
+-keepattributes *Annotation*
+-keep class javax.inject.** { *; }
+
+
+
+EventBus
+
+-keep class de.greenrobot.** { *; }
+-keepclassmembers class...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Eric Blog on February 18, 2016
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/android/2015/09/15/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/">
+        <h2 class="post-title">
+            Android消息机制详解
+        </h2>
+        
+        <div class="post-content-preview">
+            实现消息机制的过程
+
+
+整个过程涉及到的对象有
+
+
+  Handler
+  Looper
+  MessageQueue
+  Message
+
+
+Handler
+Handler在创建的时候，默认会关联到当前线程的looper。Handler的职责是往MessageQueue 中添加Message，并且通过handleMessage处理自己发出的Message,handleMessage是一个空...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Eric on September 15, 2015
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+
+    		</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#Android" title="Android" rel="4">
+                                    Android
+                                </a>
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+                        
+                            <img src="/img/avatar.png" />
+                        
+                        
+                            <p>Don't reinvent wheel. But you have to learn how to create.</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            
+                            
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://www.facebook.com/liuguangqiang">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/liuguangqiang">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://www.linkedin.com/in/liuguangqiang">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </section>
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+                
+    		</div>
+        
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/liuguangqiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liuguangqiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/liuguangqiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Eric Blog 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> | Powered by Jekyll
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
 </html>

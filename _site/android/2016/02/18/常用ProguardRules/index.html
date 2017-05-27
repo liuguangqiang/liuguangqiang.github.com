@@ -1,244 +1,615 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<html lang="en">
 
-  <head>
-  <link href="http://gmpg.org/xfn/11" rel="profile">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-
-  <!-- Enable responsiveness on mobile devices-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-
-  <title>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Don't reinvent wheel. But you have to learn how to create.">
+    <meta name="keywords"  content="android, java, nodejs, kotlin, iOS, swift, Eric, blog">
+    <meta name="theme-color" content="#000000">
     
-      常用Proguard Rules &middot; Eric
+    <title>常用Proguard Rules - Eric的博客</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
     
-  </title>
-  
-  
-  
-  <meta name="twitter:site" content="@EricLGQ">
-  <meta property="og:type" content="article">
-  
-  
-  <meta name="twitter:card" content="summary">
-  
-  
-  
-  <meta property="og:title" content="常用Proguard Rules">
-  <meta property="twitter:title" content="常用Proguard Rules">
-  
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://liuguangqiang.com/android/2016/02/18/%E5%B8%B8%E7%94%A8ProguardRules/">
 
-  
-  <meta name="twitter:description" content="Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
-">
-  <meta property="og:description" content="Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.css">
 
-">
-  <meta name="description" content="Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
 
-">
-  
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-  <meta name="theme-color" content="#00796B">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="/public/css/site.css">
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700|Fjalla+One">
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
 
-  <!-- Icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/content/apple-touch-icon-144x144.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/content/apple-touch-icon-152x152.png" />
-  <link rel="icon" type="image/png" href="/content/favicon-196x196.png" sizes="196x196" />
-  <link rel="icon" type="image/png" href="/content/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="/content/favicon-16x16.png" sizes="16x16" />
-  <meta name="application-name" content="Chris Banes"/>
-  <meta name="msapplication-TileColor" content="#00796B" />
-  <meta name="msapplication-TileImage" content="/content/mstile-144x144.png" />
 
-  <!-- RSS -->
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
-  
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
 </head>
 
 
-  <body class="theme-base-black">
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
 
-    <div class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-        
-      <a href="/" title="Link to homepage for Eric"><img src="/content/images/me.png" width="200" alt="Eric logo" class="panel-cover__logo logo" /></a>
-        
-      <h1>
-        <a href="/">
-          Eric
-        </a>
-      </h1>
-      <p class="lead">Don't reinvent wheel. But you have to learn how to create.</p>
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Eric Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/portfolio/">Portfolio</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/"></a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
 
-    <nav class="sidebar-nav">
-      <a class="sidebar-nav-item" href="/">Home</a>
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
 
-      
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
 
-      
-      
-        
-      
-        
-      
-        
-      
-        
-      
-      
-    </nav>
-      
-  <nav class="sidebar-social">
-  <ul class="navigation">
-
-  <!-- GitHub -->
-  <li class="social-item github">
-    <a href="http://github.com/liuguangqiang" title="@Eric on GitHub" target="_blank">
-      <i class='icon fi-social-github'></i>
-      <span class="label">GitHub</span>
-    </a>
-  </li>
-
-  <!-- Twitter -->
-  <li class="social-item twitter">
-    <a href="http://twitter.com/@EricLGQ" title="@EricLGQ on Twitter" target="_blank">
-      <i class='icon fi-social-twitter'></i>
-      <span class="label">Twitter</span>
-    </a>
-  </li>
-
-    <!-- LinkedIn -->
-    <li class="social-item linkedin">
-      <a href="https://www.linkedin.com/in/liuguangqiang" title="@Eric on LinkedIn" target="_blank">
-        <i class='icon fi-social-linkedin'></i>
-        <span class="label">LinkedIn</span>
-      </a>
-    </li>
-
-  </ul>
-  </nav>
-      
-  </div>
-</div>
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
 
 
-    <div class="content container">
-      <div class="post">
-  <h1 class="post-title">常用Proguard Rules</h1>
-  <span class="post-date">18 Feb 2016</span>
-  
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/home-bg.jpg" width="0" height="0"> -->
 
-  <p>Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…</p>
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/home-bg.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        
+                    </div>
+                    <h1>常用Proguard Rules</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by Eric Blog on February 18, 2016</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<p>Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…</p>
 
 <h2 id="annotation">Annotation</h2>
 
-<pre><code class="language-java">-keepattributes *Annotation*
--keep class javax.inject.** { *; }
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">-</span><span class="n">keepattributes</span> <span class="o">*</span><span class="n">Annotation</span><span class="o">*</span>
+<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">javax</span><span class="o">.</span><span class="na">inject</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
 </code></pre>
+</div>
 
 <h2 id="eventbus">EventBus</h2>
 
-<pre><code class="language-java">-keep class de.greenrobot.** { *; }
--keepclassmembers class ** {
-    public void onEvent*(**);
-}
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">de</span><span class="o">.</span><span class="na">greenrobot</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<span class="o">-</span><span class="n">keepclassmembers</span> <span class="kd">class</span> <span class="err">**</span> <span class="err">{</span>
+    <span class="nc">public</span> <span class="kt">void</span> <span class="n">onEvent</span><span class="o">*(**);</span>
+<span class="o">}</span>
 </code></pre>
+</div>
 
 <h2 id="dagger20">Dagger2.0</h2>
 
-<pre><code class="language-java">-keep class dagger.** { *; }
--keep interface dagger.** { *; }
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">dagger</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<span class="o">-</span><span class="n">keep</span> <span class="kd">interface</span> <span class="nc">dagger</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
 
--keep class **$$ModuleAdapter { *; }
--keepnames class **$$InjectAdapter { *; }
--keepclassmembers class * {
-    @javax.inject.Inject &lt;fields&gt;;
-    @javax.inject.Inject &lt;init&gt;(...);
-}
--adaptclassstrings
+<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="err">**$$</span><span class="nc">ModuleAdapter</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<span class="o">-</span><span class="n">keepnames</span> <span class="kd">class</span> <span class="err">**$$</span><span class="nc">InjectAdapter</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<span class="o">-</span><span class="n">keepclassmembers</span> <span class="kd">class</span> <span class="err">*</span> <span class="err">{</span>
+    <span class="err">@</span><span class="nc">javax</span><span class="o">.</span><span class="na">inject</span><span class="o">.</span><span class="na">Inject</span> <span class="o">&lt;</span><span class="n">fields</span><span class="o">&gt;;</span>
+    <span class="nd">@javax</span><span class="o">.</span><span class="na">inject</span><span class="o">.</span><span class="na">Inject</span> <span class="o">&lt;</span><span class="n">init</span><span class="o">&gt;(...);</span>
+<span class="o">}</span>
+<span class="o">-</span><span class="n">adaptclassstrings</span>
 </code></pre>
+</div>
 
 <h2 id="glide">Glide</h2>
 
-<pre><code class="language-java">-keep public class * implements com.bumptech.glide.module.GlideModule
--keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
-    **[] $VALUES;
-    public *;
-}
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">-</span><span class="n">keep</span> <span class="kd">public</span> <span class="kd">class</span> <span class="err">*</span> <span class="nc">implements</span> <span class="n">com</span><span class="o">.</span><span class="na">bumptech</span><span class="o">.</span><span class="na">glide</span><span class="o">.</span><span class="na">module</span><span class="o">.</span><span class="na">GlideModule</span>
+<span class="o">-</span><span class="n">keep</span> <span class="kd">public</span> <span class="kd">enum</span> <span class="n">com</span><span class="o">.</span><span class="na">bumptech</span><span class="o">.</span><span class="na">glide</span><span class="o">.</span><span class="na">load</span><span class="o">.</span><span class="na">resource</span><span class="o">.</span><span class="na">bitmap</span><span class="o">.</span><span class="na">ImageHeaderParser</span><span class="err">$</span><span class="o">**</span> <span class="o">{</span>
+    <span class="o">**[]</span> <span class="n">$VALUES</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="o">*;</span>
+<span class="o">}</span>
 </code></pre>
+</div>
 
 <h2 id="gson">Gson</h2>
 
-<pre><code class="language-java">-keepattributes Signature
--keep class sun.misc.Unsafe { *; }
--keep class com.google.gson.examples.android.model.** { *; }
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">-</span><span class="n">keepattributes</span> <span class="n">Signature</span>
+<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">sun</span><span class="o">.</span><span class="na">misc</span><span class="o">.</span><span class="na">Unsafe</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">gson</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">android</span><span class="o">.</span><span class="na">model</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
 </code></pre>
+</div>
 
 <h2 id="logansquare">LoganSquare</h2>
 
-<pre><code class="language-java">-keep class com.bluelinelabs.logansquare.** { *; }
--keep @com.bluelinelabs.logansquare.annotation.JsonObject class *
--keep class **$$JsonObjectMapper { *; }
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">com</span><span class="o">.</span><span class="na">bluelinelabs</span><span class="o">.</span><span class="na">logansquare</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<span class="o">-</span><span class="n">keep</span> <span class="nd">@com</span><span class="o">.</span><span class="na">bluelinelabs</span><span class="o">.</span><span class="na">logansquare</span><span class="o">.</span><span class="na">annotation</span><span class="o">.</span><span class="na">JsonObject</span> <span class="kd">class</span> <span class="err">*</span>
+<span class="err">-</span><span class="nc">keep</span> <span class="kd">class</span> <span class="err">**$$</span><span class="nc">JsonObjectMapper</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
 </code></pre>
+</div>
 
 <h2 id="butterknife">ButterKnife</h2>
 
-<pre><code class="language-java">-keep class butterknife.** { *; }
--dontwarn butterknife.internal.**
--keep class **$$ViewBinder { *; }
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">butterknife</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<span class="o">-</span><span class="n">dontwarn</span> <span class="n">butterknife</span><span class="o">.</span><span class="na">internal</span><span class="o">.**</span>
+<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="err">**$$</span><span class="nc">ViewBinder</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
 
--keepclasseswithmembernames class * {
-    @butterknife.* &lt;fields&gt;;
-}
+<span class="o">-</span><span class="n">keepclasseswithmembernames</span> <span class="kd">class</span> <span class="err">*</span> <span class="err">{</span>
+    <span class="err">@</span><span class="nc">butterknife</span><span class="o">.*</span> <span class="o">&lt;</span><span class="n">fields</span><span class="o">&gt;;</span>
+<span class="o">}</span>
 
--keepclasseswithmembernames class * {
-    @butterknife.* &lt;methods&gt;;
-}
+<span class="o">-</span><span class="n">keepclasseswithmembernames</span> <span class="kd">class</span> <span class="err">*</span> <span class="err">{</span>
+    <span class="err">@</span><span class="nc">butterknife</span><span class="o">.*</span> <span class="o">&lt;</span><span class="n">methods</span><span class="o">&gt;;</span>
+<span class="o">}</span>
 </code></pre>
+</div>
 
 <h2 id="rxjava--rxandroid">RxJava &amp; RxAndroid</h2>
 
 <p>最麻烦的就是RxJava和RxAndroid，直到我遇到下面的library</p>
 
-<pre><code>compile 'com.artemzin.rxjava:proguard-rules:1.1.0.0'
+<div class="highlighter-rouge"><pre class="highlight"><code>compile 'com.artemzin.rxjava:proguard-rules:1.1.0.0'
 </code></pre>
-
 </div>
 
 
+                <hr style="visibility: hidden;">
 
-<div class="related">
-  <h2>Related Posts</h2>
-  <ul class="related-posts">
-    
-      <li>
-        <h3 style="display: inline;"><a href="/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">Retrofit2+RxJava+LoganSquare最佳实践</a></h3>
-        <small>21 Apr 2016</small>
-      </li>
-    
-      <li>
-        <h3 style="display: inline;"><a href="/android/2015/09/15/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/">Android消息机制详解</a></h3>
-        <small>15 Sep 2015</small>
-      </li>
-    
-      <li>
-        <h3 style="display: inline;"><a href="/android/2015/07/10/Glide%E4%BB%8B%E7%BB%8D/">Glide介绍</a></h3>
-        <small>10 Jul 2015</small>
-      </li>
-    
-  </ul>
-</div>
+                
+                <!-- 多说 Share start -->
+                <div class="ds-share"
+                    style="text-align: right"
+                    data-thread-key="/android/2016/02/18/常用ProguardRules"
+                    data-title="常用Proguard Rules"
+                    data-url="http://liuguangqiang.com/android/2016/02/18/%E5%B8%B8%E7%94%A8ProguardRules/"
+                    data-images="http://liuguangqiang.com/img/home-bg.jpg"
+                    data-content="Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…
 
+Annotation
+
+-keepattributes ... | Eric的博客 " >
+                    <div class="ds-share-inline">
+                      <style> 
+                        .ds-share-icons-16 {display:none;} 
+                      </style>
+                      <ul class="ds-share-icons-16">
+                        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
+                        <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+                        <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
+                        <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
+                      </ul>
+                      <div class="ds-share-icons-more">
+                      </div>
+                    </div>
+                <hr>
+                </div>
+                <!-- 多说 Share end-->
+                
+
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/android/2015/09/15/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" data-toggle="tooltip" data-placement="top" title="Android消息机制详解">
+                        Previous<br>
+                        <span>Android消息机制详解</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" data-toggle="tooltip" data-placement="top" title="Retrofit2+RxJava+LoganSquare最佳实践">
+                        Next<br>
+                        <span>Retrofit2+RxJava+LoganSquare最佳实践</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                
+                <!-- 多说评论框 start -->
+                <div class="comment">
+                    <div class="ds-thread"
+                        data-thread-key="/android/2016/02/18/常用ProguardRules"
+                        data-title="常用Proguard Rules"
+                        data-url="http://liuguangqiang.com/android/2016/02/18/%E5%B8%B8%E7%94%A8ProguardRules/" >
+                    </div>
+                </div>
+                <!-- 多说评论框 end -->
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#Android" title="Android" rel="4">
+                                    Android
+                                </a>
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                </ul>
+                
+            </div>
+        </div>
     </div>
+</article>
 
-  </body>
+
+
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<!--<script type="text/javascript">
+    // dynamic User by Hux
+    var _user = 'Eric';
+
+    // duoshuo comment query.
+    var duoshuoQuery = {short_name: _user };
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0]
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>-->
+<!-- 多说公共JS代码 end -->
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "EricLiu";
+    var disqus_identifier = "/android/2016/02/18/常用ProguardRules";
+    var disqus_url = "http://liuguangqiang.com/android/2016/02/18/%E5%B8%B8%E7%94%A8ProguardRules/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/liuguangqiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/liuguangqiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/liuguangqiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Eric Blog 2017
+                    <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> | Powered by Jekyll
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
 </html>
