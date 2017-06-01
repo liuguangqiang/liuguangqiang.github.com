@@ -5,8 +5,8 @@
     <description>Don&#39;t reinvent wheel. But you have to learn how to create.</description>
     <link>http://liuguangqiang.com/</link>
     <atom:link href="http://liuguangqiang.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 27 May 2017 20:52:38 +0800</pubDate>
-    <lastBuildDate>Sat, 27 May 2017 20:52:38 +0800</lastBuildDate>
+    <pubDate>Sat, 27 May 2017 22:23:35 +0800</pubDate>
+    <lastBuildDate>Sat, 27 May 2017 22:23:35 +0800</lastBuildDate>
     <generator>Jekyll v3.1.2</generator>
     
       <item>
@@ -87,7 +87,7 @@ script: ./gradlew build
 
 &lt;p&gt;靠！等了许久，终于构建成功了！（汗，还好没有整段垮掉！）
 &lt;img src=&quot;/img/resources/4F24F6A4DBAB58D464F2F19F2AA2FECD.jpg&quot; alt=&quot;500D2B92-2C8B-4325-A7F6-57245C2589D9.png&quot; /&gt;
-&lt;img src=&quot;/content/resources/FD559B1535F0F7E7B8C5CB90D7185537.jpg&quot; width=&quot;30%&quot; /&gt;
+&lt;img src=&quot;/img/resources/FD559B1535F0F7E7B8C5CB90D7185537.jpg&quot; width=&quot;30%&quot; /&gt;
 （细心的人，或许看出来了，第一次其实失败了，build.gradle中少了lintOptions {abortOnError false}，不过和今天的主题没有关系，就忽略吧，上面成功的截图，是第二次构建了）&lt;/p&gt;
 
 &lt;h2 id=&quot;apkfirim&quot;&gt;打包APK，发布到fir.im&lt;/h2&gt;
@@ -124,8 +124,9 @@ apply plugin:&#39;im.fir.plugin.gradle&#39;
 
 &lt;p&gt;打包上传就算完了，但仅仅这样肯定不行了，因为我们的APK还没有签名，再配置好签名就OK了！&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/img/resources/972287ED80AF4CD251056EE4D9BEC693.jpg&quot; width=&quot;60%&quot; /&gt;
-#### 到目前为止，就完成了自动打包且签名，然后再上传到fir.im的整个流程了！&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/img/resources/972287ED80AF4CD251056EE4D9BEC693.jpg&quot; width=&quot;60%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;到目前为止，就完成了自动打包且签名，然后再上传到fir.im的整个流程了！&lt;/p&gt;
 
 &lt;h2 id=&quot;section-3&quot;&gt;完结&lt;/h2&gt;
 &lt;p&gt;使用Travis CI很简单，总共就几行配置文件而已，分分钟搞定，但要完成从构建，测试和发布，真正的实现持续集成构建，还需要更多的步骤，这里只是一个引子，让更多的人知道和了解Travis CI，但要想更好的利用Travis CI，就需要各位看官自己动手尝试。&lt;/p&gt;

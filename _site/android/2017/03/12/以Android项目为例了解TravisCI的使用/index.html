@@ -282,7 +282,7 @@ script: ./gradlew build
 
 <p>靠！等了许久，终于构建成功了！（汗，还好没有整段垮掉！）
 <img src="/img/resources/4F24F6A4DBAB58D464F2F19F2AA2FECD.jpg" alt="500D2B92-2C8B-4325-A7F6-57245C2589D9.png" />
-<img src="/content/resources/FD559B1535F0F7E7B8C5CB90D7185537.jpg" width="30%" />
+<img src="/img/resources/FD559B1535F0F7E7B8C5CB90D7185537.jpg" width="30%" />
 （细心的人，或许看出来了，第一次其实失败了，build.gradle中少了lintOptions {abortOnError false}，不过和今天的主题没有关系，就忽略吧，上面成功的截图，是第二次构建了）</p>
 
 <h2 id="apkfirim">打包APK，发布到fir.im</h2>
@@ -319,8 +319,9 @@ apply plugin:'im.fir.plugin.gradle'
 
 <p>打包上传就算完了，但仅仅这样肯定不行了，因为我们的APK还没有签名，再配置好签名就OK了！</p>
 
-<p><img src="/img/resources/972287ED80AF4CD251056EE4D9BEC693.jpg" width="60%" />
-#### 到目前为止，就完成了自动打包且签名，然后再上传到fir.im的整个流程了！</p>
+<p><img src="/img/resources/972287ED80AF4CD251056EE4D9BEC693.jpg" width="60%" /></p>
+
+<p>到目前为止，就完成了自动打包且签名，然后再上传到fir.im的整个流程了！</p>
 
 <h2 id="section-3">完结</h2>
 <p>使用Travis CI很简单，总共就几行配置文件而已，分分钟搞定，但要完成从构建，测试和发布，真正的实现持续集成构建，还需要更多的步骤，这里只是一个引子，让更多的人知道和了解Travis CI，但要想更好的利用Travis CI，就需要各位看官自己动手尝试。</p>
@@ -334,35 +335,6 @@ apply plugin:'im.fir.plugin.gradle'
 
 
                 <hr style="visibility: hidden;">
-
-                
-                <!-- 多说 Share start -->
-                <div class="ds-share"
-                    style="text-align: right"
-                    data-thread-key="/android/2017/03/12/以Android项目为例了解TravisCI的使用"
-                    data-title="以Android项目为例了解Travis CI的使用"
-                    data-url="http://liuguangqiang.com/android/2017/03/12/%E4%BB%A5Android%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%E4%BA%86%E8%A7%A3TravisCI%E7%9A%84%E4%BD%BF%E7%94%A8/"
-                    data-images="http://liuguangqiang.com/img/home-bg.jpg"
-                    data-content="什么是Travis CI？
-Travis CI是目前最流行的持续集成构建工具，简洁清新独树一帜，目前github上的很多开源项目都在使用Travis CI... | Eric的博客 " >
-                    <div class="ds-share-inline">
-                      <style> 
-                        .ds-share-icons-16 {display:none;} 
-                      </style>
-                      <ul class="ds-share-icons-16">
-                        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="#">分享到：</a></li>
-                        <li><a class="ds-wechat flat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-                        <li><a class="ds-weibo flat" href="javascript:void(0);" data-service="weibo">微博</a></li>
-                        <li><a class="ds-douban flat" href="javascript:void(0);" data-service="douban">豆瓣</a></li>
-                      </ul>
-                      <div class="ds-share-icons-more">
-                      </div>
-                    </div>
-                <hr>
-                </div>
-                <!-- 多说 Share end-->
-                
-
 
                 <ul class="pager">
                     
@@ -379,13 +351,13 @@ Travis CI是目前最流行的持续集成构建工具，简洁清新独树一�
 
                 
                 <!-- 多说评论框 start -->
-                <div class="comment">
+                <!--<div class="comment">
                     <div class="ds-thread"
                         data-thread-key="/android/2017/03/12/以Android项目为例了解TravisCI的使用"
                         data-title="以Android项目为例了解Travis CI的使用"
                         data-url="http://liuguangqiang.com/android/2017/03/12/%E4%BB%A5Android%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%E4%BA%86%E8%A7%A3TravisCI%E7%9A%84%E4%BD%BF%E7%94%A8/" >
                     </div>
-                </div>
+                </div>-->
                 <!-- 多说评论框 end -->
                 
 
@@ -394,6 +366,9 @@ Travis CI是目前最流行的持续集成构建工具，简洁清新独树一�
                 <div class="comment">
                     <div id="disqus_thread" class="disqus-thread"></div>
                 </div>
+                
+                
+
                 <!-- disqus 评论框 end -->
                 
 
@@ -475,7 +450,6 @@ Travis CI是目前最流行的持续集成构建工具，简洁清新独树一�
     })();
 </script>
 <!-- disqus 公共JS代码 end -->
-
 
 
 

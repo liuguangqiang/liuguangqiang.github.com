@@ -83,7 +83,7 @@ push成功后，回到Travis CI，发现刚才的项目已经开始构建了，�
 
 靠！等了许久，终于构建成功了！（汗，还好没有整段垮掉！）
 ![500D2B92-2C8B-4325-A7F6-57245C2589D9.png](/img/resources/4F24F6A4DBAB58D464F2F19F2AA2FECD.jpg)
-<img src="/content/resources/FD559B1535F0F7E7B8C5CB90D7185537.jpg" width="30%">
+<img src="/img/resources/FD559B1535F0F7E7B8C5CB90D7185537.jpg" width="30%">
 （细心的人，或许看出来了，第一次其实失败了，build.gradle中少了lintOptions {abortOnError false}，不过和今天的主题没有关系，就忽略吧，上面成功的截图，是第二次构建了）
 
 ## 打包APK，发布到fir.im
@@ -121,7 +121,8 @@ script: ./gradlew publishApkRelease
 打包上传就算完了，但仅仅这样肯定不行了，因为我们的APK还没有签名，再配置好签名就OK了！
 
 <img src="/img/resources/972287ED80AF4CD251056EE4D9BEC693.jpg" width="60%">
-#### 到目前为止，就完成了自动打包且签名，然后再上传到fir.im的整个流程了！
+
+到目前为止，就完成了自动打包且签名，然后再上传到fir.im的整个流程了！
 
 ## 完结
 使用Travis CI很简单，总共就几行配置文件而已，分分钟搞定，但要完成从构建，测试和发布，真正的实现持续集成构建，还需要更多的步骤，这里只是一个引子，让更多的人知道和了解Travis CI，但要想更好的利用Travis CI，就需要各位看官自己动手尝试。

@@ -979,7 +979,9 @@ img::-moz-selection {
   display: block;
   max-width: 100%;
   height: auto;
-  margin: 1.5em auto 1.6em auto;
+  margin-top: 1.5em;
+  margin-bottom: 1.6em;
+  /*margin: 1.5em auto 1.6em auto;*/
 }
 /* Hux Optimize UserExperience */
 .navbar-default .navbar-toggle:focus,
