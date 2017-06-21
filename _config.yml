@@ -88,11 +88,23 @@ service-worker: true
 
 # Friends
 friends: [
-    # {
-    #     title: "Su",
-    #     href: "http://su.gallery/"
-    # },{
-    #     title: "乱序",
-    #     href: "http://mida.re/"
-    # }
+    {
+        title: "Trinea",
+        href: "http://www.trinea.cn/"
+    },{
+        title: "代码家",
+        href: "https://daimajia.com/"
+    },{
+        title: "柳志超博客",
+        href: "https://liuzhichao.com/"
+    },{
+        title: "胡凯",
+        href: "http://hukai.me/"
+    },{
+        title: "闭门造车",
+        href: "https://blog.happyhls.me/"
+    },{
+        title: "Shinelw Blog",
+        href: "http://shinelw.com/"
+    }
 ]

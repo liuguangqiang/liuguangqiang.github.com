@@ -10,7 +10,7 @@
     <meta name="keywords"  content="android, java, nodejs, kotlin, iOS, swift, Eric, blog">
     <meta name="theme-color" content="#000000">
     
-    <title>常用Proguard Rules - Eric的博客</title>
+    <title>设计模式之策略模式 - Eric的博客</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,7 +19,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://liuguangqiang.com/android/2016/02/18/%E5%B8%B8%E7%94%A8ProguardRules/">
+    <link rel="canonical" href="http://liuguangqiang.com/java,%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2017/06/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -180,15 +180,17 @@
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                        <a class="tag" href="/tags/#策略模式" title="策略模式">策略模式</a>
                         
                     </div>
-                    <h1>常用Proguard Rules</h1>
+                    <h1>设计模式之策略模式</h1>
                     
                     
                     <h2 class="subheading"></h2>
                     
-                    <span class="meta">Posted by Eric's Blog on February 18, 2016</span>
+                    <span class="meta">Posted by Eric on June 21, 2017</span>
                 </div>
             </div>
         </div>
@@ -206,88 +208,116 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<p>Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…</p>
+				<h2 id="section">类图</h2>
+<p><img src="/img/design-pattern/strategy.png" alt="image" /></p>
 
-<h2 id="annotation">Annotation</h2>
+<h2 id="section-1">概念</h2>
+<p>定义一系列不同的算法, 将每个算法都封装起来, 且可以互相的替换, 即为策略模式.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">-</span><span class="n">keepattributes</span> <span class="o">*</span><span class="n">Annotation</span><span class="o">*</span>
-<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">javax</span><span class="o">.</span><span class="na">inject</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
-</code></pre>
-</div>
+<h2 id="section-2">使用场景</h2>
+<p>假设我们有多种加密算法, 比如MD5, RSA, SHA, 更加不同的需求, 需要使用不同的加密算法, 这里我们就可以考虑使用策略模式. 把不同的加密算法封装到各自的类中, 但他们都实现了相同的接口Strategy, 所以我们可以很容易的切换不同的加密算法, 而且这样的实现, 也符合开闭原则的要求, 如果有新的加密算法, 只需要新的算法也实现Strategy接口就可以了.</p>
 
-<h2 id="eventbus">EventBus</h2>
+<h2 id="section-3">具体实现</h2>
+<p><strong>定义一个策略接口</strong></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">de</span><span class="o">.</span><span class="na">greenrobot</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
-<span class="o">-</span><span class="n">keepclassmembers</span> <span class="kd">class</span> <span class="err">**</span> <span class="err">{</span>
-    <span class="nc">public</span> <span class="kt">void</span> <span class="n">onEvent</span><span class="o">*(**);</span>
-<span class="o">}</span>
-</code></pre>
-</div>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Strategy</span> <span class="o">{</span>
 
-<h2 id="dagger20">Dagger2.0</h2>
+  <span class="kt">void</span> <span class="n">encrypt</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">dagger</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
-<span class="o">-</span><span class="n">keep</span> <span class="kd">interface</span> <span class="nc">dagger</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<p><strong>实现相同的策略接口, 封装不同的算法</strong></p>
 
-<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="err">**$$</span><span class="nc">ModuleAdapter</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
-<span class="o">-</span><span class="n">keepnames</span> <span class="kd">class</span> <span class="err">**$$</span><span class="nc">InjectAdapter</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
-<span class="o">-</span><span class="n">keepclassmembers</span> <span class="kd">class</span> <span class="err">*</span> <span class="err">{</span>
-    <span class="err">@</span><span class="nc">javax</span><span class="o">.</span><span class="na">inject</span><span class="o">.</span><span class="na">Inject</span> <span class="o">&lt;</span><span class="n">fields</span><span class="o">&gt;;</span>
-    <span class="nd">@javax</span><span class="o">.</span><span class="na">inject</span><span class="o">.</span><span class="na">Inject</span> <span class="o">&lt;</span><span class="n">init</span><span class="o">&gt;(...);</span>
-<span class="o">}</span>
-<span class="o">-</span><span class="n">adaptclassstrings</span>
-</code></pre>
-</div>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="cm">/**
+ * MD5加密.
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MD5</span> <span class="kd">implements</span> <span class="n">Strategy</span> <span class="o">{</span>
 
-<h2 id="glide">Glide</h2>
-
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">-</span><span class="n">keep</span> <span class="kd">public</span> <span class="kd">class</span> <span class="err">*</span> <span class="nc">implements</span> <span class="n">com</span><span class="o">.</span><span class="na">bumptech</span><span class="o">.</span><span class="na">glide</span><span class="o">.</span><span class="na">module</span><span class="o">.</span><span class="na">GlideModule</span>
-<span class="o">-</span><span class="n">keep</span> <span class="kd">public</span> <span class="kd">enum</span> <span class="n">com</span><span class="o">.</span><span class="na">bumptech</span><span class="o">.</span><span class="na">glide</span><span class="o">.</span><span class="na">load</span><span class="o">.</span><span class="na">resource</span><span class="o">.</span><span class="na">bitmap</span><span class="o">.</span><span class="na">ImageHeaderParser</span><span class="err">$</span><span class="o">**</span> <span class="o">{</span>
-    <span class="o">**[]</span> <span class="n">$VALUES</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="o">*;</span>
-<span class="o">}</span>
-</code></pre>
-</div>
-
-<h2 id="gson">Gson</h2>
-
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">-</span><span class="n">keepattributes</span> <span class="n">Signature</span>
-<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">sun</span><span class="o">.</span><span class="na">misc</span><span class="o">.</span><span class="na">Unsafe</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
-<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">gson</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">android</span><span class="o">.</span><span class="na">model</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
-</code></pre>
-</div>
-
-<h2 id="logansquare">LoganSquare</h2>
-
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">com</span><span class="o">.</span><span class="na">bluelinelabs</span><span class="o">.</span><span class="na">logansquare</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
-<span class="o">-</span><span class="n">keep</span> <span class="nd">@com</span><span class="o">.</span><span class="na">bluelinelabs</span><span class="o">.</span><span class="na">logansquare</span><span class="o">.</span><span class="na">annotation</span><span class="o">.</span><span class="na">JsonObject</span> <span class="kd">class</span> <span class="err">*</span>
-<span class="err">-</span><span class="nc">keep</span> <span class="kd">class</span> <span class="err">**$$</span><span class="nc">JsonObjectMapper</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
-</code></pre>
-</div>
-
-<h2 id="butterknife">ButterKnife</h2>
-
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">butterknife</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
-<span class="o">-</span><span class="n">dontwarn</span> <span class="n">butterknife</span><span class="o">.</span><span class="na">internal</span><span class="o">.**</span>
-<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="err">**$$</span><span class="nc">ViewBinder</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
-
-<span class="o">-</span><span class="n">keepclasseswithmembernames</span> <span class="kd">class</span> <span class="err">*</span> <span class="err">{</span>
-    <span class="err">@</span><span class="nc">butterknife</span><span class="o">.*</span> <span class="o">&lt;</span><span class="n">fields</span><span class="o">&gt;;</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="n">encrypt</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"encrypt by MD5."</span><span class="o">);</span>
+  <span class="o">}</span>
 <span class="o">}</span>
 
-<span class="o">-</span><span class="n">keepclasseswithmembernames</span> <span class="kd">class</span> <span class="err">*</span> <span class="err">{</span>
-    <span class="err">@</span><span class="nc">butterknife</span><span class="o">.*</span> <span class="o">&lt;</span><span class="n">methods</span><span class="o">&gt;;</span>
+<span class="cm">/**
+ * RSA加密.
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RSA</span> <span class="kd">implements</span> <span class="n">Strategy</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="n">encrypt</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"encrypt by RSA."</span><span class="o">);</span>
+  <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
 
-<h2 id="rxjava--rxandroid">RxJava &amp; RxAndroid</h2>
+<span class="cm">/**
+ * SHA加密.
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SHA</span> <span class="kd">implements</span> <span class="n">Strategy</span> <span class="o">{</span>
 
-<p>最麻烦的就是RxJava和RxAndroid，直到我遇到下面的library</p>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="n">encrypt</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"encrypt by SHA."</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>compile 'com.artemzin.rxjava:proguard-rules:1.1.0.0'
-</code></pre>
-</div>
+<p><strong>定义一个Context类, 持有策略的引用, 根据构造函数或者Setter来切换不同的策略</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Context</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="n">Strategy</span> <span class="n">strategy</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="n">Context</span><span class="o">(</span><span class="n">Strategy</span> <span class="n">strategy</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">strategy</span> <span class="o">=</span> <span class="n">strategy</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="n">setStrategy</span><span class="o">(</span><span class="n">Strategy</span> <span class="n">strategy</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">strategy</span> <span class="o">=</span> <span class="n">strategy</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="n">encrypt</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">strategy</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="section-4">使用策略</h3>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Context</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="k">new</span> <span class="n">MD5</span><span class="o">());</span>
+    <span class="n">context</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="s">"Test"</span><span class="o">);</span>
+
+    <span class="n">context</span><span class="o">.</span><span class="na">setStrategy</span><span class="o">(</span><span class="k">new</span> <span class="n">RSA</span><span class="o">());</span>
+    <span class="n">context</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="s">"Test"</span><span class="o">);</span>
+
+    <span class="n">context</span><span class="o">.</span><span class="na">setStrategy</span><span class="o">(</span><span class="k">new</span> <span class="n">SHA</span><span class="o">());</span>
+    <span class="n">context</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="s">"Test"</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h2 id="section-5">角色划分</h2>
+<ul>
+  <li>Strategy, 接口或者抽象类, 所有算法都实现相同的接口</li>
+  <li>具体策略实现类, 如上面的MD5, RSA, SHA等, 实现了相同接口Strategy, 不同算法的封装</li>
+  <li>Context, 策略类的持有者, 负责调用不同的策略</li>
+</ul>
+
+<h2 id="section-6">优点</h2>
+<ul>
+  <li>符合开闭原则的设计思想, 对扩展开放, 对修改关闭</li>
+  <li>避免使用多重条件, 易于维护</li>
+  <li>因为所有算法都实现了相同的接口, 所以算法可以自由的切换</li>
+</ul>
+
+<h2 id="section-7">缺点</h2>
+<ul>
+  <li>因为有多种算法, 所以会产生很多的策略类</li>
+  <li>因为由客户端来决定使用哪个策略, 所以客户端必须知道所有的策略</li>
+</ul>
 
 
                 <hr style="visibility: hidden;">
@@ -295,19 +325,12 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/android/2015/09/15/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/" data-toggle="tooltip" data-placement="top" title="Android消息机制详解">
+                        <a href="/android/2017/03/12/%E4%BB%A5Android%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%E4%BA%86%E8%A7%A3TravisCI%E7%9A%84%E4%BD%BF%E7%94%A8/" data-toggle="tooltip" data-placement="top" title="以Android项目为例了解Travis CI的使用">
                         Previous<br>
-                        <span>Android消息机制详解</span>
+                        <span>以Android项目为例了解Travis CI的使用</span>
                         </a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" data-toggle="tooltip" data-placement="top" title="Retrofit2+RxJava+LoganSquare最佳实践">
-                        Next<br>
-                        <span>Retrofit2+RxJava+LoganSquare最佳实践</span>
-                        </a>
-                    </li>
                     
                 </ul>
 
@@ -315,9 +338,9 @@
                 <!-- 多说评论框 start -->
                 <!--<div class="comment">
                     <div class="ds-thread"
-                        data-thread-key="/android/2016/02/18/常用ProguardRules"
-                        data-title="常用Proguard Rules"
-                        data-url="http://liuguangqiang.com/android/2016/02/18/%E5%B8%B8%E7%94%A8ProguardRules/" >
+                        data-thread-key="/java,%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2017/06/21/设计模式之策略模式"
+                        data-title="设计模式之策略模式"
+                        data-url="http://liuguangqiang.com/java,%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2017/06/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" >
                     </div>
                 </div>-->
                 <!-- 多说评论框 end -->
@@ -326,6 +349,20 @@
             </div>  
 
     <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
         
 
     <!-- Sidebar Container -->
@@ -552,6 +589,50 @@
 
 
 <!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
 
 
 
