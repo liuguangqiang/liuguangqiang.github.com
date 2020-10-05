@@ -5,12 +5,31 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Don't reinvent wheel. But you have to learn how to create.">
-    <meta name="keywords"  content="android, java, nodejs, kotlin, iOS, swift, Eric, blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="test desc">
+    <meta name="keywords"  content="test keyword">
     <meta name="theme-color" content="#000000">
     
-    <title>以Android项目为例了解Travis CI的使用 - Eric的博客</title>
+    <!-- Open Graph -->
+    <meta property="og:title" content="以Android项目为例了解Travis CI的使用 - Eric‘s Blog | Eric's Blog">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="什么是Travis CI？
+Travis CI是目前最流行的持续集成构建工具，简洁清新独树一帜，目前github上的很多开源项目都在使用Travis CI作为持续集成构建环境。
+">
+    
+    <meta property="article:published_time" content="2017-03-12T00:00:00Z">
+    
+    
+    
+    <meta property="article:tag" content="Android">
+    
+    
+    <meta property="og:image" content="http://localhost:4000/img/avatar-hux-ny.jpg">
+    <meta property="og:url" content="http://localhost:4000/android/2017/03/12/%E4%BB%A5Android%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%E4%BA%86%E8%A7%A3TravisCI%E7%9A%84%E4%BD%BF%E7%94%A8/">
+    <meta property="og:site_name" content="Eric‘s Blog | Eric's Blog">
+    
+    <title>以Android项目为例了解Travis CI的使用 - Eric‘s Blog | Eric's Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,28 +38,18 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://liuguangqiang.com/android/2017/03/12/%E4%BB%A5Android%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%E4%BA%86%E8%A7%A3TravisCI%E7%9A%84%E4%BD%BF%E7%94%A8/">
+    <link rel="canonical" href="http://localhost:4000/android/2017/03/12/%E4%BB%A5Android%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%E4%BA%86%E8%A7%A3TravisCI%E7%9A%84%E4%BD%BF%E7%94%A8/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/hux-blog.css">
-
-    <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="/css/syntax.css">
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
 
     <!-- Custom Fonts -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- Hux change font-awesome CDN to qiniu -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-
-    <!-- Hux Delete, sad but pending in China
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
-    css'>
-    -->
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -59,141 +68,180 @@
 <body ontouchstart="">
 
     <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Eric's Blog</a>
-        </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div id="huxblog_navbar">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                     <li>
-                        <a href="/about">About</a>
-                    </li>
-                     <li>
-                        <a href="/tags">TAGS</a>
-                    </li>
-                    
-                    <li>
-                        <!--<a href="/about/">About</a>-->
-                    </li>
-                    
-                    <li>
-                        <!--<a href="/">Eric's Blog</a>-->
-                    </li>
-                    
-                    <li>
-                        <!--<a href="/tags/"></a>-->
-                    </li>
-                    
-                </ul>
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Eric's Blog</a>
             </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.navbar-collapse -->
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
     </div>
-    <!-- /.container -->
-</nav>
-<script>
-    // Drop Bootstarp low-performance Navbar
-    // Use customize navbar with high-quality material design animation
-    // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
-    var $toggle = document.querySelector('.navbar-toggle');
-    var $navbar = document.querySelector('#huxblog_navbar');
-    var $collapse = document.querySelector('.navbar-collapse');
-
-    var __HuxNav__ = {
-        close: function(){
-            $navbar.className = " ";
-            // wait until animation end.
-            setTimeout(function(){
-                // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
-                    $collapse.style.height = "0px"
-                }
-            },400)
-        },
-        open: function(){
-            $collapse.style.height = "auto"
-            $navbar.className += " in";
-        }
-    }
-
-    // Bind Event
-    $toggle.addEventListener('click', function(e){
-        if ($navbar.className.indexOf('in') > 0) {
-            __HuxNav__.close()
-        }else{
-            __HuxNav__.open()
-        }
-    })
-
-    /**
-     * Since Fastclick is used to delegate 'touchstart' globally
-     * to hack 300ms delay in iOS by performing a fake 'click',
-     * Using 'e.stopPropagation' to stop 'touchstart' event from 
-     * $toggle/$collapse will break global delegation.
-     * 
-     * Instead, we use a 'e.target' filter to prevent handler
-     * added to document close HuxNav.  
-     *
-     * Also, we use 'click' instead of 'touchstart' as compromise
-     */
-    document.addEventListener('click', function(e){
-        if(e.target == $toggle) return;
-        if(e.target.className == 'icon-bar') return;
-        __HuxNav__.close();
-    })
-</script>
-
+  </div>
+</div>
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
 <!-- <img src="/img/home-bg.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
+
+
+
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/home-bg.jpg')
+        background-image: url('/img/home-bg.jpg');
+        background: ;
     }
 
     
 </style>
+
 <header class="intro-header" >
+
     <div class="header-mask"></div>
+    
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        <a class="tag" href="/archive/?tag=Android" title="Android">Android</a>
                         
                     </div>
                     <h1>以Android项目为例了解Travis CI的使用</h1>
                     
-                    
                     <h2 class="subheading"></h2>
-                    
                     <span class="meta">Posted by Eric's Blog on March 12, 2017</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
+
+
+
+
+
 
 <!-- Post Content -->
 <article>
@@ -206,15 +254,18 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h2 id="travis-ci">什么是Travis CI？</h2>
+                <!-- Multi-Lingual -->
+                
+
+				<h2 id="什么是travis-ci">什么是Travis CI？</h2>
 <p>Travis CI是目前最流行的持续集成构建工具，简洁清新独树一帜，目前github上的很多开源项目都在使用Travis CI作为持续集成构建环境。</p>
 
-<h2 id="travis-ci-1">那些企业在使用Travis CI呢？</h2>
+<h2 id="那些企业在使用travis-ci呢">那些企业在使用Travis CI呢？</h2>
 <p>这么多大厂都在使用这个平台，我们还有什么理由不用呢？</p>
 
 <p><img src="/img/resources/AA8DF8B613BFD0B7B1AF69AEE8B33B66.jpg" width="60%" /></p>
 
-<h2 id="section">那到底怎么开始呢？</h2>
+<h2 id="那到底怎么开始呢">那到底怎么开始呢？</h2>
 <p>如果你已经有了github账号的话，就非常简单了，当然这里我假设你已经有github账号。</p>
 
 <p>打开Travis CI的网站，一个大大的按钮如图所示，Sign in with Github!
@@ -227,43 +278,56 @@
 
 <p>到这里，准备工作就做完了，是不是很方便！</p>
 
-<h2 id="cookiebartravis-ci">以CookieBar这个项目为例，看需要几步完成Travis CI的配置！</h2>
+<h2 id="以cookiebar这个项目为例看需要几步完成travis-ci的配置">以CookieBar这个项目为例，看需要几步完成Travis CI的配置！</h2>
 
-<h3 id="travisxml">第一步，创建.travis.xml配置文件</h3>
+<h3 id="第一步创建travisxml配置文件">第一步，创建.travis.xml配置文件</h3>
 <p>这个文件需要放到项目的根目录下。</p>
 
 <p><img src="/img/resources/5B45C0E9215FD0B7CC2A3ABAAAD0CD56.jpg" width="40%" /></p>
 
-<h3 id="section-1">第二步，简单的配置是必须的</h3>
-<p>首先是配置环境的环境
-<code class="highlighter-rouge">
-language: android
+<h3 id="第二步简单的配置是必须的">第二步，简单的配置是必须的</h3>
+<p>首先是配置环境的环境</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>language: android
 jdk: oraclejdk8
-</code></p>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>指定编译Android项目，需要使用到的组件和工具
-```
-android:
+<p>指定编译Android项目，需要使用到的组件和工具</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre>android:
   components:
     # use the latest revision of Android SDK Tools
     - platform-tools
-    - tools</p>
+    - tools
+    
+    # The BuildTools version used by your project
+    - build-tools-25.0.2
+    
+    # The SDK version used to compile your project
+    - android-25
+    
+    # Additional components
+    - extra-android-m2repository
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-<div class="highlighter-rouge"><pre class="highlight"><code># The BuildTools version used by your project
-- build-tools-25.0.2
-
-# The SDK version used to compile your project
-- android-25
-
-# Additional components
-- extra-android-m2repository ```
-</code></pre>
-</div>
-
-<p>最后加上需要执行的脚本，这里只需要build通过就可以了，如果还需要测试或者发布，就需要执行其他的脚本了。
-<code class="highlighter-rouge">
-script: ./gradlew build
-</code></p>
+<p>最后加上需要执行的脚本，这里只需要build通过就可以了，如果还需要测试或者发布，就需要执行其他的脚本了。</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>script: ./gradlew build
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>OK！到此就配置完了，让我们再回顾一下完整的配置文件（靠！就只有TMD几行代码，还需要回顾？你逗我？）</p>
 
@@ -271,7 +335,7 @@ script: ./gradlew build
 
 <p>(为什么要回顾呢？这就不懂了吧，知识点！知识点！要凑字数啊！)</p>
 
-<h3 id="section-2">第三步，不测试一下吗？</h3>
+<h3 id="第三步不测试一下吗">第三步，不测试一下吗？</h3>
 <p>当然，不测试怎么行呢，随便写点commit，push到master分支就可以了，其他的都交给Travis CI自己玩儿！</p>
 
 <p>push成功后，回到Travis CI，发现刚才的项目已经开始构建了，拼命的转菊花！
@@ -285,7 +349,7 @@ script: ./gradlew build
 <img src="/img/resources/FD559B1535F0F7E7B8C5CB90D7185537.jpg" width="30%" />
 （细心的人，或许看出来了，第一次其实失败了，build.gradle中少了lintOptions {abortOnError false}，不过和今天的主题没有关系，就忽略吧，上面成功的截图，是第二次构建了）</p>
 
-<h2 id="apkfirim">打包APK，发布到fir.im</h2>
+<h2 id="打包apk发布到firim">打包APK，发布到fir.im</h2>
 <p>先声明，我不是fir的推广人员哈，我只是经常是fir而已。</p>
 
 <p>修改根目录中的build.gradle, 加上fir需要的依赖</p>
@@ -293,24 +357,27 @@ script: ./gradlew build
 <p><img src="/img/resources/40B546E098BEA3097DE4527995541F39.jpg" width="60%" /></p>
 
 <p>配置需要打包的项目中的build.gradle
-引入插件
-<code class="highlighter-rouge">
-apply plugin:'im.fir.plugin.gradle'
-</code>
-配置fir
-<code class="highlighter-rouge">
- fir{
+引入插件</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>apply plugin:'im.fir.plugin.gradle'
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>配置fir</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre> fir{
         apiToken '填上fir上的apiToken'
         changeLog '更新日志'
     }
-</code>
-<img src="/img/resources/A8EAF3FDA9AE470D11B00908149804CE.png" width="60%" /></p>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p><img src="/img/resources/A8EAF3FDA9AE470D11B00908149804CE.png" width="60%" /></p>
 
 <p>再修改.travis.xml中, 把gradlew build修改为publishApkRelease</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>script: ./gradlew publishApkRelease
-</code></pre>
-</div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>script: ./gradlew publishApkRelease
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p><img src="/img/resources/1BC28E83E06DEAAEB19F158D52893105.png" width="60%" /></p>
 
 <p>再次提交代码之后，就会自动打包并上传到Fir.im了</p>
@@ -323,10 +390,10 @@ apply plugin:'im.fir.plugin.gradle'
 
 <p>到目前为止，就完成了自动打包且签名，然后再上传到fir.im的整个流程了！</p>
 
-<h2 id="section-3">完结</h2>
+<h2 id="完结">完结</h2>
 <p>使用Travis CI很简单，总共就几行配置文件而已，分分钟搞定，但要完成从构建，测试和发布，真正的实现持续集成构建，还需要更多的步骤，这里只是一个引子，让更多的人知道和了解Travis CI，但要想更好的利用Travis CI，就需要各位看官自己动手尝试。</p>
 
-<h2 id="section-4">参考链接</h2>
+<h2 id="参考链接">参考链接</h2>
 <ul>
   <li><a href="https://docs.travis-ci.com/user/getting-started">https://docs.travis-ci.com/user/getting-started</a></li>
   <li><a href="https://docs.travis-ci.com/user/languages/android/">https://docs.travis-ci.com/user/languages/android/</a></li>
@@ -335,7 +402,6 @@ apply plugin:'im.fir.plugin.gradle'
 
 
                 <hr style="visibility: hidden;">
-
                 <ul class="pager">
                     
                     <li class="previous">
@@ -354,22 +420,28 @@ apply plugin:'im.fir.plugin.gradle'
                     </li>
                     
                 </ul>
+                <hr style="visibility: hidden;">
 
                 
-                <!-- 多说评论框 start -->
-                <!--<div class="comment">
-                    <div class="ds-thread"
-                        data-thread-key="/android/2017/03/12/以Android项目为例了解TravisCI的使用"
-                        data-title="以Android项目为例了解Travis CI的使用"
-                        data-url="http://liuguangqiang.com/android/2017/03/12/%E4%BB%A5Android%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%E4%BA%86%E8%A7%A3TravisCI%E7%9A%84%E4%BD%BF%E7%94%A8/" >
-                    </div>
-                </div>-->
-                <!-- 多说评论框 end -->
-                
 
+                
             </div>  
 
     <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
         
 
     <!-- Sidebar Container -->
@@ -380,63 +452,49 @@ apply plugin:'im.fir.plugin.gradle'
 
                 <!-- Featured Tags -->
                 
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-        				
-                            
-                				<a href="/tags/#Android" title="Android" rel="4">
-                                    Android
-                                </a>
-                            
-        				
-                            
-        				
-                            
-        				
-        			</div>
-                </section>
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0001" 
+                    href="/archive/?tag=Android"
+                    title="Android"
+                    rel="4">Android</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
                 
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+</ul>
 
-                <!-- 来必力City版安装代码 -->
-                <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTA1NC81NjIz">
-                    <script type="text/javascript">
-                (function(d, s) {
-                    var j, e = d.getElementsByTagName(s)[0];
-
-                    if (typeof LivereTower === 'function') { return; }
-
-                    j = d.createElement(s);
-                    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-                    j.async = true;
-
-                    e.parentNode.insertBefore(j, e);
-                })(document, 'script');
-                    </script>
-                <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
-                </div>
-                <!-- City版安装代码已完成 -->
-
-                <!--comment start-->
-                <!--<div class="comment">
-                    <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-                    <script>
-                    var cloudTieConfig = {
-                        url: document.location.href, 
-                        sourceId: "",
-                        productKey: "62955dbacc494f76a3d19b553a297b39",
-                        target: "cloud-tie-wrapper"
-                    };
-                    </script>
-                    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
-                </div>-->
-                <!--comment end-->
-                
             </div>
         </div>
     </div>
 </article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+
 
 
 <!-- async load function -->
@@ -450,6 +508,28 @@ apply plugin:'im.fir.plugin.gradle'
       s.parentNode.insertBefore(o, s);
     }
 </script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
 
 
@@ -458,50 +538,48 @@ apply plugin:'im.fir.plugin.gradle'
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                    
-                    
-
-                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
-                    
-                    
+                <!-- SNS Link -->
+                
 
 
-                    
-                    <li>
-                        <a target="_blank" href="https://www.facebook.com/liuguangqiang">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li>
-                        <a target="_blank" href="https://github.com/liuguangqiang">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li>
-                        <a target="_blank" href="https://www.linkedin.com/in/liuguangqiang">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                </ul>
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://www.facebook.com/liuguangqiang">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/liuguangqiang">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
                 <p class="copyright text-muted">
-                    Copyright &copy; Eric's Blog 2017
+                    Copyright &copy; Eric's Blog 2020
                     <br>
-                    Theme by <a href="http://huangxuan.me">Hux</a> | Powered by Jekyll
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
                 </p>
             </div>
         </div>
@@ -512,46 +590,42 @@ apply plugin:'im.fir.plugin.gradle'
 <script src="/js/jquery.min.js "></script>
 
 <!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
 <script src="/js/bootstrap.min.js "></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="/js/hux-blog.min.js "></script>
 
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
 <!-- Service Worker -->
 
-<script type="text/javascript">
-    if(navigator.serviceWorker){
-        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
-        navigator.serviceWorker
-            .register('/sw.js')
-            .then((registration) => {console.log('Service Worker Registered. ', registration)})
-            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
-    }
-</script>
-
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
 
 
 <!-- async load function -->
 <script>
     function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
     }
 </script>
 
-<!-- 
-     Because of the native support for backtick-style fenced code blocks 
-     right within the Markdown is landed in Github Pages, 
-     From V1.6, There is no need for Highlight.js, 
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
      so Huxblog drops it officially.
 
-     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
-     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
-     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
 -->
 <!--
     <script>
@@ -563,25 +637,16 @@ apply plugin:'im.fir.plugin.gradle'
 -->
 
 
-<!-- jquery.tagcloud.js -->
-<script>
-    // only load tagcloud.js in tag.html
-    if($('#tag_cloud').length !== 0){
-        async('/js/jquery.tagcloud.js',function(){
-            $.fn.tagcloud.defaults = {
-                //size: {start: 1, end: 1, unit: 'em'},
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
-</script>
+
+
+
+
 
 <!--fastClick.js -->
 <script>
-    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
         var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
+        if ($nav) FastClick.attach($nav);
     })
 </script>
 
@@ -594,11 +659,128 @@ apply plugin:'im.fir.plugin.gradle'
 
 
 
-
 <!-- Side Catalog -->
 
+<script type="text/javascript">
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#" + $(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function (e) {
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
 
 
+
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
 
 
 <!-- Image to hack wechat -->

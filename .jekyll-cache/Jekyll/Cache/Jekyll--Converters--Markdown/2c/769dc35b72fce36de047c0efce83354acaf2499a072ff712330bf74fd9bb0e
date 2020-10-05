@@ -1,0 +1,197 @@
+I"�<<h2 id="基本介绍">基本介绍</h2>
+<p>Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。</p>
+
+<p>现在Retrofit已经出到2.0.2版本了，与前的1.9版本相差很大，并且官方强烈推荐2.0版本，所以在此就只聊2.0以后的版本。</p>
+
+<h2 id="马上开撸">马上开撸！</h2>
+<p>首先肯定要在build.gradle中添加retrofit的依赖。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>compile 'com.squareup.retrofit2:retrofit:2.0.2'
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>创建一个HTTP API的接口。</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ZhihuService</span> <span class="o">{</span>
+   
+    <span class="nd">@GET</span><span class="o">(</span><span class="s">"news/latest"</span><span class="o">)</span> 
+    <span class="nc">Call</span><span class="o">&lt;</span><span class="nc">Daily</span><span class="o">&gt;</span> <span class="nf">getLatest</span><span class="o">();</span>
+    
+<span class="o">}</span></code></pre></figure>
+
+<p>实例化ZhihuService，然后发起HTTP请求。</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="nc">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="s">"http://news-at.zhihu.com/api/4/"</span><span class="o">)</span>
+    <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+<span class="nc">ZhihuService</span> <span class="n">service</span> <span class="o">=</span> <span class="n">retrofit</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="nc">ZhihuService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="nc">Call</span><span class="o">&lt;</span><span class="nc">Daily</span><span class="o">&gt;</span> <span class="n">daily</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">getLatest</span><span class="o">();</span></code></pre></figure>
+
+<h2 id="说好的rxjava呢">说好的RxJava呢？</h2>
+
+<p>RxJava到底是什么？</p>
+
+<p>Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM.</p>
+
+<p>如果不熟悉RxJava的朋友，可以看看这篇文章，<a href="http://gank.io/post/560e15be2dca930e00da1083#toc_1">给 Android 开发者的 RxJava 详解</a></p>
+
+<p>Retrofit2.0依然是支持RxJava的，但和以前的集成在一起不同，现在是完全独立的，需要自己添加CallAdapter。这样的好处是更灵活，更解耦。</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="cm">/**
+ * Add a call adapter factory for supporting service method return types other than {@link
+ * Call}.
+ */</span>
+<span class="kd">public</span> <span class="nc">Builder</span> <span class="nf">addCallAdapterFactory</span><span class="o">(</span><span class="nc">CallAdapter</span><span class="o">.</span><span class="na">Factory</span> <span class="n">factory</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">adapterFactories</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">checkNotNull</span><span class="o">(</span><span class="n">factory</span><span class="o">,</span> <span class="s">"factory == null"</span><span class="o">));</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+<span class="o">}</span></code></pre></figure>
+
+<h2 id="添加rxjavacalladapter">添加RxJavaCallAdapter</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="nc">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="no">HOST_NAME</span><span class="o">)</span>
+		        <span class="o">.</span><span class="na">addCallAdapterFactory</span><span class="o">(</span><span class="nc">RxJavaCallAdapterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span></code></pre></figure>
+
+<h2 id="现在retrofit可以使用rxjava了">现在Retrofit可以使用RxJava了</h2>
+
+<p><strong>首先修改我们的API接口。</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ZhihuService</span> <span class="o">{</span>
+	
+	 <span class="nd">@GET</span><span class="o">(</span><span class="s">"news/latest"</span><span class="o">)</span>
+	 <span class="nc">Observable</span><span class="o">&lt;</span><span class="nc">Daily</span><span class="o">&gt;</span> <span class="nf">getLatest</span><span class="o">();</span>
+	     
+<span class="o">}</span></code></pre></figure>
+
+<p><strong>RxJava的使用在这里！！</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+    <span class="nc">ZhihuService</span> <span class="n">service</span> <span class="o">=</span> <span class="n">retrofit</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="nc">ZhihuService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="nc">Observable</span><span class="o">&lt;</span><span class="nc">Daily</span><span class="o">&gt;</span> <span class="n">observable</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">getLatest</span><span class="o">();</span>
+    <span class="n">observable</span><span class="o">.</span><span class="na">subscribeOn</span><span class="o">(</span><span class="nc">Schedulers</span><span class="o">.</span><span class="na">io</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">observeOn</span><span class="o">(</span><span class="nc">AndroidSchedulers</span><span class="o">.</span><span class="na">mainThread</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="nc">Observer</span><span class="o">&lt;</span><span class="nc">Daily</span><span class="o">&gt;()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCompleted</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="nc">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNext</span><span class="o">(</span><span class="nc">Daily</span> <span class="n">daily</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+    <span class="o">});</span></code></pre></figure>
+
+<h2 id="retrofit-converter的使用">Retrofit Converter的使用</h2>
+<p>Converter和CallAdapter一样，也从Retrofit中分离出来，需要自己添加。官方提供了很多convertes.</p>
+
+<ul>
+  <li>gson</li>
+  <li>jackson</li>
+  <li>moshi</li>
+  <li>protobuf</li>
+  <li>scalars</li>
+  <li>simplexml</li>
+  <li>wire</li>
+</ul>
+
+<p>但是发现没有LoganSqaure，那只有自己撸了，还好在github上已经有写好的，是时候发挥我们的拿来主义的精神了，不然怎么说我们都是github的搬运工呢。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>complie 'com.github.aurae.retrofit2:converter-logansquare:1.4.0'
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="nc">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="no">HOST_NAME</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">addConverterFactory</span><span class="o">(</span><span class="nc">LoganSquareConverterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">addCallAdapterFactory</span><span class="o">(</span><span class="nc">RxJavaCallAdapterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span></code></pre></figure>
+
+<h2 id="为什么使用logansquare来解析json">为什么使用LoganSquare来解析JSON？</h2>
+
+<p>天下武功唯快不破！因为LoganSquare快啊！</p>
+
+<p><img src="/img/1461222338634.png" alt="image" /></p>
+
+<p>Note: Our “400% or more” performance improvement metric was determined using ART. While LoganSquare still comes out on top with Dalvik, it seems as though the comparison is much closer. The benchmarks shown are actual screenshots taken from a 2nd gen Moto X.</p>
+
+<h4 id="添加logansquare">添加LoganSquare</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre>buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+}
+apply plugin: 'com.neenbedankt.android-apt'
+
+dependencies {
+    apt 'com.bluelinelabs:logansquare-compiler:1.3.6'
+    compile 'com.bluelinelabs:logansquare:1.3.6'
+}
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="打印log">打印Log</h2>
+<p>很多时候，我们希望打印Http请求的Log，这样方便调试。在老版本的Retrofit中，有个方法</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="k">new</span> <span class="nc">RestAdapter</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">setLogLevel</span><span class="o">(</span><span class="nc">RestAdapter</span><span class="o">.</span><span class="na">LogLevel</span><span class="o">.</span><span class="na">FULL</span><span class="o">);</span></code></pre></figure>
+
+<p>但是，在Retrofit2.0后，不再提供该方法了，需要依赖okhttp中的HttpLoggingInterceptor。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="nc">HttpLoggingInterceptor</span> <span class="n">interceptor</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HttpLoggingInterceptor</span><span class="o">();</span>
+        <span class="n">interceptor</span><span class="o">.</span><span class="na">setLevel</span><span class="o">(</span><span class="nc">HttpLoggingInterceptor</span><span class="o">.</span><span class="na">Level</span><span class="o">.</span><span class="na">HEADERS</span><span class="o">);</span>
+        <span class="nc">OkHttpClient</span> <span class="n">okHttpClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">OkHttpClient</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">addInterceptor</span><span class="o">(</span><span class="n">interceptor</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="nc">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="no">HOST_NAME</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">client</span><span class="o">(</span><span class="n">okHttpClient</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">addConverterFactory</span><span class="o">(</span><span class="nc">LoganSquareConverterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">addCallAdapterFactory</span><span class="o">(</span><span class="nc">RxJavaCallAdapterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span></code></pre></figure>
+
+<h2 id="看了这么多源码呢">看了这么多，源码呢？</h2>
+<p>源码当然要献上的，之前的一个开源的APP叫<a href="https://github.com/liuguangqiang/Idaily">IDaily</a>，其中的HTTP请求就是采用的Retrofit2+RxJava+LoganSquare，敢兴趣的朋友，可以看一下。</p>
+
+<p>##That’s all!
+到此就结束了, 初次写类似的文章，如有错误，望见谅！谢谢！</p>
+:ET

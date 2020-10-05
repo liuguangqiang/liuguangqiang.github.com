@@ -5,12 +5,33 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Don't reinvent wheel. But you have to learn how to create.">
-    <meta name="keywords"  content="android, java, nodejs, kotlin, iOS, swift, Eric, blog">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description" content="test desc">
+    <meta name="keywords"  content="test keyword">
     <meta name="theme-color" content="#000000">
     
-    <title>Retrofit2+RxJava+LoganSquare最佳实践 - Eric的博客</title>
+    <!-- Open Graph -->
+    <meta property="og:title" content="Retrofit2+RxJava+LoganSquare最佳实践 - Eric‘s Blog | Eric's Blog">
+    
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="基本介绍
+Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。
+">
+    
+    <meta property="article:published_time" content="2016-04-21T00:00:00Z">
+    
+    
+    <meta property="article:author" content="Eric">
+    
+    
+    <meta property="article:tag" content="Android">
+    
+    
+    <meta property="og:image" content="http://localhost:4000/img/avatar-hux-ny.jpg">
+    <meta property="og:url" content="http://localhost:4000/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
+    <meta property="og:site_name" content="Eric‘s Blog | Eric's Blog">
+    
+    <title>Retrofit2+RxJava+LoganSquare最佳实践 - Eric‘s Blog | Eric's Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -19,28 +40,18 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://liuguangqiang.com/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
+    <link rel="canonical" href="http://localhost:4000/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/hux-blog.css">
-
-    <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="/css/syntax.css">
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
 
     <!-- Custom Fonts -->
     <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- Hux change font-awesome CDN to qiniu -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-
-    <!-- Hux Delete, sad but pending in China
-    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
-    css'>
-    -->
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -59,141 +70,180 @@
 <body ontouchstart="">
 
     <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">Eric's Blog</a>
-        </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div id="huxblog_navbar">
-            <div class="navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                     <li>
-                        <a href="/about">About</a>
-                    </li>
-                     <li>
-                        <a href="/tags">TAGS</a>
-                    </li>
-                    
-                    <li>
-                        <!--<a href="/about/">About</a>-->
-                    </li>
-                    
-                    <li>
-                        <!--<a href="/">Eric's Blog</a>-->
-                    </li>
-                    
-                    <li>
-                        <!--<a href="/tags/"></a>-->
-                    </li>
-                    
-                </ul>
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Eric's Blog</a>
             </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="huxblog_navbar">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                        
+                        
+                        <li>
+                            <a href="/archive/">Archive</a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <li class="search-icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.navbar-collapse -->
+        <!-- /.container -->
+    </nav>
+
+    <script>
+        // Drop Bootstarp low-performance Navbar
+        // Use customize navbar with high-quality material design animation
+        // in high-perf jank-free CSS3 implementation
+        var $body = document.body;
+        var $toggle = document.querySelector('.navbar-toggle');
+        var $navbar = document.querySelector('#huxblog_navbar');
+        var $collapse = document.querySelector('.navbar-collapse');
+
+        var __HuxNav__ = {
+            close: function () {
+                $navbar.className = " ";
+                // wait until animation end.
+                setTimeout(function () {
+                    // prevent frequently toggle
+                    if ($navbar.className.indexOf('in') < 0) {
+                        $collapse.style.height = "0px"
+                    }
+                }, 400)
+            },
+            open: function () {
+                $collapse.style.height = "auto"
+                $navbar.className += " in";
+            }
+        }
+
+        // Bind Event
+        $toggle.addEventListener('click', function (e) {
+            if ($navbar.className.indexOf('in') > 0) {
+                __HuxNav__.close()
+            } else {
+                __HuxNav__.open()
+            }
+        })
+
+        /**
+         * Since Fastclick is used to delegate 'touchstart' globally
+         * to hack 300ms delay in iOS by performing a fake 'click',
+         * Using 'e.stopPropagation' to stop 'touchstart' event from 
+         * $toggle/$collapse will break global delegation.
+         * 
+         * Instead, we use a 'e.target' filter to prevent handler
+         * added to document close HuxNav.  
+         *
+         * Also, we use 'click' instead of 'touchstart' as compromise
+         */
+        document.addEventListener('click', function (e) {
+            if (e.target == $toggle) return;
+            if (e.target.className == 'icon-bar') return;
+            __HuxNav__.close();
+        })
+    </script>
+    <!-- Search -->
+<div class="search-page">
+  <div class="search-icon-close-container">
+    <span class="search-icon-close">
+      <i class="fa fa-chevron-down"></i>
+    </span>
+  </div>
+  <div class="search-main container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <form></form>
+        <input type="text" id="search-input" placeholder="$ grep...">
+        </form>
+        <div id="search-results" class="mini-post-list"></div>
+      </div>
     </div>
-    <!-- /.container -->
-</nav>
-<script>
-    // Drop Bootstarp low-performance Navbar
-    // Use customize navbar with high-quality material design animation
-    // in high-perf jank-free CSS3 implementation
-    var $body   = document.body;
-    var $toggle = document.querySelector('.navbar-toggle');
-    var $navbar = document.querySelector('#huxblog_navbar');
-    var $collapse = document.querySelector('.navbar-collapse');
-
-    var __HuxNav__ = {
-        close: function(){
-            $navbar.className = " ";
-            // wait until animation end.
-            setTimeout(function(){
-                // prevent frequently toggle
-                if($navbar.className.indexOf('in') < 0) {
-                    $collapse.style.height = "0px"
-                }
-            },400)
-        },
-        open: function(){
-            $collapse.style.height = "auto"
-            $navbar.className += " in";
-        }
-    }
-
-    // Bind Event
-    $toggle.addEventListener('click', function(e){
-        if ($navbar.className.indexOf('in') > 0) {
-            __HuxNav__.close()
-        }else{
-            __HuxNav__.open()
-        }
-    })
-
-    /**
-     * Since Fastclick is used to delegate 'touchstart' globally
-     * to hack 300ms delay in iOS by performing a fake 'click',
-     * Using 'e.stopPropagation' to stop 'touchstart' event from 
-     * $toggle/$collapse will break global delegation.
-     * 
-     * Instead, we use a 'e.target' filter to prevent handler
-     * added to document close HuxNav.  
-     *
-     * Also, we use 'click' instead of 'touchstart' as compromise
-     */
-    document.addEventListener('click', function(e){
-        if(e.target == $toggle) return;
-        if(e.target.className == 'icon-bar') return;
-        __HuxNav__.close();
-    })
-</script>
-
+  </div>
+</div>
 
     <!-- Image to hack wechat -->
 <!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
 <!-- <img src="/img/home-bg.jpg" width="0" height="0"> -->
 
 <!-- Post Header -->
+
+
+
 <style type="text/css">
     header.intro-header{
         position: relative;
-        background-image: url('/img/home-bg.jpg')
+        background-image: url('/img/home-bg.jpg');
+        background: ;
     }
 
     
 </style>
+
 <header class="intro-header" >
+
     <div class="header-mask"></div>
+    
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
                     <div class="tags">
                         
-                        <a class="tag" href="/tags/#Android" title="Android">Android</a>
+                        <a class="tag" href="/archive/?tag=Android" title="Android">Android</a>
                         
                     </div>
                     <h1>Retrofit2+RxJava+LoganSquare最佳实践</h1>
                     
-                    
                     <h2 class="subheading"></h2>
-                    
                     <span class="meta">Posted by Eric on April 21, 2016</span>
                 </div>
             </div>
         </div>
     </div>
 </header>
+
+
+
+
+
 
 <!-- Post Content -->
 <article>
@@ -206,17 +256,20 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-				<h2 id="section">基本介绍</h2>
+                <!-- Multi-Lingual -->
+                
+
+				<h2 id="基本介绍">基本介绍</h2>
 <p>Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。</p>
 
 <p>现在Retrofit已经出到2.0.2版本了，与前的1.9版本相差很大，并且官方强烈推荐2.0版本，所以在此就只聊2.0以后的版本。</p>
 
-<h2 id="section-1">马上开撸！</h2>
+<h2 id="马上开撸">马上开撸！</h2>
 <p>首先肯定要在build.gradle中添加retrofit的依赖。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>compile 'com.squareup.retrofit2:retrofit:2.0.2'
-</code></pre>
-</div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>compile 'com.squareup.retrofit2:retrofit:2.0.2'
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>创建一个HTTP API的接口。</p>
 
@@ -224,22 +277,22 @@
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ZhihuService</span> <span class="o">{</span>
    
     <span class="nd">@GET</span><span class="o">(</span><span class="s">"news/latest"</span><span class="o">)</span> 
-    <span class="n">Call</span><span class="o">&lt;</span><span class="n">Daily</span><span class="o">&gt;</span> <span class="n">getLatest</span><span class="o">();</span>
+    <span class="nc">Call</span><span class="o">&lt;</span><span class="nc">Daily</span><span class="o">&gt;</span> <span class="nf">getLatest</span><span class="o">();</span>
     
 <span class="o">}</span></code></pre></figure>
 
 <p>实例化ZhihuService，然后发起HTTP请求。</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
-<span class="n">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+<span class="nc">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
     <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="s">"http://news-at.zhihu.com/api/4/"</span><span class="o">)</span>
     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-<span class="n">ZhihuService</span> <span class="n">service</span> <span class="o">=</span> <span class="n">retrofit</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">ZhihuService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span></code></pre></figure>
+<span class="nc">ZhihuService</span> <span class="n">service</span> <span class="o">=</span> <span class="n">retrofit</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="nc">ZhihuService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span></code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
-<span class="n">Call</span><span class="o">&lt;</span><span class="n">Daily</span><span class="o">&gt;</span> <span class="n">daily</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">getLatest</span><span class="o">();</span></code></pre></figure>
+<span class="nc">Call</span><span class="o">&lt;</span><span class="nc">Daily</span><span class="o">&gt;</span> <span class="n">daily</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">getLatest</span><span class="o">();</span></code></pre></figure>
 
-<h2 id="rxjava">说好的RxJava呢？</h2>
+<h2 id="说好的rxjava呢">说好的RxJava呢？</h2>
 
 <p>RxJava到底是什么？</p>
 
@@ -254,24 +307,24 @@
  * Add a call adapter factory for supporting service method return types other than {@link
  * Call}.
  */</span>
-<span class="kd">public</span> <span class="n">Builder</span> <span class="nf">addCallAdapterFactory</span><span class="p">(</span><span class="n">CallAdapter</span><span class="o">.</span><span class="na">Factory</span> <span class="n">factory</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nc">Builder</span> <span class="nf">addCallAdapterFactory</span><span class="o">(</span><span class="nc">CallAdapter</span><span class="o">.</span><span class="na">Factory</span> <span class="n">factory</span><span class="o">)</span> <span class="o">{</span>
       <span class="n">adapterFactories</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">checkNotNull</span><span class="o">(</span><span class="n">factory</span><span class="o">,</span> <span class="s">"factory == null"</span><span class="o">));</span>
     <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
 <span class="o">}</span></code></pre></figure>
 
-<h2 id="rxjavacalladapter">添加RxJavaCallAdapter</h2>
+<h2 id="添加rxjavacalladapter">添加RxJavaCallAdapter</h2>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
-</code></pre>
-</div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
-<span class="n">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="n">HOST_NAME</span><span class="o">)</span>
-		        <span class="o">.</span><span class="na">addCallAdapterFactory</span><span class="o">(</span><span class="n">RxJavaCallAdapterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
+<span class="nc">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="no">HOST_NAME</span><span class="o">)</span>
+		        <span class="o">.</span><span class="na">addCallAdapterFactory</span><span class="o">(</span><span class="nc">RxJavaCallAdapterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
                 <span class="o">.</span><span class="na">build</span><span class="o">();</span></code></pre></figure>
 
-<h2 id="retrofitrxjava">现在Retrofit可以使用RxJava了</h2>
+<h2 id="现在retrofit可以使用rxjava了">现在Retrofit可以使用RxJava了</h2>
 
 <p><strong>首先修改我们的API接口。</strong></p>
 
@@ -279,32 +332,32 @@
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ZhihuService</span> <span class="o">{</span>
 	
 	 <span class="nd">@GET</span><span class="o">(</span><span class="s">"news/latest"</span><span class="o">)</span>
-	 <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Daily</span><span class="o">&gt;</span> <span class="n">getLatest</span><span class="o">();</span>
+	 <span class="nc">Observable</span><span class="o">&lt;</span><span class="nc">Daily</span><span class="o">&gt;</span> <span class="nf">getLatest</span><span class="o">();</span>
 	     
 <span class="o">}</span></code></pre></figure>
 
 <p><strong>RxJava的使用在这里！！</strong></p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
-    <span class="n">ZhihuService</span> <span class="n">service</span> <span class="o">=</span> <span class="n">retrofit</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">ZhihuService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="n">Observable</span><span class="o">&lt;</span><span class="n">Daily</span><span class="o">&gt;</span> <span class="n">observable</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">getLatest</span><span class="o">();</span>
-    <span class="n">observable</span><span class="o">.</span><span class="na">subscribeOn</span><span class="o">(</span><span class="n">Schedulers</span><span class="o">.</span><span class="na">io</span><span class="o">())</span>
-            <span class="o">.</span><span class="na">observeOn</span><span class="o">(</span><span class="n">AndroidSchedulers</span><span class="o">.</span><span class="na">mainThread</span><span class="o">())</span>
-            <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="n">Observer</span><span class="o">&lt;</span><span class="n">Daily</span><span class="o">&gt;()</span> <span class="o">{</span>
+    <span class="nc">ZhihuService</span> <span class="n">service</span> <span class="o">=</span> <span class="n">retrofit</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="nc">ZhihuService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="nc">Observable</span><span class="o">&lt;</span><span class="nc">Daily</span><span class="o">&gt;</span> <span class="n">observable</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="na">getLatest</span><span class="o">();</span>
+    <span class="n">observable</span><span class="o">.</span><span class="na">subscribeOn</span><span class="o">(</span><span class="nc">Schedulers</span><span class="o">.</span><span class="na">io</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">observeOn</span><span class="o">(</span><span class="nc">AndroidSchedulers</span><span class="o">.</span><span class="na">mainThread</span><span class="o">())</span>
+            <span class="o">.</span><span class="na">subscribe</span><span class="o">(</span><span class="k">new</span> <span class="nc">Observer</span><span class="o">&lt;</span><span class="nc">Daily</span><span class="o">&gt;()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="n">onCompleted</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCompleted</span><span class="o">()</span> <span class="o">{</span>
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="n">onError</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onError</span><span class="o">(</span><span class="nc">Throwable</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">void</span> <span class="n">onNext</span><span class="o">(</span><span class="n">Daily</span> <span class="n">daily</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onNext</span><span class="o">(</span><span class="nc">Daily</span> <span class="n">daily</span><span class="o">)</span> <span class="o">{</span>
         <span class="o">}</span>
     <span class="o">});</span></code></pre></figure>
 
-<h2 id="retrofit-converter">Retrofit Converter的使用</h2>
+<h2 id="retrofit-converter的使用">Retrofit Converter的使用</h2>
 <p>Converter和CallAdapter一样，也从Retrofit中分离出来，需要自己添加。官方提供了很多convertes.</p>
 
 <ul>
@@ -319,18 +372,18 @@
 
 <p>但是发现没有LoganSqaure，那只有自己撸了，还好在github上已经有写好的，是时候发挥我们的拿来主义的精神了，不然怎么说我们都是github的搬运工呢。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>complie 'com.github.aurae.retrofit2:converter-logansquare:1.4.0'
-</code></pre>
-</div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>complie 'com.github.aurae.retrofit2:converter-logansquare:1.4.0'
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
-<span class="n">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="n">HOST_NAME</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">addConverterFactory</span><span class="o">(</span><span class="n">LoganSquareConverterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
-                <span class="o">.</span><span class="na">addCallAdapterFactory</span><span class="o">(</span><span class="n">RxJavaCallAdapterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
+<span class="nc">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="no">HOST_NAME</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">addConverterFactory</span><span class="o">(</span><span class="nc">LoganSquareConverterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">addCallAdapterFactory</span><span class="o">(</span><span class="nc">RxJavaCallAdapterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
                 <span class="o">.</span><span class="na">build</span><span class="o">();</span></code></pre></figure>
 
-<h2 id="logansquarejson">为什么使用LoganSquare来解析JSON？</h2>
+<h2 id="为什么使用logansquare来解析json">为什么使用LoganSquare来解析JSON？</h2>
 
 <p>天下武功唯快不破！因为LoganSquare快啊！</p>
 
@@ -338,8 +391,22 @@
 
 <p>Note: Our “400% or more” performance improvement metric was determined using ART. While LoganSquare still comes out on top with Dalvik, it seems as though the comparison is much closer. The benchmarks shown are actual screenshots taken from a 2nd gen Moto X.</p>
 
-<h4 id="logansquare">添加LoganSquare</h4>
-<div class="highlighter-rouge"><pre class="highlight"><code>buildscript {
+<h4 id="添加logansquare">添加LoganSquare</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre>buildscript {
     repositories {
         jcenter()
     }
@@ -353,38 +420,37 @@ dependencies {
     apt 'com.bluelinelabs:logansquare-compiler:1.3.6'
     compile 'com.bluelinelabs:logansquare:1.3.6'
 }
-</code></pre>
-</div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-<h2 id="log">打印Log</h2>
+<h2 id="打印log">打印Log</h2>
 <p>很多时候，我们希望打印Http请求的Log，这样方便调试。在老版本的Retrofit中，有个方法</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
-<span class="k">new</span> <span class="n">RestAdapter</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
-    <span class="o">.</span><span class="na">setLogLevel</span><span class="o">(</span><span class="n">RestAdapter</span><span class="o">.</span><span class="na">LogLevel</span><span class="o">.</span><span class="na">FULL</span><span class="o">);</span></code></pre></figure>
+<span class="k">new</span> <span class="nc">RestAdapter</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+    <span class="o">.</span><span class="na">setLogLevel</span><span class="o">(</span><span class="nc">RestAdapter</span><span class="o">.</span><span class="na">LogLevel</span><span class="o">.</span><span class="na">FULL</span><span class="o">);</span></code></pre></figure>
 
 <p>但是，在Retrofit2.0后，不再提供该方法了，需要依赖okhttp中的HttpLoggingInterceptor。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
-</code></pre>
-</div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
-<span class="n">HttpLoggingInterceptor</span> <span class="n">interceptor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpLoggingInterceptor</span><span class="o">();</span>
-        <span class="n">interceptor</span><span class="o">.</span><span class="na">setLevel</span><span class="o">(</span><span class="n">HttpLoggingInterceptor</span><span class="o">.</span><span class="na">Level</span><span class="o">.</span><span class="na">HEADERS</span><span class="o">);</span>
-        <span class="n">OkHttpClient</span> <span class="n">okHttpClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OkHttpClient</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+<span class="nc">HttpLoggingInterceptor</span> <span class="n">interceptor</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HttpLoggingInterceptor</span><span class="o">();</span>
+        <span class="n">interceptor</span><span class="o">.</span><span class="na">setLevel</span><span class="o">(</span><span class="nc">HttpLoggingInterceptor</span><span class="o">.</span><span class="na">Level</span><span class="o">.</span><span class="na">HEADERS</span><span class="o">);</span>
+        <span class="nc">OkHttpClient</span> <span class="n">okHttpClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">OkHttpClient</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
                 <span class="o">.</span><span class="na">addInterceptor</span><span class="o">(</span><span class="n">interceptor</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">build</span><span class="o">();</span></code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"> 
-<span class="n">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="n">HOST_NAME</span><span class="o">)</span>
+<span class="nc">Retrofit</span> <span class="n">retrofit</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Retrofit</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">baseUrl</span><span class="o">(</span><span class="no">HOST_NAME</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">client</span><span class="o">(</span><span class="n">okHttpClient</span><span class="o">)</span>
-                <span class="o">.</span><span class="na">addConverterFactory</span><span class="o">(</span><span class="n">LoganSquareConverterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
-                <span class="o">.</span><span class="na">addCallAdapterFactory</span><span class="o">(</span><span class="n">RxJavaCallAdapterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">addConverterFactory</span><span class="o">(</span><span class="nc">LoganSquareConverterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">addCallAdapterFactory</span><span class="o">(</span><span class="nc">RxJavaCallAdapterFactory</span><span class="o">.</span><span class="na">create</span><span class="o">())</span>
                 <span class="o">.</span><span class="na">build</span><span class="o">();</span></code></pre></figure>
 
-<h2 id="section-2">看了这么多，源码呢？</h2>
+<h2 id="看了这么多源码呢">看了这么多，源码呢？</h2>
 <p>源码当然要献上的，之前的一个开源的APP叫<a href="https://github.com/liuguangqiang/Idaily">IDaily</a>，其中的HTTP请求就是采用的Retrofit2+RxJava+LoganSquare，敢兴趣的朋友，可以看一下。</p>
 
 <p>##That’s all!
@@ -392,7 +458,6 @@ dependencies {
 
 
                 <hr style="visibility: hidden;">
-
                 <ul class="pager">
                     
                     <li class="previous">
@@ -411,19 +476,11 @@ dependencies {
                     </li>
                     
                 </ul>
+                <hr style="visibility: hidden;">
 
                 
-                <!-- 多说评论框 start -->
-                <!--<div class="comment">
-                    <div class="ds-thread"
-                        data-thread-key="/android/2016/04/21/Retrofit2+RxJava+LoganSquare最佳实践"
-                        data-title="Retrofit2+RxJava+LoganSquare最佳实践"
-                        data-url="http://liuguangqiang.com/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" >
-                    </div>
-                </div>-->
-                <!-- 多说评论框 end -->
-                
 
+                
             </div>  
 
     <!-- Side Catalog Container -->
@@ -451,63 +508,49 @@ dependencies {
 
                 <!-- Featured Tags -->
                 
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-        				
-                            
-                				<a href="/tags/#Android" title="Android" rel="4">
-                                    Android
-                                </a>
-                            
-        				
-                            
-        				
-                            
-        				
-        			</div>
-                </section>
+
+
+<section>
+    
+        <hr class="hidden-sm hidden-xs">
+    
+    <h5><a href="/archive/">FEATURED TAGS</a></h5>
+    <div class="tags">
+        
+        
+        
+        
+        
+        
+                <a data-sort="0001" 
+                    href="/archive/?tag=Android"
+                    title="Android"
+                    rel="4">Android</a>
+    </div>
+</section>
+
+
+                <!-- Friends Blog -->
                 
+<hr>
+<h5>FRIENDS</h5>
+<ul class="list-inline">
+  
+</ul>
 
-                <!-- 来必力City版安装代码 -->
-                <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTA1NC81NjIz">
-                    <script type="text/javascript">
-                (function(d, s) {
-                    var j, e = d.getElementsByTagName(s)[0];
-
-                    if (typeof LivereTower === 'function') { return; }
-
-                    j = d.createElement(s);
-                    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-                    j.async = true;
-
-                    e.parentNode.insertBefore(j, e);
-                })(document, 'script');
-                    </script>
-                <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
-                </div>
-                <!-- City版安装代码已完成 -->
-
-                <!--comment start-->
-                <!--<div class="comment">
-                    <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-                    <script>
-                    var cloudTieConfig = {
-                        url: document.location.href, 
-                        sourceId: "",
-                        productKey: "62955dbacc494f76a3d19b553a297b39",
-                        target: "cloud-tie-wrapper"
-                    };
-                    </script>
-                    <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
-                </div>-->
-                <!--comment end-->
-                
             </div>
         </div>
     </div>
 </article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+
 
 
 <!-- async load function -->
@@ -521,6 +564,28 @@ dependencies {
       s.parentNode.insertBefore(o, s);
     }
 </script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
 
 
@@ -529,50 +594,48 @@ dependencies {
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <ul class="list-inline text-center">
-                    
-                    
-
-                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
-                    
-                    
+                <!-- SNS Link -->
+                
 
 
-                    
-                    <li>
-                        <a target="_blank" href="https://www.facebook.com/liuguangqiang">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li>
-                        <a target="_blank" href="https://github.com/liuguangqiang">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                    
-                    <li>
-                        <a target="_blank" href="https://www.linkedin.com/in/liuguangqiang">
-                            <span class="fa-stack fa-lg">
-                                <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                    </li>
-                    
-                </ul>
+<ul class="list-inline text-center">
+
+
+  
+  
+  
+  
+  
+  <li>
+    <a target="_blank" href="https://www.facebook.com/liuguangqiang">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+  <li>
+    <a target="_blank" href="https://github.com/liuguangqiang">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-circle fa-stack-2x"></i>
+        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </li>
+  
+  
+</ul>
+
                 <p class="copyright text-muted">
-                    Copyright &copy; Eric's Blog 2017
+                    Copyright &copy; Eric's Blog 2020
                     <br>
-                    Theme by <a href="http://huangxuan.me">Hux</a> | Powered by Jekyll
+                    Powered by <a href="http://huangxuan.me">Hux Blog</a> |
+                    <iframe style="margin-left: 2px; margin-bottom:-5px;" frameborder="0" scrolling="0" width="100px"
+                        height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true">
+                    </iframe>
                 </p>
             </div>
         </div>
@@ -583,46 +646,42 @@ dependencies {
 <script src="/js/jquery.min.js "></script>
 
 <!-- Bootstrap Core JavaScript -->
+<!-- Currently, only navbar scroll-down effect at desktop still depends on this -->
 <script src="/js/bootstrap.min.js "></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="/js/hux-blog.min.js "></script>
 
+<!-- Simple Jekyll Search -->
+<script src="/js/simple-jekyll-search.min.js"></script>
+
 <!-- Service Worker -->
 
-<script type="text/javascript">
-    if(navigator.serviceWorker){
-        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
-        navigator.serviceWorker
-            .register('/sw.js')
-            .then((registration) => {console.log('Service Worker Registered. ', registration)})
-            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
-    }
-</script>
-
+<script src="/js/snackbar.js "></script>
+<script src="/js/sw-registration.js "></script>
 
 
 <!-- async load function -->
 <script>
     function async(u, c) {
-      var d = document, t = 'script',
-          o = d.createElement(t),
-          s = d.getElementsByTagName(t)[0];
-      o.src = u;
-      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
-      s.parentNode.insertBefore(o, s);
+        var d = document, t = 'script',
+            o = d.createElement(t),
+            s = d.getElementsByTagName(t)[0];
+        o.src = u;
+        if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+        s.parentNode.insertBefore(o, s);
     }
 </script>
 
-<!-- 
-     Because of the native support for backtick-style fenced code blocks 
-     right within the Markdown is landed in Github Pages, 
-     From V1.6, There is no need for Highlight.js, 
+<!--
+     Because of the native support for backtick-style fenced code blocks
+     right within the Markdown is landed in Github Pages,
+     From V1.6, There is no need for Highlight.js,
      so Huxblog drops it officially.
 
-     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
-     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
-     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers
 -->
 <!--
     <script>
@@ -634,25 +693,16 @@ dependencies {
 -->
 
 
-<!-- jquery.tagcloud.js -->
-<script>
-    // only load tagcloud.js in tag.html
-    if($('#tag_cloud').length !== 0){
-        async('/js/jquery.tagcloud.js',function(){
-            $.fn.tagcloud.defaults = {
-                //size: {start: 1, end: 1, unit: 'em'},
-                color: {start: '#bbbbee', end: '#0085a1'},
-            };
-            $('#tag_cloud a').tagcloud();
-        })
-    }
-</script>
+
+
+
+
 
 <!--fastClick.js -->
 <script>
-    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function () {
         var $nav = document.querySelector("nav");
-        if($nav) FastClick.attach($nav);
+        if ($nav) FastClick.attach($nav);
     })
 </script>
 
@@ -665,28 +715,41 @@ dependencies {
 
 
 
-
 <!-- Side Catalog -->
 
 <script type="text/javascript">
-    function generateCatalog (selector) {
-        var P = $('div.post-container'),a,n,t,l,i,c;
+    function generateCatalog(selector) {
+
+        // interop with multilangual 
+        if ('' == 'true') {
+            _containerSelector = 'div.post-container.active'
+        } else {
+            _containerSelector = 'div.post-container'
+        }
+
+        // init
+        var P = $(_containerSelector), a, n, t, l, i, c;
         a = P.find('h1,h2,h3,h4,h5,h6');
+
+        // clean
+        $(selector).html('')
+
+        // appending
         a.each(function () {
             n = $(this).prop('tagName').toLowerCase();
-            i = "#"+$(this).prop('id');
+            i = "#" + $(this).prop('id');
             t = $(this).text();
-            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
-            l = $('<li class="'+n+'_nav"></li>').append(c);
+            c = $('<a href="' + i + '" rel="nofollow">' + t + '</a>');
+            l = $('<li class="' + n + '_nav"></li>').append(c);
             $(selector).append(l);
         });
-        return true;    
+        return true;
     }
 
     generateCatalog(".catalog-body");
 
     // toggle side catalog
-    $(".catalog-toggle").click((function(e){
+    $(".catalog-toggle").click((function (e) {
         e.preventDefault();
         $('.side-catalog').toggleClass("fold")
     }))
@@ -714,6 +777,66 @@ dependencies {
 
 
 
+<!-- Multi-Lingual -->
+
+
+<!-- Simple Jekyll Search -->
+<script>
+    // https://stackoverflow.com/questions/1912501/unescape-html-entities-in-javascript
+    function htmlDecode(input) {
+        var e = document.createElement('textarea');
+        e.innerHTML = input;
+        // handle case of empty input
+        return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+    }
+
+    SimpleJekyllSearch({
+        searchInput: document.getElementById('search-input'),
+        resultsContainer: document.getElementById('search-results'),
+        json: '/search.json',
+        searchResultTemplate: '<div class="post-preview item"><a href="{url}"><h2 class="post-title">{title}</h2><h3 class="post-subtitle">{subtitle}</h3><hr></a></div>',
+        noResultsText: 'No results',
+        limit: 50,
+        fuzzy: false,
+        // a hack to get escaped subtitle unescaped. for some reason, 
+        // post.subtitle w/o escape filter nuke entire search.
+        templateMiddleware: function (prop, value, template) {
+            if (prop === 'subtitle' || prop === 'title') {
+                if (value.indexOf("code")) {
+                    return htmlDecode(value);
+                } else {
+                    return value;
+                }
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        var $searchPage = $('.search-page');
+        var $searchOpen = $('.search-icon');
+        var $searchClose = $('.search-icon-close');
+        var $searchInput = $('#search-input');
+        var $body = $('body');
+
+        $searchOpen.on('click', function (e) {
+            e.preventDefault();
+            $searchPage.toggleClass('search-active');
+            var prevClasses = $body.attr('class') || '';
+            setTimeout(function () {
+                $body.addClass('no-scroll');
+            }, 400)
+
+            if ($searchPage.hasClass('search-active')) {
+                $searchClose.on('click', function (e) {
+                    e.preventDefault();
+                    $searchPage.removeClass('search-active');
+                    $body.attr('class', prevClasses);  // from closure 
+                });
+                $searchInput.focus();
+            }
+        });
+    });
+</script>
 
 
 <!-- Image to hack wechat -->

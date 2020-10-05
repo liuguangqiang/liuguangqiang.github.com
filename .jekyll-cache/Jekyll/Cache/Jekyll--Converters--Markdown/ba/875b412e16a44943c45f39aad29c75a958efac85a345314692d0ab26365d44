@@ -1,0 +1,114 @@
+I"&<p>Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…</p>
+
+<h2 id="annotation">Annotation</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="o">-</span><span class="n">keepattributes</span> <span class="o">*</span><span class="nc">Annotation</span><span class="o">*</span>
+<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">javax</span><span class="o">.</span><span class="na">inject</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="eventbus">EventBus</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">de</span><span class="o">.</span><span class="na">greenrobot</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<span class="o">-</span><span class="n">keepclassmembers</span> <span class="kd">class</span> <span class="err">**</span> <span class="err">{</span>
+    <span class="nc">public</span> <span class="kt">void</span> <span class="n">onEvent</span><span class="o">*(**);</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="dagger20">Dagger2.0</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">dagger</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<span class="o">-</span><span class="n">keep</span> <span class="kd">interface</span> <span class="nc">dagger</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+
+<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="err">**$$</span><span class="nc">ModuleAdapter</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<span class="o">-</span><span class="n">keepnames</span> <span class="kd">class</span> <span class="err">**$$</span><span class="nc">InjectAdapter</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<span class="o">-</span><span class="n">keepclassmembers</span> <span class="kd">class</span> <span class="err">*</span> <span class="err">{</span>
+    <span class="err">@</span><span class="nc">javax</span><span class="o">.</span><span class="na">inject</span><span class="o">.</span><span class="na">Inject</span> <span class="o">&lt;</span><span class="n">fields</span><span class="o">&gt;;</span>
+    <span class="nd">@javax</span><span class="o">.</span><span class="na">inject</span><span class="o">.</span><span class="na">Inject</span> <span class="o">&lt;</span><span class="n">init</span><span class="o">&gt;(...);</span>
+<span class="o">}</span>
+<span class="o">-</span><span class="n">adaptclassstrings</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="glide">Glide</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="o">-</span><span class="n">keep</span> <span class="kd">public</span> <span class="kd">class</span> <span class="err">*</span> <span class="nc">implements</span> <span class="n">com</span><span class="o">.</span><span class="na">bumptech</span><span class="o">.</span><span class="na">glide</span><span class="o">.</span><span class="na">module</span><span class="o">.</span><span class="na">GlideModule</span>
+<span class="o">-</span><span class="n">keep</span> <span class="kd">public</span> <span class="kd">enum</span> <span class="n">com</span><span class="o">.</span><span class="na">bumptech</span><span class="o">.</span><span class="na">glide</span><span class="o">.</span><span class="na">load</span><span class="o">.</span><span class="na">resource</span><span class="o">.</span><span class="na">bitmap</span><span class="o">.</span><span class="na">ImageHeaderParser</span><span class="err">$</span><span class="o">**</span> <span class="o">{</span>
+    <span class="o">**[]</span> <span class="n">$VALUES</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="o">*;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="gson">Gson</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="o">-</span><span class="n">keepattributes</span> <span class="nc">Signature</span>
+<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">sun</span><span class="o">.</span><span class="na">misc</span><span class="o">.</span><span class="na">Unsafe</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">gson</span><span class="o">.</span><span class="na">examples</span><span class="o">.</span><span class="na">android</span><span class="o">.</span><span class="na">model</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="logansquare">LoganSquare</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">com</span><span class="o">.</span><span class="na">bluelinelabs</span><span class="o">.</span><span class="na">logansquare</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<span class="o">-</span><span class="n">keep</span> <span class="nd">@com</span><span class="o">.</span><span class="na">bluelinelabs</span><span class="o">.</span><span class="na">logansquare</span><span class="o">.</span><span class="na">annotation</span><span class="o">.</span><span class="na">JsonObject</span> <span class="kd">class</span> <span class="err">*</span>
+<span class="err">-</span><span class="nc">keep</span> <span class="kd">class</span> <span class="err">**$$</span><span class="nc">JsonObjectMapper</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="butterknife">ButterKnife</h2>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="nc">butterknife</span><span class="o">.**</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+<span class="o">-</span><span class="n">dontwarn</span> <span class="n">butterknife</span><span class="o">.</span><span class="na">internal</span><span class="o">.**</span>
+<span class="o">-</span><span class="n">keep</span> <span class="kd">class</span> <span class="err">**$$</span><span class="nc">ViewBinder</span> <span class="o">{</span> <span class="o">*;</span> <span class="o">}</span>
+
+<span class="o">-</span><span class="n">keepclasseswithmembernames</span> <span class="kd">class</span> <span class="err">*</span> <span class="err">{</span>
+    <span class="err">@</span><span class="nc">butterknife</span><span class="o">.*</span> <span class="o">&lt;</span><span class="n">fields</span><span class="o">&gt;;</span>
+<span class="o">}</span>
+
+<span class="o">-</span><span class="n">keepclasseswithmembernames</span> <span class="kd">class</span> <span class="err">*</span> <span class="err">{</span>
+    <span class="err">@</span><span class="nc">butterknife</span><span class="o">.*</span> <span class="o">&lt;</span><span class="n">methods</span><span class="o">&gt;;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="rxjava--rxandroid">RxJava &amp; RxAndroid</h2>
+
+<p>最麻烦的就是RxJava和RxAndroid，直到我遇到下面的library</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>compile 'com.artemzin.rxjava:proguard-rules:1.1.0.0'
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET

@@ -1,0 +1,111 @@
+I"T<h2 id="类图">类图</h2>
+<p><img src="/img/design-pattern/strategy.png" alt="image" /></p>
+
+<h2 id="概念">概念</h2>
+<p>定义一系列不同的算法, 将每个算法都封装起来, 且可以互相的替换, 即为策略模式.</p>
+
+<h2 id="使用场景">使用场景</h2>
+<p>假设我们有多种加密算法, 比如MD5, RSA, SHA, 更加不同的需求, 需要使用不同的加密算法, 这里我们就可以考虑使用策略模式. 把不同的加密算法封装到各自的类中, 但他们都实现了相同的接口Strategy, 所以我们可以很容易的切换不同的加密算法, 而且这样的实现, 也符合开闭原则的要求, 如果有新的加密算法, 只需要新的算法也实现Strategy接口就可以了.</p>
+
+<h2 id="具体实现">具体实现</h2>
+<p><strong>定义一个策略接口</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Strategy</span> <span class="o">{</span>
+
+  <span class="kt">void</span> <span class="nf">encrypt</span><span class="o">(</span><span class="nc">String</span> <span class="n">s</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><strong>实现相同的策略接口, 封装不同的算法</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="cm">/**
+ * MD5加密.
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MD5</span> <span class="kd">implements</span> <span class="nc">Strategy</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">encrypt</span><span class="o">(</span><span class="nc">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"encrypt by MD5."</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="cm">/**
+ * RSA加密.
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RSA</span> <span class="kd">implements</span> <span class="nc">Strategy</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">encrypt</span><span class="o">(</span><span class="nc">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"encrypt by RSA."</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="cm">/**
+ * SHA加密.
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SHA</span> <span class="kd">implements</span> <span class="nc">Strategy</span> <span class="o">{</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">encrypt</span><span class="o">(</span><span class="nc">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"encrypt by SHA."</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p><strong>定义一个Context类, 持有策略的引用, 根据构造函数或者Setter来切换不同的策略</strong></p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Context</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="nc">Strategy</span> <span class="n">strategy</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">Context</span><span class="o">(</span><span class="nc">Strategy</span> <span class="n">strategy</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">strategy</span> <span class="o">=</span> <span class="n">strategy</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setStrategy</span><span class="o">(</span><span class="nc">Strategy</span> <span class="n">strategy</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">strategy</span> <span class="o">=</span> <span class="n">strategy</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">encrypt</span><span class="o">(</span><span class="nc">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">strategy</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="n">s</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="使用策略">使用策略</h3>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"> 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Client</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Context</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Context</span><span class="o">(</span><span class="k">new</span> <span class="no">MD5</span><span class="o">());</span>
+    <span class="n">context</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="s">"Test"</span><span class="o">);</span>
+
+    <span class="n">context</span><span class="o">.</span><span class="na">setStrategy</span><span class="o">(</span><span class="k">new</span> <span class="no">RSA</span><span class="o">());</span>
+    <span class="n">context</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="s">"Test"</span><span class="o">);</span>
+
+    <span class="n">context</span><span class="o">.</span><span class="na">setStrategy</span><span class="o">(</span><span class="k">new</span> <span class="no">SHA</span><span class="o">());</span>
+    <span class="n">context</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="s">"Test"</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h2 id="角色划分">角色划分</h2>
+<ul>
+  <li>Strategy, 接口或者抽象类, 所有算法都实现相同的接口</li>
+  <li>具体策略实现类, 如上面的MD5, RSA, SHA等, 实现了相同接口Strategy, 不同算法的封装</li>
+  <li>Context, 策略类的持有者, 负责调用不同的策略</li>
+</ul>
+
+<h2 id="优点">优点</h2>
+<ul>
+  <li>符合开闭原则的设计思想, 对扩展开放, 对修改关闭</li>
+  <li>避免使用多重条件, 易于维护</li>
+  <li>因为所有算法都实现了相同的接口, 所以算法可以自由的切换</li>
+</ul>
+
+<h2 id="缺点">缺点</h2>
+<ul>
+  <li>因为有多种算法, 所以会产生很多的策略类</li>
+  <li>因为由客户端来决定使用哪个策略, 所以客户端必须知道所有的策略</li>
+</ul>
+:ET
