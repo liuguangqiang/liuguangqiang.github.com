@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "集成Google Play内购",
+      "subtitle" : "集成Google Play内购",
+      "tags"     : "Android",
+      "url"      : "/android/2020/10/02/%E9%9B%86%E6%88%90Google-Play%E5%86%85%E8%B4%AD/",
+      "date"     : "2020-10-02 00:00:00 +0800"
+    } ,
+  
+    {
       "title"    : "设计模式之策略模式",
       "subtitle" : "",
       "tags"     : "Java, 设计模式",
