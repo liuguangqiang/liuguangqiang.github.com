@@ -1109,6 +1109,7 @@ samp {
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
+  height: 700px;
   margin-bottom: 0px;
   /* 0 on mobile, modify by Hux */
 }

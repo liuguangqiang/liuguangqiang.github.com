@@ -11,16 +11,30 @@
     <meta name="theme-color" content="#000000">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="Eric‘s Blog | Eric's Blog">
+    <meta property="og:title" content="Reverse Linked List - Eric‘s Blog | Eric's Blog">
     
-    <meta property="og:type" content="website">
-    <meta property="og:description" content="Don't reinvent wheel. But you have to learn how to create.">
+    <meta property="og:type" content="article">
+    <meta property="og:description" content="Reverse Linked List
+">
+    
+    <meta property="article:published_time" content="2021-03-05T00:00:00Z">
+    
+    
+    <meta property="article:author" content="Eric">
+    
+    
+    <meta property="article:tag" content="LeetCode">
+    
+    <meta property="article:tag" content="Java">
+    
+    <meta property="article:tag" content="Python">
+    
     
     <meta property="og:image" content="http://localhost:4000/img/avatar-hux-ny.jpg">
-    <meta property="og:url" content="http://localhost:4000/">
+    <meta property="og:url" content="http://localhost:4000/leetcode/2021/03/05/ReverseLinkedList/">
     <meta property="og:site_name" content="Eric‘s Blog | Eric's Blog">
     
-    <title>Eric‘s Blog | Eric's Blog</title>
+    <title>Reverse Linked List - Eric‘s Blog | Eric's Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -29,7 +43,7 @@
     <link rel="shortcut icon" href="/img/favicon.ico">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="http://localhost:4000/">
+    <link rel="canonical" href="http://localhost:4000/leetcode/2021/03/05/ReverseLinkedList/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -188,266 +202,217 @@
   </div>
 </div>
 
-    <!-- Page Header -->
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/home-bg.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
 
 
 
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/home-bg.jpg');
+        background: ;
+    }
 
+    
+</style>
 
+<header class="intro-header" >
 
-
-<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-        
-        <div class="site-heading">
-        
-          <h1>Eric's Blog</h1>
-          <span class="subheading">Don't reinvent wheel. But you have to learn how to create.</span>
+    <div class="header-mask"></div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/archive/?tag=LeetCode" title="LeetCode">LeetCode</a>
+                        
+                        <a class="tag" href="/archive/?tag=Java" title="Java">Java</a>
+                        
+                        <a class="tag" href="/archive/?tag=Python" title="Python">Python</a>
+                        
+                    </div>
+                    <h1>Reverse Linked List</h1>
+                    
+                    <h2 class="subheading">翻转一个单链表</h2>
+                    <span class="meta">Posted by Eric on March 5, 2021</span>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </header>
 
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-        
 
-<!-- USE SIDEBAR -->
-    <!-- PostList Container -->
-    		<div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                postlist-container
-            ">
-    			
-<div class="post-preview">
-    <a href="/leetcode/2021/03/05/ReverseLinkedList/">
-        <h2 class="post-title">
-            Reverse Linked List
-        </h2>
-        
-        <h3 class="post-subtitle">
-            翻转一个单链表
-        </h3>
-        
-        <div class="post-content-preview">
-            
-                Reverse Linked List
 
-题目介绍
 
-  https://leetcode.com/problems/reverse-linked-list/
-  Given the head of a singly linked list, reverse the list, and return the reversed list.
-  给定一个单链列表的头，
-  翻转列表，然后返回翻转...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Eric on March 5, 2021
-    </p>
-</div>
-<hr>
 
-<div class="post-preview">
-    <a href="/android/2020/10/02/%E9%9B%86%E6%88%90Google-Play%E5%86%85%E8%B4%AD/">
-        <h2 class="post-title">
-            集成Google Play内购
-        </h2>
-        
-        <h3 class="post-subtitle">
-            集成Google Play内购
-        </h3>
-        
-        <div class="post-content-preview">
-            
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <!-- Multi-Lingual -->
                 
 
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Eric on October 2, 2020
-    </p>
-</div>
-<hr>
+				<h2 id="reverse-linked-list">Reverse Linked List</h2>
 
-<div class="post-preview">
-    <a href="/java,%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2017/06/21/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">
-        <h2 class="post-title">
-            设计模式之策略模式
-        </h2>
-        
-        <div class="post-content-preview">
-            
-                类图
+<h3 id="题目介绍">题目介绍</h3>
+<ul>
+  <li>https://leetcode.com/problems/reverse-linked-list/</li>
+  <li>Given the head of a singly linked list, reverse the list, and return the reversed list.</li>
+  <li>给定一个单链列表的头，</li>
+  <li>翻转列表，然后返回翻转的列表。</li>
+</ul>
 
+<p><img src="/img/leetcode/reverseLinkedList.jpeg" alt="image" /></p>
 
-概念
-定义一系列不同的算法, 将每个算法都封装起来, 且可以互相的替换, 即为策略模式.
+<h2 id="思路一-递归">思路一: 递归</h2>
+<ul>
+  <li>假设整个单链表只有两个节点head和next;</li>
+  <li>如果要翻转整个单链表， 那么只需要把单链表中的两个节点交换位置就可以了;</li>
+</ul>
 
-使用场景
-假设我们有多种加密算法, 比如MD5, RSA, SHA, 更加不同的需求, 需要使用不同的加密算法, 这里我们就可以考虑使用策略模式. 把不同的加密算法封装到各自的类中, 但他们都实现了相同的接口Strategy, 所以我们可以很容易的切换不同的加密算法, 而且这样的实现, 也符...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Eric on June 21, 2017
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/android/2017/03/12/%E4%BB%A5Android%E9%A1%B9%E7%9B%AE%E4%B8%BA%E4%BE%8B%E4%BA%86%E8%A7%A3TravisCI%E7%9A%84%E4%BD%BF%E7%94%A8/">
-        <h2 class="post-title">
-            以Android项目为例了解Travis CI的使用
-        </h2>
-        
-        <div class="post-content-preview">
-            
-                什么是Travis CI？
-Travis CI是目前最流行的持续集成构建工具，简洁清新独树一帜，目前github上的很多开源项目都在使用Travis CI作为持续集成构建环境。
-
-那些企业在使用Travis CI呢？
-这么多大厂都在使用这个平台，我们还有什么理由不用呢？
-
-
-
-那到底怎么开始呢？
-如果你已经有了github账号的话，就非常简单了，当然这里我假设你已经有github账号。
-
-打...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Eric's Blog on March 12, 2017
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/android/2016/04/21/Retrofit2+RxJava+LoganSquare%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
-        <h2 class="post-title">
-            Retrofit2+RxJava+LoganSquare最佳实践
-        </h2>
-        
-        <div class="post-content-preview">
-            
-                基本介绍
-Retrofit是Square的一个非常知名的开源的网络请求库，并且是由Android大神JakeWharton亲自操刀。
-
-现在Retrofit已经出到2.0.2版本了，与前的1.9版本相差很大，并且官方强烈推荐2.0版本，所以在此就只聊2.0以后的版本。
-
-马上开撸！
-首先肯定要在build.gradle中添加retrofit的依赖。
-
-1
-compile 'com.squar...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Eric on April 21, 2016
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/android/2016/02/18/%E5%B8%B8%E7%94%A8ProguardRules/">
-        <h2 class="post-title">
-            常用Proguard Rules
-        </h2>
-        
-        <div class="post-content-preview">
-            
-                Android中常用的Proguard Rules，备忘一下，妈妈再也不用担心我的代码混淆了…
-
-Annotation
-
-1
-2
--keepattributes *Annotation*
--keep class javax.inject.** { *; }
-
-
-EventBus
-
-1
+<h3 id="java">java</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
--keep class de.greenrobot.** { *; }
--keepclassme...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Eric's Blog on February 18, 2016
-    </p>
-</div>
-<hr>
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="nc">ListNode</span> <span class="nf">reverseList</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="nc">ListNode</span> <span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="nc">ListNode</span> <span class="n">newHead</span> <span class="o">=</span> <span class="n">reverseList</span><span class="o">(</span><span class="n">next</span><span class="o">);</span>
+    <span class="n">next</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+    <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">newHead</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-<div class="post-preview">
-    <a href="/android/2015/09/15/Android%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/">
-        <h2 class="post-title">
-            Android消息机制详解
-        </h2>
+<h3 id="python">python</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">reverseList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">head</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">head</span><span class="p">.</span><span class="nb">next</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">head</span>
+
+        <span class="nb">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">.</span><span class="nb">next</span>
+        <span class="n">newHead</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">reverseList</span><span class="p">(</span><span class="nb">next</span><span class="p">)</span>
+        <span class="nb">next</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">head</span>
+        <span class="n">head</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span> <span class="n">newHead</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="思路二">思路二</h2>
+<ul>
+  <li>从head节点开始遍历；</li>
+  <li>定义一个pre节点，表示上一个节点，用作反转后的节点的next节点；</li>
+</ul>
+
+<h3 id="java-1">java</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="nc">ListNode</span> <span class="nf">reverse</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">ListNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+    <span class="nc">ListNode</span> <span class="n">pre</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">node</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ListNode</span> <span class="n">next</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">node</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">pre</span><span class="o">;</span>
+        <span class="n">pre</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">pre</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+                <hr style="visibility: hidden;">
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/android/2020/10/02/%E9%9B%86%E6%88%90Google-Play%E5%86%85%E8%B4%AD/" data-toggle="tooltip" data-placement="top" title="集成Google Play内购">
+                        Previous<br>
+                        <span>集成Google Play内购</span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <hr style="visibility: hidden;">
+
+                
+
+                
+            </div>  
+
+    <!-- Side Catalog Container -->
         
-        <h3 class="post-subtitle">
-            Android消息机制详解
-        </h3>
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
         
-        <div class="post-content-preview">
-            
-                实现消息机制的过程
 
-
-整个过程涉及到的对象有
-
-
-  Handler
-  Looper
-  MessageQueue
-  Message
-
-
-Handler
-Handler在创建的时候，默认会关联到当前线程的looper。Handler的职责是往MessageQueue 中添加Message，并且通过handleMessage处理自己发出的Message,handleMessage是一个空...
-            
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Eric on September 15, 2015
-    </p>
-</div>
-<hr>
-
-
-<!-- Pager -->
-
-
-    		</div>
     <!-- Sidebar Container -->
             <div class="
-                col-lg-3 col-lg-offset-0
-                col-md-3 col-md-offset-0
-                col-sm-12
-                col-xs-12
-                sidebar-container
-            ">
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
                 <!-- Featured Tags -->
                 
 
 
 <section>
+    
+        <hr class="hidden-sm hidden-xs">
     
     <h5><a href="/archive/">FEATURED TAGS</a></h5>
     <div class="tags">
@@ -470,53 +435,6 @@ Handler在创建的时候，默认会关联到当前线程的looper。Handler的
 </section>
 
 
-                <!-- Short About -->
-                <section class="visible-md visible-lg">
-  <hr>
-  <h5><a href="/about/">ABOUT ME</a></h5>
-  <div class="short-about">
-    
-    <img src="/img/avatar-hux-ny.jpg" />
-    
-    
-    <p>Don't reinvent wheel. But you have to learn how to create.</p>
-    
-    <!-- SNS Link -->
-    
-
-
-<ul class="list-inline">
-
-
-  
-  
-  
-  
-  
-  <li>
-    <a target="_blank" href="https://www.facebook.com/liuguangqiang">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-  
-  <li>
-    <a target="_blank" href="https://github.com/liuguangqiang">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  
-  
-</ul>
-  </div>
-</section>
-
                 <!-- Friends Blog -->
                 
 <hr>
@@ -525,10 +443,54 @@ Handler在创建的时候，默认会关联到当前线程的looper。Handler的
   
 </ul>
 
-    		</div>
-        
-	</div>
-</div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<!-- add support for mathjax by voleking-->
+
+
+
+
+
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'right',
+          // icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
 
 
 

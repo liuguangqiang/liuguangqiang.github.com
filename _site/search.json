@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Reverse Linked List",
+      "subtitle" : "翻转一个单链表",
+      "tags"     : "LeetCode, Java, Python",
+      "url"      : "/leetcode/2021/03/05/ReverseLinkedList/",
+      "date"     : "2021-03-05 00:00:00 +0800"
+    } ,
+  
+    {
       "title"    : "集成Google Play内购",
       "subtitle" : "集成Google Play内购",
       "tags"     : "Android",

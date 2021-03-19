@@ -1,0 +1,97 @@
+I"�<h2 id="reverse-linked-list">Reverse Linked List</h2>
+
+<h3 id="题目介绍">题目介绍</h3>
+<ul>
+  <li>https://leetcode.com/problems/reverse-linked-list/</li>
+  <li>Given the head of a singly linked list, reverse the list, and return the reversed list.</li>
+  <li>给定一个单链列表的头，</li>
+  <li>翻转列表，然后返回翻转的列表。</li>
+</ul>
+
+<p><img src="/img/leetcode/reverseLinkedList.jpeg" alt="image" /></p>
+
+<h2 id="思路一-递归">思路一: 递归</h2>
+<ul>
+  <li>假设整个单链表只有两个节点head和next;</li>
+  <li>如果要翻转整个单链表， 那么只需要把单链表中的两个节点交换位置就可以了;</li>
+</ul>
+
+<h3 id="java">java</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="nc">ListNode</span> <span class="nf">reverseList</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">head</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">head</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="nc">ListNode</span> <span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+    <span class="nc">ListNode</span> <span class="n">newHead</span> <span class="o">=</span> <span class="n">reverseList</span><span class="o">(</span><span class="n">next</span><span class="o">);</span>
+    <span class="n">next</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+    <span class="n">head</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">newHead</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="python">python</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Solution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">reverseList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">head</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">head</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">head</span><span class="p">.</span><span class="nb">next</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">head</span>
+
+        <span class="nb">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">.</span><span class="nb">next</span>
+        <span class="n">newHead</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">reverseList</span><span class="p">(</span><span class="nb">next</span><span class="p">)</span>
+        <span class="nb">next</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">head</span>
+        <span class="n">head</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">return</span> <span class="n">newHead</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="思路二">思路二</h2>
+<ul>
+  <li>从head节点开始遍历；</li>
+  <li>定义一个pre节点，表示上一个节点，用作反转后的节点的next节点；</li>
+</ul>
+
+<h3 id="java-1">java</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="kd">public</span> <span class="nc">ListNode</span> <span class="nf">reverse</span><span class="o">(</span><span class="nc">ListNode</span> <span class="n">head</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">ListNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">head</span><span class="o">;</span>
+    <span class="nc">ListNode</span> <span class="n">pre</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">node</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ListNode</span> <span class="n">next</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">next</span><span class="o">;</span>
+        <span class="n">node</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">pre</span><span class="o">;</span>
+        <span class="n">pre</span> <span class="o">=</span> <span class="n">node</span><span class="o">;</span>
+        <span class="n">node</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">pre</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+:ET
