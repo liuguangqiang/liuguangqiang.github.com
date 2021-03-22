@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Number of Islands",
+      "subtitle" : "计算岛屿的数量",
+      "tags"     : "LeetCode, Java, Python",
+      "url"      : "/leetcode/2021/03/15/NumberOfIsland/",
+      "date"     : "2021-03-15 00:00:00 +0800"
+    } ,
+  
+    {
       "title"    : "Reverse Linked List",
       "subtitle" : "翻转一个单链表",
       "tags"     : "LeetCode, Java, Python",
