@@ -1,6 +1,14 @@
 [
   
     {
+      "title"    : "Invert Binary Tree",
+      "subtitle" : "翻转二叉树",
+      "tags"     : "LeetCode, Java, Go",
+      "url"      : "/leetcode/2021/03/30/InvertBinaryTree/",
+      "date"     : "2021-03-30 00:00:00 +0800"
+    } ,
+  
+    {
       "title"    : "Number of Islands",
       "subtitle" : "计算岛屿的数量",
       "tags"     : "LeetCode, Java, Python",
